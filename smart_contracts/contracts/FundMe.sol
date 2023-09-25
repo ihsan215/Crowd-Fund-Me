@@ -19,6 +19,7 @@ contract FundMe{
         address payable buyer;
         uint256 approval_vote_count;
         bool is_complete;
+        uint256 value;
         mapping(address => bool) approvals;
     }
 
@@ -31,12 +32,15 @@ contract FundMe{
         uint256 minimum_contribution;
         mapping(address => uint256) sponsors;
         uint256 id;
-        Request[MAX_UNSOLVED_REQUEST] request;
+        uint8 request_count;
+        Request[] requests;
     }
 
     
      Project[] public projects;
      mapping(address => uint8) public project_count;
+     mapping(address => uint256[]) public project_mapping;
+     
 
      // Events
      event Created_Project(uint256 indexed id, address indexed owner, string title);
@@ -44,6 +48,7 @@ contract FundMe{
 
     // Custrom Errors
     error TooMuchProjectRequest(uint8 current_project_count);
+
 
 
     constructor() {
@@ -55,14 +60,16 @@ contract FundMe{
         require(msg.sender == admin);
         _;
     }
+    
 
+    
     function create_project(string memory _title, string memory _description, uint256 _minimum_contribution) public returns(bool success){
         
         // initialize the process
         success = false;    
 
         // Check project count (only create MAX_UNSOLVED_PROJECT)
-        if(project_count[msg.sender] > MAX_UNSOLVED_PROJECT){
+        if(project_count[msg.sender] >= MAX_UNSOLVED_PROJECT){
                revert TooMuchProjectRequest({
                 current_project_count: project_count[msg.sender]
             });
@@ -75,7 +82,11 @@ contract FundMe{
         project.description = _description;
         project.id = Project_ID_Count;
         project.minimum_contribution = _minimum_contribution;
+        project.request_count = 0;
         project.is_complete = false;
+
+        // track projects via address
+        project_mapping[msg.sender].push(Project_ID_Count);
 
         // Emit event
         emit Created_Project(
@@ -93,6 +104,47 @@ contract FundMe{
         return success;         
     }
 
+    function create_request(uint256 _id, string memory _description, address payable _buyer, uint256 _value) public returns(bool success){
+        
+        // Initialize process
+        success = false;
+
+        // Create project instance for gas save
+        Project storage projectIntance = projects[_id];
+        
+
+        // only project owner can call 
+        require(msg.sender == projectIntance.project_owner, "Only project owner can create an request");
+
+        // Check unsolved request
+        if(projectIntance.request_count >= MAX_UNSOLVED_REQUEST){
+               revert TooMuchProjectRequest({
+                current_project_count: projectIntance.request_count
+            });
+        }
+
+        // Create Request
+        Request storage request = projectIntance.requests.push();
+        request.description = _description;
+        request.buyer = _buyer;
+        request.request_id = projectIntance.request_count;
+        request.is_complete = false;
+        request.value = _value;
+        request.approval_vote_count = 0;
+
+
+        // increase counter
+        projectIntance.request_count++;
+
+
+        return success;
+
+    }
+
+    // max return size 5
+    function returnProject() public view returns(uint256[] memory){
+        return project_mapping[msg.sender];
+    }
 
     
 

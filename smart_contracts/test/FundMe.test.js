@@ -50,7 +50,7 @@ contract("FundMe Contract", (accounts) => {
 
       // Check project count
       try {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
           await contractInstance.create_project(
             title,
             description,
