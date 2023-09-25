@@ -68,5 +68,96 @@ contract("FundMe Contract", (accounts) => {
         );
       }
     });
+
+    it("check create request function", async () => {
+      const owner = accounts[2];
+      const title = "Example Project 2";
+      const description = "example description";
+      const min_contribution = 1;
+
+      // Create Project
+      await contractInstance.create_project(
+        title,
+        description,
+        min_contribution,
+        {
+          from: owner,
+        }
+      );
+
+      const project_list = await contractInstance.returnProject({
+        from: owner,
+      });
+
+      const project_id = project_list[0].words[0];
+
+      // Create request
+      const request_des = "example request";
+      const title_res = "example title";
+      const buyer = accounts[4];
+      const value = 5;
+
+      const result = await contractInstance.create_request(
+        project_id,
+        request_des,
+        title_res,
+        buyer,
+        value,
+        {
+          from: owner,
+        }
+      );
+
+      // Check event
+      assert.equal(
+        result.logs[0].args.id.toNumber(),
+        0,
+        "first request id equal to 0"
+      );
+
+      assert.equal(result.logs[0].args.owner, owner, "requesst owner check");
+
+      // check only owner can create request
+      try {
+        await contractInstance.create_request(
+          project_id,
+          request_des,
+          title_res,
+          buyer,
+          value,
+          {
+            from: accounts[1],
+          }
+        );
+        assert(false);
+      } catch (e) {
+        assert(
+          e.message.indexOf("revert") >= 0,
+          "error message must contain revert"
+        );
+      }
+
+      // only can 5 unsolved request
+      try {
+        for (let i = 0; i < 5; i++) {
+          await contractInstance.create_request(
+            project_id,
+            request_des,
+            title_res,
+            buyer,
+            value,
+            {
+              from: owner,
+            }
+          );
+        }
+        assert(false);
+      } catch (e) {
+        assert(
+          e.message.indexOf("revert") >= 0,
+          "error message must contain revert"
+        );
+      }
+    });
   });
 });
