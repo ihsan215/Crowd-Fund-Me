@@ -32,6 +32,7 @@ contract FundMe{
         bool is_complete;
         uint256 minimum_contribution;
         mapping(address => uint256) sponsors;
+        uint256 sponsors_count;
         uint256 id;
         uint8 request_count;
         Request[] requests;
@@ -50,6 +51,7 @@ contract FundMe{
 
     // Custrom Errors
     error TooMuchProjectRequest(uint8 current_project_count);
+    error TooLessContribution(uint256 current_contribution, uint256 required_contribution);
 
 
 
@@ -85,6 +87,7 @@ contract FundMe{
         project.id = Project_ID_Count;
         project.minimum_contribution = _minimum_contribution;
         project.request_count = 0;
+        project.sponsors_count = 0;
         project.is_complete = false;
 
         // track projects via address
@@ -143,6 +146,38 @@ contract FundMe{
 
 
         return success;
+
+    }
+
+    // support project 
+    function support_project(uint256 procect_id) public payable returns(bool success){
+        
+        // Initialize process
+        success = false;
+
+        // Create project instance
+        Project storage projectInstance = projects[procect_id];
+
+        // check minimum contrubition
+        if(projectInstance.minimum_contribution > msg.value){
+            revert TooLessContribution({
+                current_contribution: msg.value,
+                required_contribution: projectInstance.minimum_contribution
+            });
+        }
+
+        if(projectInstance.sponsors[msg.sender] == 0){
+            // increase the counter
+            projectInstance.sponsors_count++;
+        }
+
+        // add sponsor
+        projectInstance.sponsors[msg.sender] += msg.value;
+
+    
+
+        return success;
+
 
     }
 
