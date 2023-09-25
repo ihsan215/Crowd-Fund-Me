@@ -15,6 +15,7 @@ contract FundMe{
     // Request struct project owner can create MAX_UNSOLVED_REQUEST unsolved request
     struct Request {
         uint8 request_id;
+        string title;
         string description;
         address payable buyer;
         uint256 approval_vote_count;
@@ -44,6 +45,7 @@ contract FundMe{
 
      // Events
      event Created_Project(uint256 indexed id, address indexed owner, string title);
+     event Created_Request(uint8 indexed id, address indexed owner,string title);
      
 
     // Custrom Errors
@@ -104,7 +106,7 @@ contract FundMe{
         return success;         
     }
 
-    function create_request(uint256 _id, string memory _description, address payable _buyer, uint256 _value) public returns(bool success){
+    function create_request(uint256 _id, string memory _description, string memory _title, address payable _buyer, uint256 _value) public returns(bool success){
         
         // Initialize process
         success = false;
@@ -125,6 +127,7 @@ contract FundMe{
 
         // Create Request
         Request storage request = projectIntance.requests.push();
+        request.title = _title;
         request.description = _description;
         request.buyer = _buyer;
         request.request_id = projectIntance.request_count;
@@ -132,6 +135,8 @@ contract FundMe{
         request.value = _value;
         request.approval_vote_count = 0;
 
+        // Emit event
+        emit Created_Request(request.request_id, msg.sender, request.title);
 
         // increase counter
         projectIntance.request_count++;
