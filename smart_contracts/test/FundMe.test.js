@@ -186,6 +186,22 @@ contract("FundMe Contract", (accounts) => {
       const project_id = project_list[0].words[0];
       const non_existent_id = 100;
 
+      const request_des = "example request";
+      const title_res = "example title";
+      const buyer = accounts[6];
+      const value = 5;
+
+      await contractInstance.create_request(
+        project_id,
+        request_des,
+        title_res,
+        buyer,
+        value,
+        {
+          from: owner,
+        }
+      );
+
       // Support with insufficient funds
       try {
         await contractInstance.support_project(project_id, {
@@ -195,7 +211,7 @@ contract("FundMe Contract", (accounts) => {
 
         assert(false);
       } catch (e) {
-        e.message.indexOf("revert") >= 0, "unsufficient fund";
+        assert(true);
       }
 
       // support non-existent project
@@ -207,7 +223,7 @@ contract("FundMe Contract", (accounts) => {
 
         assert(false);
       } catch (e) {
-        e.message.indexOf("revert") >= 0, "non-existent project";
+        assert(true);
       }
 
       // support project
