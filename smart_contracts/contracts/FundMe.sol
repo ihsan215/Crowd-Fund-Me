@@ -7,11 +7,10 @@ contract FundMe{
 
     address public admin;
     uint8 private constant MAX_UNSOLVED_REQUEST = 5;
-    uint8 private constant MAX_UNSOLVED_PROJECT = 5;
+    uint8 private constant MAX_PROJECT = 5;
     uint256 private Project_ID_Count;
     uint256 private constant DECIMAL = 10^18;
     
-
     // Request struct project owner can create MAX_UNSOLVED_REQUEST unsolved request
     struct Request {
         uint8 request_id;
@@ -24,7 +23,7 @@ contract FundMe{
         mapping(address => bool) approvals;
     }
 
-    // Projects Struct user can create MAX_UNSOLVED_PROJECT unsolved procect
+    // Projects Struct user can create MAX_PROJECT unsolved procect
     struct Project{
         address project_owner;
         string description;
@@ -35,26 +34,26 @@ contract FundMe{
         uint256 sponsors_count;
         uint256 id;
         uint8 request_count;
+        uint256 total_required_amount;
+        uint256 current_amount;
+        uint8 unsolved_request;
         Request[] requests;
     }
 
-    
      Project[] public projects;
      mapping(address => uint8) public project_count;
      mapping(address => uint256[]) public project_mapping;
      
-
      // Events
      event Created_Project(uint256 indexed id, address indexed owner, string title);
      event Created_Request(uint8 indexed id, address indexed owner,string title);
      event Supported_Project(uint256 indexed id, address indexed from, uint256 value);
      
-
     // Custrom Errors
     error TooMuchProjectRequest(uint8 current_project_count);
     error TooLessContribution(uint256 current_contribution, uint256 required_contribution);
-
-
+    error RequiredAmountCollected(uint amount);
+    error InsufficientBalance(uint256 current_amount, uint256 required_amount);
 
     constructor() {
         admin = msg.sender;
@@ -66,15 +65,13 @@ contract FundMe{
         _;
     }
     
-    
-    
     function create_project(string memory _title, string memory _description, uint256 _minimum_contribution) public returns(bool success){
         
         // initialize the process
         success = false;    
 
-        // Check project count (only create MAX_UNSOLVED_PROJECT)
-        if(project_count[msg.sender] >= MAX_UNSOLVED_PROJECT){
+        // Check project count (only create MAX_PROJECT)
+        if(project_count[msg.sender] >= MAX_PROJECT){
                revert TooMuchProjectRequest({
                 current_project_count: project_count[msg.sender]
             });
@@ -89,6 +86,9 @@ contract FundMe{
         project.minimum_contribution = _minimum_contribution;
         project.request_count = 0;
         project.sponsors_count = 0;
+        project.total_required_amount = 0;
+        project.current_amount = 0;
+        project.unsolved_request = 0;
         project.is_complete = false;
 
         // track projects via address
@@ -123,9 +123,9 @@ contract FundMe{
         require(msg.sender == projectIntance.project_owner, "Only project owner can create an request");
 
         // Check unsolved request
-        if(projectIntance.request_count >= MAX_UNSOLVED_REQUEST){
+        if(projectIntance.unsolved_request >= MAX_UNSOLVED_REQUEST){
                revert TooMuchProjectRequest({
-                current_project_count: projectIntance.request_count
+                current_project_count: projectIntance.unsolved_request
             });
         }
 
@@ -144,12 +144,11 @@ contract FundMe{
 
         // increase counter
         projectIntance.request_count++;
-
+        projectIntance.unsolved_request++;
+        projectIntance.total_required_amount += _value;
 
         return success;
-
     }
-
 
     // support project 
     function support_project(uint256 procect_id) public payable returns(bool success){
@@ -159,6 +158,13 @@ contract FundMe{
 
         // Create project instance
         Project storage projectInstance = projects[procect_id];
+
+        // Check required amount is collected
+        if(projectInstance.current_amount >= projectInstance.total_required_amount){
+                revert RequiredAmountCollected({
+                amount: projectInstance.current_amount
+            });
+        }
 
         // check minimum contrubition
         if(projectInstance.minimum_contribution > msg.value){
@@ -175,17 +181,82 @@ contract FundMe{
 
         // add sponsor
         projectInstance.sponsors[msg.sender] += msg.value;
+        projectInstance.current_amount += msg.value;
 
         // Emit Event
         emit Supported_Project(procect_id, msg.sender, msg.value);
 
+        return success;
+    }
 
-    
+    // vote request
+    function approve_request(uint256 _project_id, uint8 _request_id) public returns(bool success){
+        
+        // initalize process
+        success = false;
+        
+        // get project and request
+        Project storage projectInstance = projects[_project_id];
+        Request storage requestInstance = projectInstance.requests[_request_id];
+
+
+        // check is the approver funder
+        if(projectInstance.sponsors[msg.sender] == 0){
+            revert("Only approve the sponsor");
+        } 
+
+        // check only vote once
+        if(requestInstance.approvals[msg.sender]){
+            revert("Only approve once for an request");
+        }
+
+        // assign approvals
+        requestInstance.approvals[msg.sender] = true;
+        requestInstance.approval_vote_count++;
+
+        success = true;
 
         return success;
-
-
     }
+
+    // finalize request
+    function finilize_request(uint256 _project_id, uint8 _request_id) public returns(bool success){
+
+        success = false;
+        // get project and request
+        Project storage projectInstance = projects[_project_id];
+        Request storage requestInstance = projectInstance.requests[_request_id];
+
+        // only project owner can finilize the request
+        require(msg.sender == projectInstance.project_owner);
+
+        // check the vote
+        require(requestInstance.approval_vote_count > (projectInstance.sponsors_count / 2));
+        require(!requestInstance.is_complete);
+
+        // check balance
+        if(projectInstance.current_amount < requestInstance.value){
+              revert InsufficientBalance({
+                current_amount: projectInstance.current_amount,
+                required_amount: requestInstance.value
+            });
+        }
+
+        // send money to buyer
+         payable(requestInstance.buyer).transfer(requestInstance.value);
+
+        // reduce current amount & total required amount
+        projectInstance.current_amount -= requestInstance.value;
+        projectInstance.total_required_amount -= requestInstance.value;
+
+        requestInstance.is_complete = true;
+        if(projectInstance.unsolved_request > 0){
+            projectInstance.unsolved_request--;
+        }
+
+        success = true;
+        return success;
+    }   
 
     // max return size 5
     function returnProject() public view returns(uint256[] memory){
@@ -206,11 +277,7 @@ contract FundMe{
     }
 
 
-    
-
-    // safe maths functions start
-
-    
+    // safe maths functions     
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
         if (a == 0) {
         return 0;
@@ -220,10 +287,18 @@ contract FundMe{
         return c;
     }
 
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return div(a, b, "SafeMath: division by zero");
+    }
 
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        // Solidity only automatically asserts when dividing by 0
+        require(b > 0, errorMessage);
+        uint256 c = a / b;
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
-   // safe maths functions end
-
+        return c;
+    }
 
 
 }
