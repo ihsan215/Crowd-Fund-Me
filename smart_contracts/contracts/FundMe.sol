@@ -64,6 +64,16 @@ contract FundMe{
         require(msg.sender == admin);
         _;
     }
+
+    modifier project_check(uint256 project_id){
+        require(!projects[project_id].is_complete);
+        _;
+    }
+
+    modifier request_check(uint256 project_id, uint8 request_id)  {
+        require(!projects[project_id].requests[request_id].is_complete);
+        _;
+    }
     
     function create_project(string memory _title, string memory _description, uint256 _minimum_contribution) public returns(bool success){
         
@@ -110,7 +120,7 @@ contract FundMe{
         return success;         
     }
 
-    function create_request(uint256 _id, string memory _description, string memory _title, address payable _buyer, uint256 _value) public returns(bool success){
+    function create_request(uint256 _id, string memory _description, string memory _title, address payable _buyer, uint256 _value) project_check(_id) public returns(bool success){
         
         // Initialize process
         success = false;
@@ -151,7 +161,7 @@ contract FundMe{
     }
 
     // support project 
-    function support_project(uint256 procect_id) public payable returns(bool success){
+    function support_project(uint256 procect_id) project_check(procect_id) public payable returns(bool success){
         
         // Initialize process
         success = false;
@@ -159,15 +169,21 @@ contract FundMe{
         // Create project instance
         Project storage projectInstance = projects[procect_id];
 
+        // check required balance
+        uint256 required_balance;
+
         // Check required amount is collected
         if(projectInstance.current_amount >= projectInstance.total_required_amount){
                 revert RequiredAmountCollected({
                 amount: projectInstance.current_amount
             });
         }
+        else{
+            required_balance = projectInstance.total_required_amount - projectInstance.current_amount;
+        }
 
         // check minimum contrubition
-        if(projectInstance.minimum_contribution > msg.value){
+        if( required_balance > projectInstance.minimum_contribution && projectInstance.minimum_contribution > msg.value){
             revert TooLessContribution({
                 current_contribution: msg.value,
                 required_contribution: projectInstance.minimum_contribution
@@ -190,7 +206,7 @@ contract FundMe{
     }
 
     // vote request
-    function approve_request(uint256 _project_id, uint8 _request_id) public returns(bool success){
+    function approve_request(uint256 _project_id, uint8 _request_id) request_check(_project_id,_request_id) public returns(bool success){
         
         // initalize process
         success = false;
@@ -220,7 +236,7 @@ contract FundMe{
     }
 
     // finalize request
-    function finilize_request(uint256 _project_id, uint8 _request_id) public returns(bool success){
+    function finalize_request(uint256 _project_id, uint8 _request_id) request_check(_project_id,_request_id) public returns(bool success){
 
         success = false;
         // get project and request
@@ -257,6 +273,34 @@ contract FundMe{
         success = true;
         return success;
     }   
+
+    // finalize  project
+    function finalize_project(uint256 _project_id) project_check(_project_id) public returns (bool success) {
+
+        success = false;
+        Project storage projectInstance = projects[_project_id];
+
+        // only owner can call this function
+        require(msg.sender == projectInstance.project_owner);
+
+        // require all request are done
+        require(projectInstance.unsolved_request == 0);
+
+        // require all amount spent
+        require(projectInstance.current_amount == 0);
+
+        // require total required amount must be zero
+        require(projectInstance.total_required_amount == 0);
+
+        // mark project as is completed
+        projectInstance.is_complete = true;
+
+
+        success = true;
+        return success;
+
+    }
+
 
     // max return size 5
     function returnProject() public view returns(uint256[] memory){
