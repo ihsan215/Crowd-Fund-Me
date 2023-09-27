@@ -47,6 +47,7 @@ contract FundMe{
      // Events
      event Created_Project(uint256 indexed id, address indexed owner, string title);
      event Created_Request(uint8 indexed id, address indexed owner,string title);
+     event Supported_Project(uint256 indexed id, address indexed from, uint256 value);
      
 
     // Custrom Errors
@@ -65,7 +66,7 @@ contract FundMe{
         _;
     }
     
-
+    
     
     function create_project(string memory _title, string memory _description, uint256 _minimum_contribution) public returns(bool success){
         
@@ -149,6 +150,7 @@ contract FundMe{
 
     }
 
+
     // support project 
     function support_project(uint256 procect_id) public payable returns(bool success){
         
@@ -174,6 +176,10 @@ contract FundMe{
         // add sponsor
         projectInstance.sponsors[msg.sender] += msg.value;
 
+        // Emit Event
+        emit Supported_Project(procect_id, msg.sender, msg.value);
+
+
     
 
         return success;
@@ -185,6 +191,20 @@ contract FundMe{
     function returnProject() public view returns(uint256[] memory){
         return project_mapping[msg.sender];
     }
+
+    function supponsor_check(address _sponsor, uint256 _procect_id) public view returns(bool status) {
+
+        status = false;
+        if(projects[_procect_id].sponsors[_sponsor] > 0){
+            status = true;
+        }
+        return status;
+    }
+
+    function return_sponsor_value(address _sponsor, uint256 _procect_id) public view returns(uint256) {
+        return projects[_procect_id].sponsors[_sponsor];
+    }
+
 
     
 

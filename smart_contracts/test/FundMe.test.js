@@ -159,5 +159,95 @@ contract("FundMe Contract", (accounts) => {
         );
       }
     });
+
+    it("check support project function", async () => {
+      const owner = accounts[4];
+      const supporter = accounts[5];
+
+      const title = "Example Project 2";
+      const description = "example description";
+      const min_contribution = 2;
+
+      // Create Project
+      await contractInstance.create_project(
+        title,
+        description,
+        min_contribution,
+        {
+          from: owner,
+        }
+      );
+
+      // get project id
+      const project_list = await contractInstance.returnProject({
+        from: owner,
+      });
+
+      const project_id = project_list[0].words[0];
+      const non_existent_id = 100;
+
+      // Support with insufficient funds
+      try {
+        await contractInstance.support_project(project_id, {
+          from: supporter,
+          value: min_contribution - 1,
+        });
+
+        assert(false);
+      } catch (e) {
+        e.message.indexOf("revert") >= 0, "unsufficient fund";
+      }
+
+      // support non-existent project
+      try {
+        await contractInstance.support_project(non_existent_id, {
+          from: supporter,
+          value: min_contribution,
+        });
+
+        assert(false);
+      } catch (e) {
+        e.message.indexOf("revert") >= 0, "non-existent project";
+      }
+
+      // support project
+      const result = await contractInstance.support_project(project_id, {
+        from: supporter,
+        value: min_contribution,
+      });
+
+      // check sponsor;
+      const sponsor_check = await contractInstance.supponsor_check.call(
+        supporter,
+        project_id
+      );
+      assert(sponsor_check, "check is sponser exist");
+
+      const fund_value = await contractInstance.return_sponsor_value.call(
+        supporter,
+        project_id
+      );
+      assert.equal(
+        fund_value.toNumber(),
+        min_contribution,
+        "check is fund value"
+      );
+
+      const project = await contractInstance.projects(project_id);
+      assert.equal(
+        project.sponsors_count.toNumber(),
+        1,
+        "sponspr count must equal to 1"
+      );
+      // check event
+      assert.equal(result.logs[0].args.id.toNumber(), project_id, "project id");
+
+      assert.equal(result.logs[0].args.from, supporter, "supporter");
+      assert.equal(
+        result.logs[0].args.value.toNumber(),
+        min_contribution,
+        "value"
+      );
+    });
   });
 });
