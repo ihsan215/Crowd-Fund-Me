@@ -265,5 +265,93 @@ contract("FundMe Contract", (accounts) => {
         "value"
       );
     });
+
+    it("Check finilize project and request", async () => {
+      // create project
+      const title = "Example Project 1";
+      const description = "example description";
+      const min_contribution = 100000000000;
+      const project_owner = accounts[6];
+
+      await contractInstance.create_project(
+        title,
+        description,
+        min_contribution,
+        {
+          from: project_owner,
+        }
+      );
+
+      // Create request
+      const request_des = "example request - 1";
+      const title_res = "example title";
+      const buyer = accounts[7];
+      const value = min_contribution * 5;
+
+      const project_list = await contractInstance.returnProject({
+        from: project_owner,
+      });
+
+      const project_id = project_list[0].words[0];
+      await contractInstance.create_request(
+        project_id,
+        request_des,
+        title_res,
+        buyer,
+        value,
+        {
+          from: project_owner,
+        }
+      );
+
+      for (let i = 0; i < 5; i++) {
+        // support project
+        await contractInstance.support_project(project_id, {
+          from: accounts[i],
+          value: min_contribution,
+        });
+
+        // approve request
+        await contractInstance.approve_request(project_id, 0, {
+          from: accounts[i],
+        });
+      }
+
+      const project_instance = await contractInstance.projects(project_id);
+
+      // check balance
+      assert.equal(
+        project_instance.current_amount.toNumber(),
+        5 * min_contribution,
+        "total amount must be 5*min_contribution"
+      );
+
+      // check sponsors
+      assert.equal(
+        project_instance.sponsors_count.toNumber(),
+        5,
+        "sponsors_count must be 5"
+      );
+
+      const pre_balance = await web3.eth.getBalance(buyer);
+
+      // check finilize request
+      await contractInstance.finalize_request(project_id, 0, {
+        from: project_owner,
+      });
+
+      const curr_balance = await web3.eth.getBalance(buyer);
+      // check buyer balance
+      assert(curr_balance - pre_balance > 100000000, "check transfer");
+
+      // check finilize project
+      await contractInstance.finalize_project(project_id, {
+        from: project_owner,
+      });
+
+      const project_instance2 = await contractInstance.projects(project_id);
+
+      assert(project_instance2.is_complete, "check is complete");
+    });
   });
 });
