@@ -1,3 +1,15 @@
-.logo {
-  width: 10rem;
+.myNav {
+  margin-top: 0;
+  border: 2px solid #d2d2d2;
+  background: #ffffff;
+}
+
+.logo-title {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  font-family: fantasy;
+  font-size: 3rem;
+  color: rgb(3, 76, 52);
+
+  height: max-content;
 }

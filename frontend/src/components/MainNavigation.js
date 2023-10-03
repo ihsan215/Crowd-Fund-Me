@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 
 import "../style/components/MainNavigation.css";
 
-import logo from "../style/img/Logo.svg";
-
 function MainNavigation() {
   return (
     <React.Fragment>
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg myNav">
         <Link class="navbar-brand" to="/">
-          <img src={logo} alt="logo" className="logo" />
+          <p className="logo-title"> &lt;&lt; CrodFundMe &gt;&gt;</p>
         </Link>
         <button
           class="navbar-toggler"
