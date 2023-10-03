@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Web3Provider from "./web3/Web3Provider.js";
 
 import "./index.css";
 
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Web3Provider>
+      <RouterProvider router={router} />{" "}
+    </Web3Provider>
+  );
 }
 
 export default App;

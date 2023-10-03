@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import Web3Context from "../web3/Web3-context.js";
 
 import "../style/components/MainNavigation.css";
 
 function MainNavigation() {
+  const web3Ctx = useContext(Web3Context);
+
   return (
     <React.Fragment>
       <nav class="navbar navbar-expand-lg myNav">
@@ -22,7 +25,9 @@ function MainNavigation() {
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <button onClick={web3Ctx.connectWallet}>connect</button>
+        </div>
       </nav>
     </React.Fragment>
   );
