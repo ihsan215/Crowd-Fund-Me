@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Web3Context from "../web3/Web3-context.js";
 
@@ -6,6 +6,14 @@ import "../style/components/MainNavigation.css";
 
 function MainNavigation() {
   const web3Ctx = useContext(Web3Context);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("UseEffet", web3Ctx);
+      web3Ctx.checkAccountConnected();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <React.Fragment>
@@ -27,7 +35,7 @@ function MainNavigation() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <button onClick={web3Ctx.connectAccount}>
-            {web3Ctx.isWalletConnected ? "Disconnect" : "Connect"}
+            {web3Ctx.walletIsConnected ? "Disconnect" : "Connect"}
           </button>
         </div>
       </nav>
