@@ -22,10 +22,9 @@ const Web3Provider = (props) => {
 
   async function checkAccountConnected() {
     try {
-      console.log("checkAccountConnected");
       const web3 = new Web3(window.ethereum);
       const acc = await web3.eth.getAccounts();
-      console.log(acc);
+
       if (acc.length > 0) {
         setWalletIsConnected(true);
         setAccounts(acc);
