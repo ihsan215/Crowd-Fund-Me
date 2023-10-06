@@ -17,7 +17,7 @@ function MainNavigation() {
 
   return (
     <React.Fragment>
-      <nav className="navbar navbar-expand-lg myNav">
+      <nav className="navbar sticky-top  navbar-expand-lg myNav">
         <Link class="navbar-brand" to="/">
           <p className="logo-title"> &lt;&lt; CrodFundMe &gt;&gt;</p>
         </Link>

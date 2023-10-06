@@ -6,6 +6,8 @@ const Web3Provider = (props) => {
   const [web3, setWeb3] = useState(undefined);
   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [networkId, setNetworkID] = useState(undefined);
+  const [balance, setBalance] = useState(undefined);
 
   async function connectAccount() {
     if (window.ethereum) {
@@ -26,8 +28,17 @@ const Web3Provider = (props) => {
       const acc = await web3.eth.getAccounts();
 
       if (acc.length > 0) {
+        // get chainID and balance
+        const chainID = await window.ethereum.chainId;
+        const balance = await web3.eth.getBalance(acc[0]);
+
+        console.log("chainID", chainID);
+        console.log("balance", balance);
+
         setWalletIsConnected(true);
         setAccounts(acc);
+        setBalance(balance.toString());
+        setNetworkID(chainID);
         setWeb3Instance(web3);
       } else {
         setWalletIsConnected(false);
@@ -53,6 +64,8 @@ const Web3Provider = (props) => {
     walletIsConnected,
     accounts,
     mainAccount: accounts[0],
+    networkId,
+    balance,
 
     connectAccount,
     checkAccountConnected,

@@ -5,6 +5,8 @@ const Web3Context = React.createContext({
   walletIsConnected: false,
   accounts: [],
   mainAccount: undefined,
+  networkId: undefined,
+  balance: undefined,
 
   connectAccount: async () => {},
   checkAccountConnected: async () => {},

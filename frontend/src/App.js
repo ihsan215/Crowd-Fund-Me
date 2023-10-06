@@ -7,6 +7,7 @@ import "./index.css";
 // Import Pages
 import RootLayout from "./pages/Root.js";
 import HomePage from "./pages/Home.js";
+import MyAccount from "./pages/MyAccount.js";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      { path: "/myAccount", element: <MyAccount /> },
     ],
   },
 ]);

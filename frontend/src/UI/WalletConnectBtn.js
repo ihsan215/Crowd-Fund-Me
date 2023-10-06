@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import Web3Context from "../web3/Web3-context.js";
 import Button from "./Button.js";
 
@@ -50,25 +51,25 @@ function WalletConnectBtn() {
           aria-labelledby="dropdownMenuButton1"
         >
           <li className="btn-item">
-            <a class="dropdown-item" href="#">
+            <Link to={"/myAccount"} class="dropdown-item" href="#">
               <img src={accountIcon} alt="accountIcon" />
               My Account
-            </a>
+            </Link>
           </li>
           <li>
             <hr class="dropdown-divider" />
           </li>
           <li className="btn-item">
-            <a class="dropdown-item" href="#">
+            <Link class="dropdown-item" href="#">
               <img src={projectsIcon} alt="projectsIcon" />
               My Projects
-            </a>
+            </Link>
           </li>
           <li className="btn-item">
-            <a class="dropdown-item" href="#">
+            <Link class="dropdown-item link-item" href="#">
               <img src={disconnectIcon} alt="disconnectIcon" />
               Disconnect Wallet
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
