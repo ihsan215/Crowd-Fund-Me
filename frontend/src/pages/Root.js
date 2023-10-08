@@ -8,7 +8,6 @@ function RootLayout() {
   return (
     <React.Fragment>
       <MainNavigation />
-
       <main>
         <Outlet />
       </main>
