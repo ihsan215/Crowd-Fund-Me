@@ -9,6 +9,14 @@ const Web3Provider = (props) => {
   const [networkId, setNetworkID] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
 
+  function setDefaultValue() {
+    setWeb3(undefined);
+    setWalletIsConnected(false);
+    setAccounts([]);
+    setNetworkID(undefined);
+    setBalance(undefined);
+  }
+
   async function connectAccount() {
     if (window.ethereum) {
       try {
@@ -32,19 +40,16 @@ const Web3Provider = (props) => {
         const chainID = await window.ethereum.chainId;
         const balance = await web3.eth.getBalance(acc[0]);
 
-        console.log("chainID", chainID);
-        console.log("balance", balance);
-
         setWalletIsConnected(true);
         setAccounts(acc);
         setBalance(balance.toString());
         setNetworkID(chainID);
         setWeb3Instance(web3);
       } else {
-        setWalletIsConnected(false);
+        setDefaultValue();
       }
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   }
 
@@ -55,7 +60,7 @@ const Web3Provider = (props) => {
         checkAccountConnected();
       });
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   };
 
