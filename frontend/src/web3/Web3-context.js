@@ -1,15 +1,13 @@
 import React from "react";
 
 const Web3Context = React.createContext({
-  web3: undefined,
-  walletIsConnected: false,
-  accounts: [],
-  mainAccount: undefined,
-  networkId: undefined,
+  account: undefined,
+  isWalletConnected: false,
   balance: undefined,
+  web3Instance: undefined,
 
-  connectAccount: async () => {},
-  checkAccountConnected: async () => {},
+  connectWallet: async () => {},
+  disconnectWallet: () => {},
 });
 
 export default Web3Context;

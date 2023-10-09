@@ -1,20 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Web3Context from "../web3/Web3-context.js";
 import "../style/components/MainNavigation.css";
 import WalletConnectBtn from "../UI/WalletConnectBtn.js";
 
 function MainNavigation() {
-  const web3Ctx = useContext(Web3Context);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("UseEffet", web3Ctx);
-      web3Ctx.checkAccountConnected();
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <React.Fragment>
       <nav className="navbar sticky-top  navbar-expand-lg myNav">

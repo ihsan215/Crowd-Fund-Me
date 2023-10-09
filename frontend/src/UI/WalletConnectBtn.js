@@ -14,17 +14,17 @@ import disconnectIcon from "../style/img/disconnect.png";
 function WalletConnectBtn() {
   const web3Ctx = useContext(Web3Context);
 
-  const connectBtn = async () => {
-    if (!web3Ctx.walletIsConnected) {
-      await web3Ctx.connectAccount();
-      console.log(web3Ctx.mainAccount);
-    } else {
-    }
-  };
+  // const connectBtn = async () => {
+  //   if (!web3Ctx.walletIsConnected) {
+  //     await web3Ctx.connectAccount();
+  //     console.log(web3Ctx.mainAccount);
+  //   } else {
+  //   }
+  // };
 
   const beforeConnection = () => {
     return (
-      <Button className="cntBtn" onClick={connectBtn}>
+      <Button className="cntBtn" onClick={web3Ctx.connectWallet}>
         <img src={userIcon} alt="userIcon" />| Connect Wallet
       </Button>
     );
@@ -41,9 +41,9 @@ function WalletConnectBtn() {
           aria_expanded="false"
         >
           <img src={walletIcon} alt="walletIcon" />|{" "}
-          {`${web3Ctx.mainAccount.slice(0, 5)}...${web3Ctx.mainAccount.slice(
-            web3Ctx.mainAccount.length - 4,
-            web3Ctx.mainAccount.length
+          {`${web3Ctx.account.slice(0, 5)}...${web3Ctx.account.slice(
+            web3Ctx.account.length - 4,
+            web3Ctx.account.length
           )}`}
         </Button>
         <ul
@@ -66,7 +66,11 @@ function WalletConnectBtn() {
             </Link>
           </li>
           <li className="btn-item">
-            <Link class="dropdown-item link-item" href="#">
+            <Link
+              class="dropdown-item link-item"
+              to="/"
+              onClick={web3Ctx.disconnectWallet}
+            >
               <img src={disconnectIcon} alt="disconnectIcon" />
               Disconnect Wallet
             </Link>
@@ -78,7 +82,7 @@ function WalletConnectBtn() {
 
   return (
     <React.Fragment>
-      {web3Ctx.walletIsConnected ? afterConnection() : beforeConnection()}
+      {web3Ctx.isWalletConnected ? afterConnection() : beforeConnection()}
     </React.Fragment>
   );
 }

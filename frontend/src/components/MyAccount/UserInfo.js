@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import Web3Context from "../../web3/Web3-context.js";
+import React from "react";
 
 import "../../style/components/MyAccount/UserInfo.css";
 
@@ -7,8 +6,6 @@ import "../../style/components/MyAccount/UserInfo.css";
 import PersonelInfo from "./PersonelInfo.js";
 
 function UserInfo() {
-  const web3Ctx = useContext(Web3Context);
-
   return (
     <div class="container-xl mt-5 p-1" style={{ height: 20 + "rem" }}>
       <PersonelInfo />

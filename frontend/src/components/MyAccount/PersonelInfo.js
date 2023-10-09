@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Web3Context from "../../web3/Web3-context.js";
-import { getChainName } from "./auxFile.js";
 
 import demoImg from "../../style/img/ihsan.JPG";
 
@@ -30,12 +29,9 @@ function PersonelInfo() {
         style={{ width: 20 + "rem" }}
       >
         <h1>Hello, {demoName} !</h1>
-        <p>Address: {web3Ctx.mainAccount}</p>
-        <p>
-          Network ID : {parseInt(web3Ctx.networkId)}{" "}
-          {getChainName(parseInt(web3Ctx.networkId))}
-        </p>
-        <p>Balance : {web3Ctx.balance}</p>
+        <p>Address: {11}</p>
+        <p>Network ID : {11} </p>
+        <p>Balance : {11}</p>
       </div>
     </div>
   );
