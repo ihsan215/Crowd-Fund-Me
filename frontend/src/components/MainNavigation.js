@@ -12,21 +12,23 @@ function MainNavigation() {
           <h1>Logo</h1>
         </div>
 
-        <div className="menu">
+        <div className="menu d-flex-c">
           <ul className="menu-list d-flex-c">
             <li className="menu-item">Explore</li>
             <li className="menu-item">Projects</li>
             <li className="menu-item">Contact Us</li>
-            <li className="menu-item">Contact Us</li>
-            <li className="menu-item">Contact Us</li>
           </ul>
-        </div>
 
-        <div className="search-menu">
-          <input className="search" />
-        </div>
+          <div className="search-menu">
+            <input
+              className="search"
+              type="search"
+              placeholder="search projects"
+            />
+          </div>
 
-        <div className="connect-wallet-btn">Connect Btn</div>
+          <div className="connect-wallet-btn">Connect Btn</div>
+        </div>
       </nav>
     </React.Fragment>
   );
