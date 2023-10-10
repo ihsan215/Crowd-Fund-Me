@@ -1,14 +1,71 @@
-.myNav {
-  margin-top: 0;
-  border-bottom: 1px solid #135058;
+.d-flex-c {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.logo-title {
-  margin-top: 1rem;
-  margin-left: 2rem;
-  font-family: fantasy;
-  font-size: 3rem;
-  color: rgba(0, 66, 64, 0.77);
-
-  height: max-content;
+.main-nav {
+  font-family: monospace;
+  border-bottom: 1px solid #9ca19c;
+  height: 100%;
+  padding: 0.5% 5%;
+  margin-bottom: 0.5rem;
 }
+
+.logo {
+  width: 10%;
+  text-align: center;
+}
+
+.menu {
+  width: 60%;
+}
+
+.menu-list {
+  padding: 0;
+  list-style-type: none;
+  top: 50%;
+  transform: translateY(25%);
+  justify-content: s;
+}
+
+.menu-item {
+  width: 15%;
+  max-width: 9rem;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #9ca19c;
+  border-radius: 15px;
+  background-color: hsla(152, 98%, 19%, 0.447);
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: hsla(152, 98%, 19%, 0.089);
+  transform: scale(1.1);
+}
+
+.search-menu {
+  width: min-content;
+}
+
+.search {
+  border: 1px solid #9ca19c;
+  border-radius: 15px;
+  height: 2rem;
+  display: block;
+  padding: 0 0 0 10px;
+  background: transparent url("../img/serach.png") no-repeat 13px;
+  background-position: 95%;
+  content: "asdad";
+}
+
+.search:hover,
+.search:focus {
+  outline: hsla(152, 98%, 19%, 0.447);
+  border-color: hsla(152, 98%, 19%, 0.447);
+}
+
+/* .connect-wallet-btn {
+} */
