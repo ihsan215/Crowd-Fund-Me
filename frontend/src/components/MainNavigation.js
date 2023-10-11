@@ -4,12 +4,14 @@ import WalletConnectBtn from "../UI/WalletConnectBtn.js";
 
 import "../style/components/MainNavigation.css";
 
+import logoIcon from "../style/img/logo.svg";
+
 function MainNavigation() {
   return (
     <React.Fragment>
       <nav className="main-nav d-flex-c">
         <div className="logo">
-          <h1>Logo</h1>
+          <img src={logoIcon} alt="logo" />
         </div>
 
         <div className="menu d-flex-c">
@@ -22,8 +24,8 @@ function MainNavigation() {
           <div className="search-menu">
             <input
               className="search"
-              type="search"
               placeholder="search projects"
+              type="search"
             />
           </div>
 

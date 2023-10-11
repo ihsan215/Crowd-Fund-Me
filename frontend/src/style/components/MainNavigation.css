@@ -3,13 +3,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: initial;
 }
 
 .main-nav {
   font-family: monospace;
   border-bottom: 1px solid #9ca19c;
   height: 100%;
-  padding: 0.5% 15px;
+  padding: 0.5% 100px;
   margin-bottom: 0.5rem;
 }
 
@@ -18,8 +19,15 @@
   text-align: center;
 }
 
+.logo > img {
+  width: 2rem;
+  height: 2rem;
+  background-color: red;
+}
+
 .menu {
-  width: 40%;
+  width: 75%;
+  justify-content: end;
 }
 
 .menu-list {
@@ -27,6 +35,7 @@
   list-style-type: none;
   top: 50%;
   transform: translateY(25%);
+  margin-left: 1rem;
 }
 
 .menu-item {
@@ -57,7 +66,7 @@
   height: 2rem;
 
   border-radius: 4px;
-  padding: 0 0 0 1.5rem;
+  padding: 0 0 0 1.7rem;
   background-image: url("../img/serach.png");
   background-repeat: no-repeat;
   -webkit-transition: width 0.4s ease-in-out;
@@ -68,7 +77,16 @@
 
 .search:hover,
 .search:focus {
-  border: 2px solid #ccc;
-  border-radius: 15px;
   width: 12rem;
+  border: 2px solid hsla(152, 98%, 19%, 0.447);
+  border-radius: 15px;
+  outline: hsla(152, 98%, 19%, 0.447);
+}
+
+.search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.connect-wallet-btn {
+  margin-left: 1rem;
 }
