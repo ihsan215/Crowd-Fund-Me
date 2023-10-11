@@ -7,20 +7,9 @@ import "./WalletConnectBtn.css";
 
 import walletIcon from "../style/img/wallet.png";
 import userIcon from "../style/img/user.png";
-import accountIcon from "../style/img/account.png";
-import projectsIcon from "../style/img/projects.png";
-import disconnectIcon from "../style/img/disconnect.png";
 
 function WalletConnectBtn() {
   const web3Ctx = useContext(Web3Context);
-
-  // const connectBtn = async () => {
-  //   if (!web3Ctx.walletIsConnected) {
-  //     await web3Ctx.connectAccount();
-  //     console.log(web3Ctx.mainAccount);
-  //   } else {
-  //   }
-  // };
 
   const beforeConnection = () => {
     return (
@@ -32,7 +21,7 @@ function WalletConnectBtn() {
 
   const afterConnection = () => {
     return (
-      <div class="dropdown">
+      <div className="dropdown-center">
         <Button
           className="dropdown-toggle cntBtn"
           type="button"
@@ -40,38 +29,41 @@ function WalletConnectBtn() {
           data_bs_toggle="dropdown"
           aria_expanded="false"
         >
-          <img src={walletIcon} alt="walletIcon" />|{" "}
+          <img
+            style={{ marginTop: "-0.2rem" }}
+            src={walletIcon}
+            alt="walletIcon"
+          />
+          |{" "}
           {`${web3Ctx.account.slice(0, 5)}...${web3Ctx.account.slice(
             web3Ctx.account.length - 4,
             web3Ctx.account.length
           )}`}
         </Button>
         <ul
-          class="dropdown-menu dropdown-menu-end btn-menu"
+          class="dropdown-menu dropdown-center btn-menu"
           aria-labelledby="dropdownMenuButton1"
         >
           <li className="btn-item">
             <Link to={"/myAccount"} class="dropdown-item" href="#">
-              <img src={accountIcon} alt="accountIcon" />
               My Account
             </Link>
           </li>
           <li>
-            <hr class="dropdown-divider" />
+            <hr className="dropdown-divider" />
           </li>
           <li className="btn-item">
-            <Link class="dropdown-item" href="#">
-              <img src={projectsIcon} alt="projectsIcon" />
+            <Link className="dropdown-item" href="#">
               My Projects
             </Link>
           </li>
+          <hr className="dropdown-divider" />
           <li className="btn-item">
             <Link
-              class="dropdown-item link-item"
+              className="dropdown-item link-item"
               to="/"
               onClick={web3Ctx.disconnectWallet}
             >
-              <img src={disconnectIcon} alt="disconnectIcon" />
               Disconnect Wallet
             </Link>
           </li>

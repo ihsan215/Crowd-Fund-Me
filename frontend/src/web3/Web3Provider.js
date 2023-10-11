@@ -17,8 +17,6 @@ const Web3Provider = (props) => {
   };
 
   const _getBalance = async () => {
-    console.log(web3React);
-
     const balanceWei = await web3React.library.eth.getBalance(
       web3React.account
     );
@@ -37,9 +35,12 @@ const Web3Provider = (props) => {
   }, [web3React.active]);
 
   useEffect(() => {
-    if (window.ethereum.isConnected) {
-      connectWallet();
-    }
+    const timer = setTimeout(() => {
+      if (window.ethereum._state.accounts?.length > 0) {
+        connectWallet();
+      }
+    }, 50);
+    return () => clearTimeout(timer);
   }, []);
 
   const web3Context = {

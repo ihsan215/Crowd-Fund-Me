@@ -10,19 +10,13 @@
   font-family: monospace;
   border-bottom: 1px solid #9ca19c;
   height: 100%;
-  padding: 0.5% 100px;
+  padding: 0.5% 50px;
   margin-bottom: 0.5rem;
 }
 
 .logo {
   width: 10%;
   text-align: center;
-}
-
-.logo > img {
-  width: 2rem;
-  height: 2rem;
-  background-color: red;
 }
 
 .menu {
@@ -41,19 +35,23 @@
 .menu-item {
   min-width: fit-content;
   width: 7rem;
+  height: 2.2rem;
   padding: 1%;
   margin-right: 1rem;
   text-align: center;
   font-size: 1rem;
   border: 1px solid #9ca19c;
   border-radius: 15px;
-  background-color: hsla(152, 98%, 19%, 0.447);
+  color: aliceblue;
+  background-color: hsl(151, 97%, 14%);
+
   cursor: pointer;
 }
 
 .menu-item:hover {
-  background-color: hsla(152, 98%, 19%, 0.089);
-  transform: scale(1.1);
+  background-color: hsla(152, 98%, 19%, 0.571);
+  color: #404040;
+  transform: scale(1.05);
 }
 
 .search-menu {

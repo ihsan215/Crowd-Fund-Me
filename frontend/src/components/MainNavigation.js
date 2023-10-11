@@ -11,7 +11,9 @@ function MainNavigation() {
     <React.Fragment>
       <nav className="main-nav d-flex-c">
         <div className="logo">
-          <img src={logoIcon} alt="logo" />
+          <Link to={"/"}>
+            <img src={logoIcon} alt="logo" style={{ height: "5rem" }} />
+          </Link>
         </div>
 
         <div className="menu d-flex-c">
@@ -29,7 +31,9 @@ function MainNavigation() {
             />
           </div>
 
-          <div className="connect-wallet-btn">Connect Btn</div>
+          <div className="connect-wallet-btn">
+            <WalletConnectBtn />
+          </div>
         </div>
       </nav>
     </React.Fragment>
