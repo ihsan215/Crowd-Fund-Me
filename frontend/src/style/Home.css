@@ -1,0 +1,39 @@
+.main-area {
+  margin-top: 2rem;
+  height: min-content;
+  width: 100%;
+  padding: "3% 2%";
+  font-family: monospace;
+}
+
+.intro-area {
+  border: 1px solid #035203af;
+  border-radius: 3px 35px;
+}
+
+.title > h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.text-area > p {
+  margin-top: 2rem;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.summary {
+  background-color: rgba(220, 229, 226, 0.849);
+  border: 1px solid #012801b4;
+  border-radius: 5px;
+}
+
+.summary-info {
+  margin-right: 2rem;
+  text-align: center;
+  margin: auto;
+
+  -webkit-box-shadow: -36px 0px 76px -5px rgba(0, 102, 56, 1);
+  -moz-box-shadow: -36px 0px 76px -5px rgba(0, 102, 56, 1);
+  box-shadow: -36px 0px 76px -5px rgba(0, 102, 56, 1);
+}

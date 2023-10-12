@@ -1,10 +1,16 @@
 import React from "react";
 
+import Intro from "../components/homepage/Intro";
+import GeneralInfo from "../components/homepage/GeneralInfo";
+
+import "../style/Home.css";
+
 function HomePage() {
   return (
     <React.Fragment>
-      <div>
-        <h1>HomePage</h1>
+      <div class="container-xl mt-3 p-1">
+        <Intro />
+        <GeneralInfo />
       </div>
     </React.Fragment>
   );
