@@ -3,7 +3,7 @@ import React from "react";
 function GeneralInfo() {
   return (
     <React.Fragment>
-      <div className="container  main-area" style={{ marginTop: 4 + "rem" }}>
+      <div className="container  main-area" style={{ marginTop: 5 + "rem" }}>
         <div className="row summary">
           <div className="col summary-info">
             <h1>45</h1>
