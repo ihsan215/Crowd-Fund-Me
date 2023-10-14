@@ -1,10 +1,5 @@
 .myBtn {
-  background-image: linear-gradient(
-    to right,
-    #093028 0%,
-    #237a57 51%,
-    #093028 100%
-  );
+  background-color: #202020;
   margin: 0.4rem;
   padding: 15px 45px;
   text-align: center;
@@ -12,9 +7,9 @@
   transition: 0.5s;
   background-size: 200% auto;
   color: white;
-  box-shadow: 0 0 20px #eee;
+
   display: block;
-  border: 2px solid #012a34;
+  border: 1px solid aliceblue;
   border-radius: 25px;
 }
 
@@ -22,4 +17,5 @@
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+  box-shadow: 0 0 20px #eee;
 }

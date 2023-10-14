@@ -16,13 +16,16 @@
   width: 25px;
 }
 
-.btn-menu {
+.cntBtn:hover {
   background-image: linear-gradient(
     to right,
     #093028 0%,
-    #237a57 51%,
-    #093028 100%
+    #122f23 51%,
+    #09211c 100%
   );
+}
+
+.btn-menu {
   width: 11rem;
 }
 

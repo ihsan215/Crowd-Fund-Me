@@ -16,8 +16,12 @@ function MainNavigation() {
       <nav className="main-nav d-flex-c">
         <div className="logo">
           <Link to={"/"}>
-            <img src={logoIcon} alt="logo" style={{ height: "5rem" }} />
+            <img src={logoIcon} alt="logo" style={{ height: "4.5rem" }} />
           </Link>
+          <div className="logo-text">
+            <h1>CrowdFundMe</h1>
+            <p>Innovate. Fund. Thrive</p>
+          </div>
         </div>
 
         <div className={`menu d-flex-c ${isMenuDisplay ? "" : "hide"}`}>

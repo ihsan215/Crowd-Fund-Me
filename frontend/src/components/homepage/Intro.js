@@ -1,24 +1,17 @@
 import React from "react";
 
-import imgSrc from "../../style/img/homepage_1.svg";
+import imgSrc from "../../style/img/img_1.png";
+
+import Button from "../../UI/Button";
 
 function Intro() {
   return (
     <React.Fragment>
-      <div
-        className="container main-area intro-area"
-        style={{ padding: "3% 2%" }}
-      >
-        <div className="row">
-          <div className="col-lg">
-            <img src={imgSrc} alt="crowfundImg" />
-          </div>
-
-          <div className="col-lg">
-            <div className="title">
-              <h1>Fueling Innovation, One Blockchain at a Time.</h1>
-            </div>
+      <div className="container main-area">
+        <div className="row intro-area">
+          <div className="col-lg d-flex-c">
             <div className="text-area">
+              <h1>Fueling Innovation, One Blockchain at a Time.</h1>
               <p>
                 Welcome to CrowdFundMe, where innovation meets opportunity.
                 We're a decentralized crowdfunding platform leveraging the
@@ -27,6 +20,12 @@ function Intro() {
                 fueling the future of groundbreaking projects and ideas. Let's
                 create, collaborate, and disrupt the norm!
               </p>
+              <Button>Get Started</Button>
+            </div>
+          </div>
+          <div className="col-lg  d-flex-c">
+            <div className="img-area">
+              <img src={imgSrc} alt="bg image" style={{ width: "100%" }} />
             </div>
           </div>
         </div>
