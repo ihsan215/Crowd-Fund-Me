@@ -2,7 +2,8 @@ import React from "react";
 
 import Intro from "../components/homepage/Intro";
 import GeneralInfo from "../components/homepage/GeneralInfo";
-import Projects from "../components/homepage/Projects";
+import ProjectInfo from "../components/homepage/ProjectInfo";
+import ProjectSlides from "../components/homepage/ProjectSlides";
 
 import BreakLine from "../components/BreakLine";
 
@@ -15,7 +16,8 @@ function HomePage() {
         <Intro />
         <GeneralInfo />
         <BreakLine />
-        <Projects />
+        <ProjectInfo />
+        <ProjectSlides />
       </div>
     </React.Fragment>
   );
