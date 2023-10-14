@@ -56,10 +56,18 @@
   font-size: 1rem;
   border-radius: 15px;
   cursor: pointer;
+  transition: 1s;
 }
 
 .menu-item:hover {
-  box-shadow: 0 0 150px #eee;
+  border: none;
+  box-shadow: 0 0 100px #eee;
+  background-image: linear-gradient(
+    to right,
+    #093028 0%,
+    #122f23 51%,
+    #09211c 100%
+  );
 }
 
 .search-menu {
@@ -75,8 +83,8 @@
   padding: 0 0 0 1.7rem;
   background-image: url("../img/serach.png");
   background-repeat: no-repeat;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
+  -webkit-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
   background-position: 3%;
   border: none;
 }

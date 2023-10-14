@@ -1,22 +1,24 @@
 import React from "react";
 
 function GeneralInfo() {
+  const totalProjects = 150; // Replace with actual data
+  const totalDonations = 4500; // Replace with actual data
+  const totalSponsors = 300; // Replace with actual data
+
   return (
     <React.Fragment>
-      <div className="container  main-area" style={{ marginTop: 5 + "rem" }}>
-        <div className="row summary">
-          <div className="col summary-info">
-            <h1>45</h1>
-            <p>projects funded</p>
-          </div>
-          <div className="col summary-info">
-            <h1>45 ETH</h1>
-            <p>foundation</p>
-          </div>
-          <div className="col summary-info">
-            <h1>45</h1>
-            <p>sponsors</p>
-          </div>
+      <div className="stats-container">
+        <div className="card">
+          <h3 className="card-text">{totalProjects}</h3>
+          <p className="card-title">Total Projects</p>
+        </div>
+        <div className="card">
+          <h3 className="card-text">${totalDonations}</h3>
+          <p className="card-title">Total Donations</p>
+        </div>
+        <div className="card">
+          <h3 className="card-text">{totalSponsors}</h3>
+          <p className="card-title">Total Sponsors</p>
         </div>
       </div>
     </React.Fragment>
