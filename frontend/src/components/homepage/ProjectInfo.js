@@ -37,7 +37,6 @@ function ProjectInfo() {
           </div>
         </div>
       </div>
-      ;
     </React.Fragment>
   );
 }
