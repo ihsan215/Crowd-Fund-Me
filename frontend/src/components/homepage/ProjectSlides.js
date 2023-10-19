@@ -64,6 +64,19 @@ function ProjectSlides() {
 
   return (
     <React.Fragment>
+      <div
+        className="d-flex-c"
+        style={{
+          justifyContent: "space-evenly",
+          backgroundColor: "#202020",
+          color: "aliceblue",
+        }}
+      >
+        <h1>
+          Explore <span style={{ color: "rgb(255,216,0)" }}>CrowdFundMe</span>{" "}
+          Projects
+        </h1>
+      </div>
       <div className="slide-area">
         <button className="arrow-btn left-btn" onClick={onBeforeBtn}>
           <img src={leftIcon} alt="left-icon" />

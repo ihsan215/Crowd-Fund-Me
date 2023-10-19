@@ -18,6 +18,7 @@ function HomePage() {
         <BreakLine />
         <ProjectInfo />
         <ProjectSlides />
+        <BreakLine />
       </div>
     </React.Fragment>
   );
