@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectCart from "./ProjectCart";
 import Button from "../../UI/Button";
 
@@ -8,13 +8,12 @@ import leftIcon from "../../style/img/left.png";
 import rightIcon from "../../style/img/right.png";
 
 function displayProject(activeSlides) {
-  return PopularProjects.map((item) => {
+  console.log(activeSlides);
+  const projects = PopularProjects.slice(activeSlides[0], activeSlides[0] + 3);
+  console.log(projects);
+  return projects.map((item) => {
     return (
-      <div
-        className={`project-item ${
-          activeSlides.includes(item.id) ? "active" : "hidden"
-        }`}
-      >
+      <div className={`project-item `}>
         <ProjectCart
           title={item.title}
           description={item.description}

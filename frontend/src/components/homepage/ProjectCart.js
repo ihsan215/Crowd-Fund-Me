@@ -8,13 +8,12 @@ function ProjectCart(props) {
       <div class="card">
         <img
           src={props.url}
-          class="card-img-top"
+          class="card-img-top project-cart-img"
           alt="project"
-          style={{ width: "100%", height: "100%" }}
         />
         <div class="card-body">
           <h5 class="card-title">{props.title}</h5>
-          <p class="card-text">{props.description}</p>
+          <p class="card-text project-cart-description">{props.description}</p>
           <a href="#" class="btn btn-primary">
             Go somewhere
           </a>

@@ -9,7 +9,7 @@ function Intro() {
     <React.Fragment>
       <div className="container main-area">
         <div className="row intro-area">
-          <div className="col-lg d-flex-c">
+          <div className="col-lg d-flex-c" style={{ marginBottom: "1rem" }}>
             <div className="text-area">
               <h1>Fueling Innovation, One Blockchain at a Time.</h1>
               <p>
