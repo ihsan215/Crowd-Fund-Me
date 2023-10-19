@@ -122,6 +122,10 @@
   border-color: aliceblue;
 }
 
+.dp-option {
+  display: flex;
+}
+
 @media (max-width: 1200px) {
   .menu-area {
     text-align: center;
@@ -130,7 +134,7 @@
     background-color: #202020;
   }
 
-  .hide {
+  .dp-option {
     display: none;
   }
 

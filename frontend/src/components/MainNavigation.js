@@ -24,7 +24,7 @@ function MainNavigation() {
           </div>
         </div>
 
-        <div className={`menu d-flex-c ${isMenuDisplay ? "" : "hide"}`}>
+        <div className={`menu d-flex-c ${isMenuDisplay ? "" : "dp-option"}`}>
           <ul className="menu-list d-flex-c">
             <li className="menu-item">Explore</li>
             <li className="menu-item">Projects</li>
@@ -52,7 +52,7 @@ function MainNavigation() {
           &#9776;
         </button>
       </nav>
-      <div className={`menu-area ${isMenuDisplay ? "" : "hide"}`}></div>
+      <div className={`menu-area ${isMenuDisplay ? "" : "dp-option"}`}></div>
     </React.Fragment>
   );
 }

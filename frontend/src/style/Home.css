@@ -93,32 +93,61 @@
 .popular-project-area {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
 }
 
 .project-item {
-  width: 30%;
+  position: absolute;
+  width: 25%;
+  max-width: 35rem;
+
+  transition: 2s;
   margin-left: 1rem;
 }
 
-.arraw-btn {
-  width: 32px;
-  border: none;
-  background-color: transparent;
+.hide {
+  opacity: 0;
+  display: none;
 }
 
-.arraw-btn:hover {
-  transform: scale(1.05);
+.dp {
+  opacity: 1;
+  display: block;
+}
+
+.current-slide {
+  transform: scale(1.2);
+}
+
+.bn-slide-r {
+  transform: translateX(100%) scale(0.55);
+}
+
+.bn-slide-l {
+  transform: translateX(-100%) scale(0.55);
+}
+
+.arrow-btn {
+  background-color: red;
+  border: none;
+  background-color: transparent;
+  transform: translateY(500%);
+}
+
+.arrow-btn:hover {
+  transform: translateY(500%) scale(1.05);
 }
 
 .hidden {
   opacity: 0;
+  display: none;
 }
 
 .active {
   opacity: 1;
+  display: block;
 }
 
 .project-cart-description {
@@ -137,6 +166,7 @@
   }
 
   .project-item {
+    padding: 2rem;
     margin: auto;
     width: 70%;
     margin-bottom: 2rem;
