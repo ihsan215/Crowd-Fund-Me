@@ -12,7 +12,7 @@ import "../style/Home.css";
 function HomePage() {
   return (
     <React.Fragment>
-      <div class="container-xl mt-3 p-1">
+      <div class="container-xl p-1">
         <Intro />
         <GeneralInfo />
         <BreakLine />

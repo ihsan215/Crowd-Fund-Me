@@ -1,5 +1,4 @@
 import React from "react";
-
 import imgSrc from "../../style/img/projectInfo.png";
 
 function ProjectCart(props) {

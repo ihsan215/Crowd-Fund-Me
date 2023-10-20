@@ -17,11 +17,11 @@ function MainNavigation() {
         <div className="logo">
           <Link to={"/"}>
             <img src={logoIcon} alt="logo" style={{ height: "4.5rem" }} />
+            <div className="logo-text">
+              <h1>CrowdFundMe</h1>
+              <p>Innovate. Fund. Thrive</p>
+            </div>
           </Link>
-          <div className="logo-text">
-            <h1>CrowdFundMe</h1>
-            <p>Innovate. Fund. Thrive</p>
-          </div>
         </div>
 
         <div className={`menu d-flex-c ${isMenuDisplay ? "" : "dp-option"}`}>

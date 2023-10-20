@@ -1,5 +1,4 @@
 .main-area {
-  margin-top: 2rem;
   height: min-content;
   width: 100%;
   padding: "3% 2%";
@@ -63,7 +62,7 @@
 }
 
 .stats-container > .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .stats-container > .card-title {
@@ -136,6 +135,7 @@
   border: none;
   background-color: transparent;
   transform: translateY(50%);
+  z-index: 10;
 }
 
 .arrow-btn:hover {
@@ -161,7 +161,11 @@
   height: 100%;
 }
 
-@media screen and (max-width: 600px) {
+.card-body > p {
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 800px) {
   .project-cart-img {
     width: 8rem;
     height: 8rem;
@@ -172,6 +176,10 @@
     margin: auto;
     width: 70%;
     margin-bottom: 2rem;
+  }
+
+  .card-body > p {
+    font-size: 13px;
   }
 
   .slide-area {

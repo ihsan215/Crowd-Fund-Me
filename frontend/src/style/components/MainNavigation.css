@@ -10,7 +10,6 @@
   border-bottom: 1px solid #9ca19c;
   height: 5rem;
   padding: 0.5% 50px;
-  margin-bottom: 0.5rem;
   background-image: inherit;
   background-color: #202020;
   color: aliceblue;
@@ -22,6 +21,16 @@
   width: 25rem;
   text-align: center;
   align-items: center;
+}
+
+.logo > a {
+  display: flex;
+  flex-direction: row;
+
+  text-align: center;
+  align-items: center;
+  color: aliceblue;
+  text-decoration: none;
 }
 
 .logo-text {
@@ -127,6 +136,23 @@
 }
 
 @media (max-width: 1200px) {
+  .main-nav {
+    padding: 0.5% 5px;
+  }
+
+  .logo {
+    width: 75%;
+    max-width: 20rem;
+  }
+
+  .logo-text > p {
+    font-size: 0.7rem;
+  }
+  .logo-text > h1 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
   .menu-area {
     text-align: center;
     height: 18rem;
@@ -142,7 +168,7 @@
     display: inline;
     color: aliceblue;
     position: absolute;
-    right: 1rem;
+    right: 6%;
     top: 0.8rem;
   }
 
