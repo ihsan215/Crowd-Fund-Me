@@ -135,6 +135,11 @@
   display: flex;
 }
 
+.menu-item > a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
 @media (max-width: 1200px) {
   .main-nav {
     padding: 0.5% 5px;

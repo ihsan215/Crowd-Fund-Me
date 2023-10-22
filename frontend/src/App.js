@@ -10,6 +10,7 @@ import "./index.css";
 import RootLayout from "./pages/Root.js";
 import HomePage from "./pages/Home.js";
 import MyAccount from "./pages/MyAccount.js";
+import ContactUs from "./pages/Contact-Us.js";
 import Error from "./pages/Error.js";
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       { path: "/myAccount", element: <MyAccount /> },
+      { path: "/contactUs", element: <ContactUs /> },
     ],
   },
 ]);

@@ -26,9 +26,13 @@ function MainNavigation() {
 
         <div className={`menu d-flex-c ${isMenuDisplay ? "" : "dp-option"}`}>
           <ul className="menu-list d-flex-c">
-            <li className="menu-item">Explore</li>
+            <li className="menu-item">
+              <a href={"./#explore-project"}>Explore </a>
+            </li>
             <li className="menu-item">Projects</li>
-            <li className="menu-item">Contact Us</li>
+            <li className="menu-item">
+              <Link to={"/contactUs"}>Contact Us</Link>
+            </li>
             <li>
               {" "}
               <div className="search-menu">

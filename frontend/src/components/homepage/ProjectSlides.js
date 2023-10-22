@@ -66,6 +66,7 @@ function ProjectSlides() {
     <React.Fragment>
       <div
         className="d-flex-c"
+        id="explore-project"
         style={{
           justifyContent: "space-evenly",
           backgroundColor: "#202020",
