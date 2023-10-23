@@ -1,0 +1,15 @@
+.custom-switch {
+  border-color: #2020207f;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #202020;
+  border-color: aliceblue;
+  border: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+}
+
+.form-switch > label {
+  color: #202020;
+  font-weight: 700;
+}

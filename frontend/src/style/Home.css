@@ -185,4 +185,12 @@
   .slide-area {
     padding: 5%;
   }
+
+  .bn-slide-r {
+    display: none;
+  }
+
+  .bn-slide-l {
+    display: none;
+  }
 }

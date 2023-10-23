@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectCart from "./ProjectCart";
+import { useLocation } from "react-router-dom";
 
 import { PopularProjects } from "../../auxiliary/GetProjects";
 
@@ -32,6 +33,20 @@ function displayProject(activeSlides) {
 }
 
 function ProjectSlides() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const elementId = location.hash.substring(1); // Remove the leading '#' from the URL hash
+    scrollToElement(elementId);
+  }, [location]);
+
+  const scrollToElement = (elementId) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const [activeSlides, setActiveSlides] = useState([
     PopularProjects.length - 1,
     0,

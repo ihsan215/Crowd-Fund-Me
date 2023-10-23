@@ -29,7 +29,10 @@ function MainNavigation() {
             <li className="menu-item">
               <a href={"./#explore-project"}>Explore </a>
             </li>
-            <li className="menu-item">Projects</li>
+            <li className="menu-item">
+              {" "}
+              <Link to={"/projects"}>Projects</Link>
+            </li>
             <li className="menu-item">
               <Link to={"/contactUs"}>Contact Us</Link>
             </li>
