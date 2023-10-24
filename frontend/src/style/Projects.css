@@ -42,6 +42,8 @@
   text-align: center;
   margin-top: 20px;
   text-decoration: underline;
+  font-weight: 1000;
+  align-items: center;
 }
 
 .product-row {
@@ -72,7 +74,9 @@
   .project-page__area {
     width: 95%;
   }
+}
 
+@media screen and (max-width: 800px) {
   .product-row {
     flex-direction: column;
   }

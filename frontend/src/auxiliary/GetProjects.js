@@ -5,6 +5,7 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp",
+    author: "ezgi taş",
   },
 
   {
@@ -13,6 +14,7 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio ",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp",
+    author: "ali ihsan taş",
   },
 
   {
@@ -21,6 +23,7 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio ",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
+    author: "ali veli",
   },
 
   {
@@ -29,6 +32,7 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
+    author: "ezgi erol",
   },
 
   {
@@ -37,6 +41,7 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
+    author: "ali ezgi taş",
   },
 
   {
@@ -45,5 +50,6 @@ export const PopularProjects = [
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
     url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
+    author: "ezgi ali erol",
   },
 ];

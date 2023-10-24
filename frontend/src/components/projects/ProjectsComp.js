@@ -11,6 +11,7 @@ function displayProject(page) {
         title={item.title}
         description={item.description}
         url={item.url}
+        author={item.author}
       />
     );
   });
@@ -22,7 +23,8 @@ function ProjectsComp() {
   return (
     <React.Fragment>
       <div className="project-page__projects">
-        <h3 class="heading">CrowdFund Projects</h3>
+        <h3 class="heading">CrowdFundMe Projects</h3>
+
         <div class="container">
           <div class="product-row">{displayProject(activePage)}</div>
         </div>
