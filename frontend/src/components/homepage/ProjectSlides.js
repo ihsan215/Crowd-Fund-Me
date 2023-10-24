@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProjectCart from "./ProjectCart";
+import ProjectCart from "../../UI/ProjectCart.js";
 import { useLocation } from "react-router-dom";
 
 import { PopularProjects } from "../../auxiliary/GetProjects";

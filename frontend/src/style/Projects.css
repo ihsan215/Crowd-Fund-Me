@@ -16,3 +16,64 @@
   height: 5rem;
   border-bottom: 1px solid #202020;
 }
+
+.navigate__btn {
+  background-color: transparent;
+  cursor: pointer;
+  border: 1px solid #202020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 20px;
+  border-radius: 1px 10px;
+  opacity: 0;
+}
+
+.navigate__btn:hover {
+  transform: scale(1.05);
+}
+
+.project-page__category-switch {
+  display: flex;
+}
+
+.heading {
+  text-align: center;
+  margin-top: 20px;
+  text-decoration: underline;
+}
+
+.product-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1050px) {
+  .navigate__btn {
+    opacity: 1;
+  }
+
+  .hide {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+  }
+
+  .project-page__category-switch {
+    display: none !important;
+  }
+
+  .xs-active {
+    display: flex !important;
+  }
+
+  .project-page__area {
+    width: 95%;
+  }
+
+  .product-row {
+    flex-direction: column;
+  }
+}

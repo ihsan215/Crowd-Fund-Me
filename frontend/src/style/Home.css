@@ -102,10 +102,11 @@
 }
 
 .project-item {
+  display: flex;
+  justify-content: space-evenly;
   position: absolute;
-  width: 25%;
-  max-width: 30rem;
   transition: 2s;
+  width: 33%;
   margin-left: 1rem;
 }
 
@@ -121,6 +122,9 @@
 
 .current-slide {
   transform: scale(1.2);
+  display: flex;
+  justify-content: center;
+  width: 80%;
 }
 
 .bn-slide-r {
@@ -128,7 +132,7 @@
 }
 
 .bn-slide-l {
-  transform: translateX(-100%) scale(0.55);
+  transform: translateX(-50%) scale(0.55);
 }
 
 .arrow-btn {

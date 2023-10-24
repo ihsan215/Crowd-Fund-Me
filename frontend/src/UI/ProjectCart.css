@@ -1,0 +1,44 @@
+.project-card-area {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  height: 50%;
+  width: 30%;
+}
+
+.project-card-item {
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 1px solid;
+  border-radius: 1px 15px;
+  padding: 10px;
+  margin-top: 1rem;
+  box-shadow: 5px 10px #202020;
+  height: 20rem;
+}
+
+.img-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.project-img {
+  width: 95%;
+}
+
+.project-description {
+  font-size: 0.5rem;
+  text-align: justify;
+}
+
+@media screen and (max-width: 1050px) {
+  .project-card-area {
+    width: 100%;
+  }
+  .project-img {
+    width: 80%;
+  }
+}
