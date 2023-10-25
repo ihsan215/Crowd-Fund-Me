@@ -120,19 +120,24 @@
   display: block;
 }
 
+.project-cart {
+  width: 20rem;
+}
+
 .current-slide {
   transform: scale(1.2);
   display: flex;
   justify-content: center;
-  width: 80%;
 }
 
 .bn-slide-r {
-  transform: translateX(100%) scale(0.55);
+  width: 20rem;
+  transform: translateX(150%) scale(0.55);
 }
 
 .bn-slide-l {
-  transform: translateX(-50%) scale(0.55);
+  width: 20rem;
+  transform: translateX(-150%) scale(0.55);
 }
 
 .arrow-btn {
@@ -169,7 +174,7 @@
   font-size: 0.8rem;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1500px) {
   .project-cart-img {
     width: 8rem;
     height: 8rem;
@@ -196,5 +201,16 @@
 
   .bn-slide-l {
     display: none;
+  }
+
+  .left-btn {
+    transform: translateX(-60%) translateY(55%);
+  }
+  .left-btn:hover,
+  .right-btn:hover {
+    transform: translateX(60%) translateY(55%) scale(1.05);
+  }
+  .right-btn {
+    transform: translateX(60%) translateY(55%);
   }
 }

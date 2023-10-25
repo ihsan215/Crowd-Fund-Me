@@ -26,6 +26,8 @@ function displayProject(activeSlides) {
           title={item.title}
           description={item.description}
           url={item.url}
+          author={item.author}
+          className="project-cart"
         />
       </div>
     );
