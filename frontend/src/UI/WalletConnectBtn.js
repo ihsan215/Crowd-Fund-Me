@@ -13,7 +13,7 @@ function WalletConnectBtn() {
 
   const beforeConnection = () => {
     return (
-      <Button className="cntBtn" onClick={web3Ctx.connectWallet}>
+      <Button className="cntBtn" onClick={web3Ctx.walletConnect}>
         <img src={userIcon} alt="userIcon" />| Connect Wallet
       </Button>
     );

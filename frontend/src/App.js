@@ -1,8 +1,14 @@
 import React from "react";
-import { Web3ReactProvider } from "@web3-react/core";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Web3Provider from "./web3/Web3Provider.js";
-import Web3 from "web3";
+import { WagmiConfig } from "wagmi";
+import { createWeb3Modal } from "@web3modal/wagmi/react";
+
+import {
+  wagmiConfig,
+  WagmiWeb3ModalParameters,
+} from "./web3/wagmi-parameters.js";
 
 import "./index.css";
 
@@ -31,20 +37,15 @@ const router = createBrowserRouter([
   },
 ]);
 
-const POLLING_INTERVAL = 1200;
-const getLibrary = (provider) => {
-  const library = new Web3(provider);
-  library.pollingInterval = POLLING_INTERVAL;
-  return library;
-};
+createWeb3Modal(WagmiWeb3ModalParameters);
 
 function App() {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <WagmiConfig config={wagmiConfig}>
       <Web3Provider>
         <RouterProvider router={router} />{" "}
       </Web3Provider>
-    </Web3ReactProvider>
+    </WagmiConfig>
   );
 }
 
