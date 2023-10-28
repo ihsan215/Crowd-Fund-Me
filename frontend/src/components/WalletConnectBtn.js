@@ -1,15 +1,23 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import Web3Context from "../web3/Web3-context.js";
-import Button from "./Button.js";
-
-import "./WalletConnectBtn.css";
+import Button from "../UI/Button.js";
+import Web3WalletModal from "./Web3WalletModal.js";
+import walletAddressFormat from "../auxiliary/walletAddressFormat.js";
+import "../style/WalletConnectBtn.css";
 
 import walletIcon from "../style/img/eth.png";
 import userIcon from "../style/img/user.png";
 
 function WalletConnectBtn() {
+  const [showModal, setshowModal] = useState(false);
+
   const web3Ctx = useContext(Web3Context);
+
+  const afterConnectionHandle = () => {
+    // web3Ctx.walletConnect();
+    setshowModal(true);
+  };
 
   const beforeConnection = () => {
     return (
@@ -21,20 +29,20 @@ function WalletConnectBtn() {
 
   const afterConnection = () => {
     return (
-      <Button className="cntBtn after-click">
+      <Button className="cntBtn after-click" onClick={afterConnectionHandle}>
         <p className="btn-balance">{web3Ctx.balance}</p>
         <img
           style={{ marginTop: "-0.1rem", marginRight: "-1rem" }}
           src={walletIcon}
           alt="walletIcon"
         />
-        |{" "}
-        {`${web3Ctx.address.slice(0, 5)}...${web3Ctx.address.slice(
-          web3Ctx.address.length - 4,
-          web3Ctx.address.length
-        )}`}
+        | {walletAddressFormat(web3Ctx.address)}
       </Button>
     );
+  };
+
+  const closeModel = () => {
+    setshowModal(false);
   };
 
   return (
@@ -42,6 +50,7 @@ function WalletConnectBtn() {
       {web3Ctx.isConnected && web3Ctx.address
         ? afterConnection()
         : beforeConnection()}
+      {showModal && <Web3WalletModal onClose={closeModel} />}
     </React.Fragment>
   );
 }

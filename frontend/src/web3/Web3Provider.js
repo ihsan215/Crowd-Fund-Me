@@ -18,18 +18,19 @@ const Web3Provider = (props) => {
     close();
   };
 
-  const getBalance = async () => {
-    const balanceWei = await web3Instance?.eth.getBalance(address);
-    const balanceEth = await web3Instance?.utils.fromWei(balanceWei, "ether");
+  const getBalance = async (web3) => {
+    const balanceWei = await web3?.eth.getBalance(address);
+    const balanceEth = web3?.utils.fromWei(balanceWei, "ether");
     const balance = Number(balanceEth).toFixed(4);
     setBalance(balance);
+    console.log(balance);
   };
 
   useEffect(() => {
     if (!isDisconnected && address) {
       const web3 = new Web3(window.ethereum);
       setweb3Instance(web3);
-      getBalance();
+      getBalance(web3);
     }
   }, [isDisconnected, address]);
 

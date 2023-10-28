@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import WalletConnectBtn from "../UI/WalletConnectBtn.js";
+import WalletConnectBtn from "./WalletConnectBtn.js";
 import "../style/components/MainNavigation.css";
 import logoIcon from "../style/img/logo.svg";
 
