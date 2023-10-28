@@ -17,3 +17,52 @@
   transform: translateX(1px) translateY(-5px);
   width: 12px;
 }
+
+.explorer-btn {
+  padding: 1%;
+  width: 10rem;
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
+.modal-menu-area {
+  width: 100%;
+  display: flex;
+}
+
+.modal-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  list-style-type: none;
+  padding: 1%;
+}
+
+.modal-menu-item {
+  display: flex;
+  margin-top: 1rem;
+  width: 100%;
+  height: 3rem;
+  left: 0;
+  align-items: center;
+  background-color: #202020;
+  opacity: 0.8;
+  border: 1px solid aliceblue;
+  border-radius: 15px;
+  padding: 0 2%;
+}
+
+.modal-menu-item:hover {
+  opacity: 0.4;
+}
+
+.modal-menu-item:active,
+.explorer-btn:active {
+  transform: scale(0.95);
+}
+
+.modal-menu-note {
+  font-size: 0.7rem;
+  text-align: justify;
+}

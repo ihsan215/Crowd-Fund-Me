@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
-
 import Web3Context from "../web3/Web3-context.js";
 import walletAddressFormat from "../auxiliary/walletAddressFormat";
 import CopyIcon from "../UI/CopyIcon";
+import Button from "../UI/Button";
 
 import EthIcon from "../style/img/ethereum.png";
 
@@ -20,6 +20,11 @@ function Web3WalletModal({ onClose, msg }) {
     setTimeout(() => {
       setIsCopied(false);
     }, 1000);
+  };
+
+  const disconnectWallet = () => {
+    web3Ctx.disconnectWallet();
+    onClose();
   };
 
   return (
@@ -41,6 +46,37 @@ function Web3WalletModal({ onClose, msg }) {
               </span>
             </p>
           </div>
+          <Button
+            className="explorer-btn"
+            onClick={() => {
+              window.open(
+                "https://sepolia.etherscan.io/",
+                "_blank",
+                "noreferrer"
+              );
+            }}
+          >
+            &#9737; Explorer &#10138;
+          </Button>
+          <div className="modal-menu-area">
+            <ul className="modal-menu">
+              <li className="modal-menu-item">
+                My &nbsp;{" "}
+                <span style={{ color: "rgb(255,216,0)" }}>CrowdFundMe</span>
+                &nbsp; Account
+              </li>
+
+              <li className="modal-menu-item" onClick={disconnectWallet}>
+                Disconnect Wallet
+              </li>
+            </ul>
+          </div>
+          <p className="modal-menu-note">
+            The application serves solely for testing purposes and interacts
+            with the{" "}
+            <span style={{ color: "rgb(255,216,0)" }}>CrowdFundMe</span>{" "}
+            Contract deployed on the Sepolia test network.
+          </p>
         </div>
       </Modal>
     </React.Fragment>

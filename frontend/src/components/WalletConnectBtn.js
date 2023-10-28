@@ -15,7 +15,6 @@ function WalletConnectBtn() {
   const web3Ctx = useContext(Web3Context);
 
   const afterConnectionHandle = () => {
-    // web3Ctx.walletConnect();
     setshowModal(true);
   };
 

@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount } from "wagmi";
+import { useAccount, useDisconnect } from "wagmi";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {
   const [web3Instance, setweb3Instance] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
-  const { open, close } = useWeb3Modal();
+  const { open } = useWeb3Modal();
+  const { disconnect } = useDisconnect();
   const { address, isDisconnected } = useAccount();
 
   const walletConnect = () => {
-    open();
+    open({ view: "Networks" });
   };
 
   const disconnectWallet = () => {
-    close();
+    disconnect();
   };
 
   const getBalance = async (web3) => {
