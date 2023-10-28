@@ -1,0 +1,19 @@
+.web3-wallet-modal-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wallet-info-area {
+  display: flex;
+  flex-direction: row;
+}
+
+.wallet-info-area > p {
+  margin-left: 0.5rem;
+}
+
+.copy-icon-area {
+  transform: translateX(1px) translateY(-5px);
+  width: 12px;
+}
