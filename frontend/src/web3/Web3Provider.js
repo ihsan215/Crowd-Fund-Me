@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
@@ -15,17 +15,19 @@ const Web3Provider = (props) => {
     open({ view: "Networks" });
   };
 
-  const disconnectWallet = () => {
+  const disconnectWallet = async () => {
     disconnect();
   };
 
-  const getBalance = async (web3) => {
-    const balanceWei = await web3?.eth.getBalance(address);
-    const balanceEth = web3?.utils.fromWei(balanceWei, "ether");
-    const balance = Number(balanceEth).toFixed(4);
-    setBalance(balance);
-    console.log(balance);
-  };
+  const getBalance = useCallback(
+    async (web3) => {
+      const balanceWei = await web3?.eth.getBalance(address);
+      const balanceEth = web3?.utils.fromWei(balanceWei, "ether");
+      const balance = Number(balanceEth).toFixed(4);
+      setBalance(balance);
+    },
+    [address]
+  );
 
   useEffect(() => {
     if (!isDisconnected && address) {
@@ -33,7 +35,7 @@ const Web3Provider = (props) => {
       setweb3Instance(web3);
       getBalance(web3);
     }
-  }, [isDisconnected, address]);
+  }, [isDisconnected, address, getBalance]);
 
   const web3Context = {
     web3Instance,

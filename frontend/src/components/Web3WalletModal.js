@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Modal from "../UI/Modal";
 import Web3Context from "../web3/Web3-context.js";
 import walletAddressFormat from "../auxiliary/walletAddressFormat";
 import CopyIcon from "../UI/CopyIcon";
 import Button from "../UI/Button";
-
 import EthIcon from "../style/img/ethereum.png";
 
 import "../style/Web3WalletModal.css";
 
 function Web3WalletModal({ onClose, msg }) {
+  const navigate = useNavigate();
   const [isCopied, setIsCopied] = useState(false);
 
   const web3Ctx = useContext(Web3Context);
@@ -24,6 +25,7 @@ function Web3WalletModal({ onClose, msg }) {
 
   const disconnectWallet = () => {
     web3Ctx.disconnectWallet();
+    navigate("/");
     onClose();
   };
 
@@ -60,7 +62,13 @@ function Web3WalletModal({ onClose, msg }) {
           </Button>
           <div className="modal-menu-area">
             <ul className="modal-menu">
-              <li className="modal-menu-item">
+              <li
+                className="modal-menu-item"
+                onClick={() => {
+                  navigate("/myAccount");
+                  onClose();
+                }}
+              >
                 My &nbsp;{" "}
                 <span style={{ color: "rgb(255,216,0)" }}>CrowdFundMe</span>
                 &nbsp; Account

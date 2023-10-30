@@ -40,6 +40,7 @@
 }
 
 .modal-menu-item {
+  cursor: pointer;
   display: flex;
   margin-top: 1rem;
   width: 100%;

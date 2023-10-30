@@ -1,13 +1,11 @@
 import React from "react";
 
-import UserInfo from "../components/MyAccount/UserInfo";
-import ProjectInfo from "../components/MyAccount/ProjectInfo";
+import AccountArea from "../components/MyAccount/AccountArea";
 
 function MyAccount() {
   return (
     <React.Fragment>
-      <UserInfo />
-      <ProjectInfo />
+      <AccountArea></AccountArea>
     </React.Fragment>
   );
 }

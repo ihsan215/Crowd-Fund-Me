@@ -1,0 +1,19 @@
+.edit-btn {
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.edit-icon {
+  fill: #202020;
+}
+
+.edit-btn:hover {
+  transform: scale(0.9);
+  background-color: #202020;
+  border: none;
+}
+
+.edit-btn:hover > .edit-icon {
+  fill: aliceblue;
+  transform: scale(0.9);
+}
