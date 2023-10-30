@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
 import EditBtn from "../../UI/EditBtn";
-
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
 
 import "../../style/components/MyAccount/AccountGeneralProfile.css";
 
-function AccountGeneralProfile() {
-  const [showModal, setshowModal] = useState(false);
+import emptyAvatarSrc from "../../style/img/empty_avatar.png";
+import locationIcon from "../../style/img/location.png";
 
-  function ShowSetGeneralProfileModal({ onClose, msg }) {
+function AccountGeneralProfile() {
+  const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
+
+  function ShowSetAvatarIcon({ onClose, msg }) {
     return (
       <React.Fragment>
         <Modal onClose={onClose} msg={msg}></Modal>
@@ -17,31 +20,31 @@ function AccountGeneralProfile() {
     );
   }
 
-  const closeModel = () => {
-    setshowModal(false);
+  const closeAvatarIconModel = () => {
+    setAvatarIconshowModal(false);
   };
 
   return (
     <React.Fragment>
       <div className="profile-area">
         <div className="profile-img-container">
-          <img
-            src={
-              " https://www.signivis.com/img/custom/avatars/member-avatar-01.png"
-            }
-            alt=""
+          <EditBtn
+            setEditStatus={setAvatarIconshowModal}
+            className={"set-avatar-icon"}
           />
+          <img src={emptyAvatarSrc} alt="empty avatar" />
         </div>
         <div className="user-info-area">
-          <p>Name</p>
-          <p>Location</p>
+          <h3>Ali İhsan Taş</h3>
+          <div className="location-area">
+            <img src={locationIcon} alt="location icon" />
+            <p>Istanbul, Turkey</p>
+          </div>
         </div>
       </div>
-
-      <EditBtn setEditStatus={setshowModal} />
-      <p>General Profile</p>
-      {showModal && (
-        <ShowSetGeneralProfileModal onClose={closeModel} msg={"DENEME"} />
+      <Button>See Public View</Button>
+      {avatarIconshowModal && (
+        <ShowSetAvatarIcon onClose={closeAvatarIconModel} msg={"DENEME"} />
       )}
     </React.Fragment>
   );

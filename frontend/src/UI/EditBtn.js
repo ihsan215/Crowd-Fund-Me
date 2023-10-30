@@ -2,14 +2,14 @@ import React from "react";
 
 import "./EditBtn.css";
 
-function EditBtn({ setEditStatus }) {
+function EditBtn({ className, setEditStatus }) {
   return (
     <React.Fragment>
       <button
         onClick={() => {
           setEditStatus(true);
         }}
-        className="edit-btn"
+        className={`edit-btn ${className}`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

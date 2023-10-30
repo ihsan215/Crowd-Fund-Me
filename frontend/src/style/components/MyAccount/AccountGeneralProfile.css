@@ -1,8 +1,7 @@
 .profile-area {
   display: flex;
   flex-direction: row;
-  background-color: red;
-  width: 45%;
+  width: 75%;
   height: 75%;
   padding: 5px;
 }
@@ -15,4 +14,62 @@
   display: block;
   border-radius: 50%;
   width: 100px;
+}
+
+.set-avatar-icon,
+.set-avatar-icon:hover {
+  position: fixed;
+  transform: translateX(-10px) translateY(-20px);
+}
+
+.user-info-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 20px;
+  height: 100%;
+}
+
+.user-info-area > h3 {
+  font-size: 2rem;
+  color: #202020;
+}
+
+.location-area {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.location-area > p {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  transform: translateY(2px);
+}
+
+.location-area > img {
+  width: 32px;
+  height: 32px;
+}
+
+@media (min-width: 1000px) {
+  .profile-area {
+    width: 600px;
+  }
+}
+
+@media (max-width: 750px) {
+  .user-info-area > h3 {
+    font-size: 1.2rem;
+  }
+  .location-area > p {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .location-area > img {
+    width: 20px;
+    height: 20px;
+  }
 }

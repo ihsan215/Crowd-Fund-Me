@@ -1,5 +1,5 @@
 .account-page-area {
-  width: 90%;
+  width: 66%;
   margin: auto;
 }
 
@@ -35,6 +35,12 @@
 
 @media (min-width: 1500px) {
   .account-page-area {
-    width: 1200px;
+    width: 1000px;
+  }
+}
+
+@media (max-width: 900px) {
+  .account-page-area {
+    width: 90%;
   }
 }
