@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 
 import EditBtn from "../../UI/EditBtn";
-import Modal from "../../UI/Modal";
+
 import Button from "../../UI/Button";
+import ShowSetAvatarIcon from "./ShowSetAvatarIcon";
 
 import "../../style/components/MyAccount/AccountGeneralProfile.css";
 
 import emptyAvatarSrc from "../../style/img/empty_avatar.png";
+// import ihsansrc from "../../style/img/ihsan.JPG";
 import locationIcon from "../../style/img/location.png";
+import mailIcon from "../../style/img/mail.png";
 
 function AccountGeneralProfile() {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
-
-  function ShowSetAvatarIcon({ onClose, msg }) {
-    return (
-      <React.Fragment>
-        <Modal onClose={onClose} msg={msg}></Modal>
-      </React.Fragment>
-    );
-  }
 
   const closeAvatarIconModel = () => {
     setAvatarIconshowModal(false);
@@ -40,11 +35,21 @@ function AccountGeneralProfile() {
             <img src={locationIcon} alt="location icon" />
             <p>Istanbul, Turkey</p>
           </div>
+          <div className="location-area">
+            <img src={mailIcon} alt="mail icon" />
+            <p>aliihsantas34@gmail.com</p>
+          </div>
         </div>
       </div>
-      <Button>See Public View</Button>
+      <div className="public-view-btn-area">
+        <Button className="public-view-btn">See Public View</Button>
+      </div>
+
       {avatarIconshowModal && (
-        <ShowSetAvatarIcon onClose={closeAvatarIconModel} msg={"DENEME"} />
+        <ShowSetAvatarIcon
+          onClose={closeAvatarIconModel}
+          msg={"Set Personal Info"}
+        />
       )}
     </React.Fragment>
   );

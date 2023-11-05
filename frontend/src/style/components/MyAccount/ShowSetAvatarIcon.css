@@ -1,0 +1,63 @@
+.personal-info-form-area {
+  padding: 0px 10px;
+}
+
+.profil-set-area {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.location_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.location_area > .profil-set-area {
+  width: 45%;
+}
+
+.profil-set-area > label {
+  text-align: left;
+  color: aliceblue;
+}
+
+.profil-set-area > input {
+  border-radius: 10px;
+  height: 3rem;
+}
+
+.profile-img-area {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid aliceblue;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 1rem;
+}
+
+input[type="file"]::file-selector-button {
+  margin-top: 1rem;
+  border: 2px solid #202020;
+  padding: 0.2em 0.4em;
+  border-radius: 10px;
+  background-color: aliceblue;
+  transition: 1s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: rgb(2, 70, 28);
+  border: 2px solid #00cec9;
+}
+
+.submit-area {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+}
+
+.personel-info-sbmt-btn {
+  width: 100%;
+}

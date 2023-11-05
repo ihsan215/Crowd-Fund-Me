@@ -6,14 +6,12 @@
   padding: 5px;
 }
 
-.profile-img-container {
-  border-radius: 50%;
-  border: 1px solid #202020;
-}
 .profile-img-container > img {
   display: block;
   border-radius: 50%;
-  width: 100px;
+  border: 1px solid #202020;
+  width: 150px;
+  transform: translateY(-10px);
 }
 
 .set-avatar-icon,
@@ -33,6 +31,7 @@
 
 .user-info-area > h3 {
   font-size: 2rem;
+  margin-left: -30px;
   color: #202020;
 }
 
@@ -53,6 +52,23 @@
   height: 32px;
 }
 
+.public-view-btn-area {
+  width: 15rem;
+}
+
+.public-view-btn {
+  width: 15rem;
+}
+
+.public-view-btn:hover {
+  background-image: linear-gradient(
+    to right,
+    #093028 0%,
+    #122f23 51%,
+    #09211c 100%
+  );
+}
+
 @media (min-width: 1000px) {
   .profile-area {
     width: 600px;
@@ -61,6 +77,7 @@
 
 @media (max-width: 750px) {
   .user-info-area > h3 {
+    margin-left: -55px;
     font-size: 1.2rem;
   }
   .location-area > p {
@@ -71,5 +88,11 @@
   .location-area > img {
     width: 20px;
     height: 20px;
+  }
+
+  .public-view-btn {
+    font-size: 0.8rem;
+    height: 7rem;
+    width: 8rem;
   }
 }
