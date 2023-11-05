@@ -21,16 +21,18 @@
 .account-area {
   margin-top: 1rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 5rem;
+  flex-direction: column;
+  align-items: baseline;
+  padding: 10px;
+  height: 50rem;
+  margin-bottom: 5rem;
 }
 
 .account-summary_info {
-  width: 30%;
+  width: 100%;
 }
 .account_info {
-  width: 70%;
+  width: 100%;
 }
 
 @media (min-width: 1500px) {
@@ -42,5 +44,9 @@
 @media (max-width: 900px) {
   .account-page-area {
     width: 90%;
+  }
+
+  .account-area {
+    flex-direction: column;
   }
 }

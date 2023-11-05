@@ -2,6 +2,7 @@ import React from "react";
 import "../../style/components/MyAccount/AccountArea.css";
 
 import AccountGeneralProfile from "./AccountGeneralProfile";
+import ProfileInfoSummary from "./ProfileInfoSummary";
 
 function AccountArea() {
   return (
@@ -12,7 +13,7 @@ function AccountArea() {
         </div>
         <div className="account-area account-area__border">
           <div className="account-summary_info">
-            <p>General Profile Summary</p>
+            <ProfileInfoSummary />
           </div>
           <div className="account_info">
             <p>General Profile Info</p>

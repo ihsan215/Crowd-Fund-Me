@@ -16,7 +16,7 @@
 
 .set-avatar-icon,
 .set-avatar-icon:hover {
-  position: fixed;
+  position: absolute;
   transform: translateX(-10px) translateY(-20px);
 }
 
@@ -58,6 +58,7 @@
 
 .public-view-btn {
   width: 15rem;
+  display: none;
 }
 
 .public-view-btn:hover {
@@ -72,6 +73,9 @@
 @media (min-width: 1000px) {
   .profile-area {
     width: 600px;
+  }
+  .public-view-btn {
+    display: block;
   }
 }
 
@@ -91,8 +95,6 @@
   }
 
   .public-view-btn {
-    font-size: 0.8rem;
-    height: 7rem;
-    width: 8rem;
+    display: none;
   }
 }

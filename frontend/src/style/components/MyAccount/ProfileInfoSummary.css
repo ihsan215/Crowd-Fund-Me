@@ -1,0 +1,33 @@
+.general-profile-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-summary-area {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.summ-info-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+  color: aliceblue;
+  border-radius: 0 10px;
+  padding: 10px;
+  width: 25%;
+  margin-right: 10px;
+  transition: 0.7s;
+}
+
+.summ-info-item:hover {
+  transform: scale(1.1);
+}
+
+.symbol {
+  font-size: 0.8rem;
+}
