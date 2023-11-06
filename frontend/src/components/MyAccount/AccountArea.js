@@ -3,6 +3,7 @@ import "../../style/components/MyAccount/AccountArea.css";
 
 import AccountGeneralProfile from "./AccountGeneralProfile";
 import ProfileInfoSummary from "./ProfileInfoSummary";
+import GeneralProfileInfo from "./GeneralProfileInfo";
 
 function AccountArea() {
   return (
@@ -16,7 +17,7 @@ function AccountArea() {
             <ProfileInfoSummary />
           </div>
           <div className="account_info">
-            <p>General Profile Info</p>
+            <GeneralProfileInfo />
           </div>
         </div>
       </div>
