@@ -41,9 +41,6 @@ function AccountGeneralProfile() {
           </div>
         </div>
       </div>
-      <div className="public-view-btn-area">
-        <Button className="public-view-btn">See Public View</Button>
-      </div>
 
       {avatarIconshowModal && (
         <ShowSetAvatarIcon

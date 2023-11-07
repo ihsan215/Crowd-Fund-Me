@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../style/components/MyAccount/AccountArea.css";
 
 import AccountGeneralProfile from "./AccountGeneralProfile";
@@ -24,6 +24,7 @@ function AccountArea() {
             <GeneralProfileInfo />
             <CreatedProjects />
             <DonatedProjects />
+
             <Button className="create-project-btn">Create New Project</Button>
           </div>
         </div>
