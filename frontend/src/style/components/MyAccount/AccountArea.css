@@ -24,8 +24,9 @@
   flex-direction: column;
   align-items: baseline;
   padding: 10px;
-  height: 50rem;
+  min-height: 50rem;
   margin-bottom: 5rem;
+  padding: 5%;
 }
 
 .account-summary_info {
@@ -33,6 +34,20 @@
 }
 .account_info {
   width: 100%;
+}
+
+.create-project-btn {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.create-project-btn:hover {
+  background-image: linear-gradient(
+    to right,
+    #093028 0%,
+    #122f23 51%,
+    #09211c 100%
+  );
 }
 
 @media (min-width: 1500px) {

@@ -4,6 +4,10 @@ import "../../style/components/MyAccount/AccountArea.css";
 import AccountGeneralProfile from "./AccountGeneralProfile";
 import ProfileInfoSummary from "./ProfileInfoSummary";
 import GeneralProfileInfo from "./GeneralProfileInfo";
+import CreatedProjects from "./CreatedProjects";
+import DonatedProjects from "./DonatedProjects";
+
+import Button from "../../UI/Button";
 
 function AccountArea() {
   return (
@@ -18,6 +22,9 @@ function AccountArea() {
           </div>
           <div className="account_info">
             <GeneralProfileInfo />
+            <CreatedProjects />
+            <DonatedProjects />
+            <Button className="create-project-btn">Create New Project</Button>
           </div>
         </div>
       </div>
