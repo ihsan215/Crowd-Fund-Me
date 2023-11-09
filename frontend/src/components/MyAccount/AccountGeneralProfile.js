@@ -12,7 +12,7 @@ import emptyAvatarSrc from "../../style/img/empty_avatar.png";
 import locationIcon from "../../style/img/location.png";
 import mailIcon from "../../style/img/mail.png";
 
-function AccountGeneralProfile() {
+function AccountGeneralProfile({ userId }) {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
 
   const closeAvatarIconModel = () => {
@@ -46,6 +46,7 @@ function AccountGeneralProfile() {
         <ShowSetAvatarIcon
           onClose={closeAvatarIconModel}
           msg={"Set Personal Info"}
+          userId={userId}
         />
       )}
     </React.Fragment>

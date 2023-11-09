@@ -65,7 +65,7 @@ function Web3WalletModal({ onClose, msg }) {
               <li
                 className="modal-menu-item"
                 onClick={() => {
-                  navigate("/myAccount");
+                  navigate(`/myAccount/${web3Ctx.address}`);
                   onClose();
                 }}
               >

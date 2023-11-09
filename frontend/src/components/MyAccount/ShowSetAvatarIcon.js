@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useRef } from "react";
 import Modal from "../../UI/Modal";
 
 import "../../style/components/MyAccount/ShowSetAvatarIcon.css";
 import Button from "../../UI/Button";
 
-function ShowSetAvatarIcon({ onClose, msg }) {
+function ShowSetAvatarIcon({ onClose, msg, userId }) {
+  const formRef = useRef(undefined);
+
+  async function submitHandler(e) {
+    e.preventDefault();
+    const data = {
+      name: formRef.current[0].value,
+    };
+
+    console.log(data);
+    const response = await fetch(`/myAccount/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    onClose();
+  }
+
   return (
     <React.Fragment>
       <Modal onClose={onClose} msg={msg}>
         <div className="personal-info-form-area">
-          <form>
+          <form onSubmit={submitHandler} ref={formRef}>
             <div className="name-info-area">
               <div className="profil-set-area">
                 <label for="name">Full Name</label>
