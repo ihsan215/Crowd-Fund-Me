@@ -30,3 +30,29 @@ exports.postUserInfo = async (req, res, next) => {
     message: "ok",
   });
 };
+
+exports.getUserInfo = async (req, res, next) => {
+  console.log("GET");
+  const walletId = req.params.userId;
+  const query = await User.findOne({ walletId: walletId });
+  if (query) {
+    console.log(query);
+    res.status(200).json({
+      message: "ok",
+      name: query.name,
+      email: query.email,
+      country: query.country,
+      city: query.city,
+      profileImg: query.profileImg,
+    });
+  } else {
+    res.status(200).json({
+      message: "not found",
+      name: "Unknown User",
+      email: "",
+      country: "",
+      city: "",
+      profileImg: undefined,
+    });
+  }
+};

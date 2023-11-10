@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../UI/Modal";
 
 import "../../style/components/MyAccount/ShowSetAvatarIcon.css";
+import { AJAXCall } from "../../auxiliary/FetchingData";
 import Button from "../../UI/Button";
 
 function ShowSetAvatarIcon({ onClose, msg, userId }) {
+  const getUserData = async () => {
+    const responseData = await AJAXCall(`/myAccount/${userId}`, {
+      method: "GET",
+      mode: "no-cors",
+    });
+    console.log(responseData);
+  };
+
+  useEffect(() => {
+    console.log("Fetching..");
+    getUserData();
+  }, []);
+
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData();
@@ -14,14 +28,11 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
     formData.append("city", e.target[3].value);
     formData.append("profileImg", e.target[4].files[0]);
 
-    const response = await fetch(`/myAccount/${userId}`, {
+    const responseData = await AJAXCall(`/myAccount/${userId}`, {
       method: "POST",
       mode: "no-cors",
-
       body: formData,
     });
-    const responseData = await response.json();
-
     if (responseData.message === "ok") {
       onClose();
     } else {
