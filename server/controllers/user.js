@@ -21,7 +21,7 @@ exports.postUserInfo = async (req, res, next) => {
       email: req.body.email,
       country: req.body.country,
       city: req.body.city,
-      profileImg: req.files.profileImg,
+      profileImg: req.files?.profileImg,
     });
     user.save();
   }
@@ -36,7 +36,6 @@ exports.getUserInfo = async (req, res, next) => {
   const walletId = req.params.userId;
   const query = await User.findOne({ walletId: walletId });
   if (query) {
-    console.log(query);
     res.status(200).json({
       message: "ok",
       name: query.name,

@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Modal from "../../UI/Modal";
+import { AJAXCall } from "../../auxiliary/FetchingData";
 
 import "../../style/components/MyAccount/ShowSetAvatarIcon.css";
-import { AJAXCall } from "../../auxiliary/FetchingData";
 import Button from "../../UI/Button";
 
 function ShowSetAvatarIcon({ onClose, msg, userId }) {
-  const getUserData = async () => {
-    const responseData = await AJAXCall(`/myAccount/${userId}`, {
-      method: "GET",
-      mode: "no-cors",
-    });
-    console.log(responseData);
-  };
-
-  useEffect(() => {
-    console.log("Fetching..");
-    getUserData();
-  }, []);
-
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData();
@@ -35,6 +22,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
     });
     if (responseData.message === "ok") {
       onClose();
+      window.location.reload();
     } else {
       throw new Error("An error occuring fetching data !");
     }

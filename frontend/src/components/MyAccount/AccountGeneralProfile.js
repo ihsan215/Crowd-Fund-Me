@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import EditBtn from "../../UI/EditBtn";
-
-import Button from "../../UI/Button";
+import UserContext from "../../user/User-context";
 import ShowSetAvatarIcon from "./ShowSetAvatarIcon";
 
 import "../../style/components/MyAccount/AccountGeneralProfile.css";
 
 import emptyAvatarSrc from "../../style/img/empty_avatar.png";
-// import ihsansrc from "../../style/img/ihsan.JPG";
+
 import locationIcon from "../../style/img/location.png";
 import mailIcon from "../../style/img/mail.png";
 
 function AccountGeneralProfile({ userId }) {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
+  const userCtx = useContext(UserContext);
+
+  useEffect(() => {
+    userCtx.fetchGeneralData(`/myAccount/${userId}`);
+  }, []);
 
   const closeAvatarIconModel = () => {
     setAvatarIconshowModal(false);
@@ -27,17 +31,29 @@ function AccountGeneralProfile({ userId }) {
             setEditStatus={setAvatarIconshowModal}
             className={"set-avatar-icon"}
           />
-          <img src={emptyAvatarSrc} alt="empty avatar" />
+
+          <img
+            src={`${
+              userCtx.isFetched
+                ? `data:image/png;base64,${new Buffer.from(
+                    userCtx.profileImg?.data?.data
+                  ).toString("base64")}`
+                : emptyAvatarSrc
+            } `}
+            alt="empty avatar"
+          />
         </div>
         <div className="user-info-area">
-          <h3>Ali İhsan Taş</h3>
+          <h3>{userCtx.name}</h3>
           <div className="location-area">
             <img src={locationIcon} alt="location icon" />
-            <p>Istanbul, Turkey</p>
+            <p>
+              {userCtx.city}, {userCtx.country}
+            </p>
           </div>
           <div className="location-area">
             <img src={mailIcon} alt="mail icon" />
-            <p>aliihsantas34@gmail.com</p>
+            <p>{userCtx.email}</p>
           </div>
         </div>
       </div>

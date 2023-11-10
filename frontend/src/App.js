@@ -2,6 +2,7 @@ import React from "react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Web3Provider from "./web3/Web3Provider.js";
+import UserProvider from "./user/UserProvider.js";
 import { WagmiConfig } from "wagmi";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 
@@ -43,7 +44,9 @@ function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
       <Web3Provider>
-        <RouterProvider router={router} />{" "}
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
       </Web3Provider>
     </WagmiConfig>
   );
