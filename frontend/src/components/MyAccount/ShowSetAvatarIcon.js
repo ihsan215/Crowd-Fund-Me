@@ -1,37 +1,39 @@
-import React, { useRef } from "react";
+import React from "react";
 import Modal from "../../UI/Modal";
 
 import "../../style/components/MyAccount/ShowSetAvatarIcon.css";
 import Button from "../../UI/Button";
 
 function ShowSetAvatarIcon({ onClose, msg, userId }) {
-  const formRef = useRef(undefined);
-
   async function submitHandler(e) {
     e.preventDefault();
-    const data = {
-      name: formRef.current[0].value,
-    };
+    const formData = new FormData();
+    formData.append("name", e.target[0].value);
+    formData.append("email", e.target[1].value);
+    formData.append("country", e.target[2].value);
+    formData.append("city", e.target[3].value);
+    formData.append("profileImg", e.target[4].files[0]);
 
-    console.log(data);
     const response = await fetch(`/myAccount/${userId}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      mode: "no-cors",
+
+      body: formData,
     });
     const responseData = await response.json();
-    console.log(responseData);
 
-    onClose();
+    if (responseData.message === "ok") {
+      onClose();
+    } else {
+      throw new Error("An error occuring fetching data !");
+    }
   }
 
   return (
     <React.Fragment>
       <Modal onClose={onClose} msg={msg}>
         <div className="personal-info-form-area">
-          <form onSubmit={submitHandler} ref={formRef}>
+          <form onSubmit={submitHandler}>
             <div className="name-info-area">
               <div className="profil-set-area">
                 <label for="name">Full Name</label>
