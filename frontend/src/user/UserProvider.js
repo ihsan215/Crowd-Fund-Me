@@ -1,36 +1,33 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import UserContext from "./User-context";
 
 import { AJAXCall } from "../auxiliary/FetchingData";
 
-const UserProvider = (props) => {
-  const [isFetched, setIsFetched] = useState(false);
-  const [name, setName] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
-  const [country, setCountry] = useState(undefined);
-  const [city, setCity] = useState(undefined);
-  const [profileImg, setProfileImg] = useState(undefined);
+import { defaultUserParameters, userReducer } from "./UserReducer";
 
-  const fetchGeneralData = async (url) => {
+const UserProvider = (props) => {
+  const [userState, dispatch] = useReducer(userReducer, defaultUserParameters);
+
+  const fetchGeneralData = async (url, cb) => {
+    dispatch({ type: "SET_DEFAULT" });
     const userData = await AJAXCall(url, {
       method: "GET",
       mode: "no-cors",
     });
-    setName(userData.name);
-    setEmail(userData.email);
-    setCountry(userData.country);
-    setCity(userData.city);
-    setProfileImg(userData.profileImg);
-    setIsFetched(true);
+
+    if (userData.message === "ok") {
+      dispatch({ type: "FETCH_GENERAL_DATA", data: userData });
+    }
+
+    cb(false);
   };
 
   const userContext = {
-    isFetched,
-    name,
-    email,
-    country,
-    city,
-    profileImg,
+    name: userState.name,
+    email: userState.email,
+    country: userState.country,
+    city: userState.city,
+    profileImg: userState.profileImg?.data?.data,
 
     fetchGeneralData,
   };

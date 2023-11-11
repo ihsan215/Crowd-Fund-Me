@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Modal from "../../UI/Modal";
 import { AJAXCall } from "../../auxiliary/FetchingData";
-
+import UserContext from "../../user/User-context";
 import "../../style/components/MyAccount/ShowSetAvatarIcon.css";
 import Button from "../../UI/Button";
+import Spinning from "../../UI/Spinning";
 
 function ShowSetAvatarIcon({ onClose, msg, userId }) {
+  const userCtx = useContext(UserContext);
+  const [dataIsLoading, setDataIsLoading] = useState(false);
+
   async function submitHandler(e) {
     e.preventDefault();
+    setDataIsLoading(true);
     const formData = new FormData();
-    formData.append("name", e.target[0].value);
-    formData.append("email", e.target[1].value);
-    formData.append("country", e.target[2].value);
-    formData.append("city", e.target[3].value);
+    const name = e.target[0].value || userCtx.name;
+    const email = e.target[1].value || userCtx.email;
+    const country = e.target[2].value || userCtx.country;
+    const city = e.target[3].value || userCtx.city;
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("country", country);
+    formData.append("city", city);
     formData.append("profileImg", e.target[4].files[0]);
 
     const responseData = await AJAXCall(`/myAccount/${userId}`, {
@@ -21,6 +30,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
       body: formData,
     });
     if (responseData.message === "ok") {
+      setDataIsLoading(false);
       onClose();
       window.location.reload();
     } else {
@@ -39,7 +49,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
                 <input
                   type="text"
                   id="name"
-                  placeholder="Enter your full name"
+                  placeholder={userCtx.name || "Enter your full name"}
                 />
               </div>
               <div className="profil-set-area">
@@ -47,7 +57,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
                 <input
                   type="email"
                   id="email"
-                  placeholder="Enter your e-mail"
+                  placeholder={userCtx.email || "Enter your e-mail"}
                 />
               </div>
               <div className="location_area">
@@ -56,12 +66,16 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
                   <input
                     type="text"
                     id="country"
-                    placeholder="Enter your country"
+                    placeholder={userCtx.country || "Enter your country"}
                   />
                 </div>
                 <div className="profil-set-area">
                   <label for="City">City</label>
-                  <input type="text" id="City" placeholder="Enter your City" />
+                  <input
+                    type="text"
+                    id="City"
+                    placeholder={userCtx.city || "Enter your City"}
+                  />
                 </div>
               </div>
             </div>
@@ -76,7 +90,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
             </div>
             <div className="submit-area">
               <Button type="submit" className="personel-info-sbmt-btn">
-                Submit
+                {dataIsLoading ? <Spinning isBtn={true} /> : "Submit"}
               </Button>
             </div>
           </form>

@@ -47,11 +47,6 @@ exports.getUserInfo = async (req, res, next) => {
   } else {
     res.status(200).json({
       message: "not found",
-      name: "Unknown User",
-      email: "",
-      country: "",
-      city: "",
-      profileImg: undefined,
     });
   }
 };

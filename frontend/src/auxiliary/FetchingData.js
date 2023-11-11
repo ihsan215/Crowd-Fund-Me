@@ -1,4 +1,4 @@
-const TIMEOUT_SECONDS = 5;
+const TIMEOUT_SECONDS = 10;
 
 const timeout = function (s) {
   // Return timeout Promise

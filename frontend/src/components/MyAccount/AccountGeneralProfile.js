@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import EditBtn from "../../UI/EditBtn";
 import UserContext from "../../user/User-context";
 import ShowSetAvatarIcon from "./ShowSetAvatarIcon";
+import Spinning from "../../UI/Spinning";
 
 import "../../style/components/MyAccount/AccountGeneralProfile.css";
 
@@ -13,11 +14,14 @@ import mailIcon from "../../style/img/mail.png";
 
 function AccountGeneralProfile({ userId }) {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
+  const [dataIsLoading, setDataIsLoading] = useState(false);
+
   const userCtx = useContext(UserContext);
 
   useEffect(() => {
-    userCtx.fetchGeneralData(`/myAccount/${userId}`);
-  }, []);
+    setDataIsLoading(true);
+    userCtx.fetchGeneralData(`/myAccount/${userId}`, setDataIsLoading);
+  }, [userId]);
 
   const closeAvatarIconModel = () => {
     setAvatarIconshowModal(false);
@@ -25,38 +29,51 @@ function AccountGeneralProfile({ userId }) {
 
   return (
     <React.Fragment>
-      <div className="profile-area">
-        <div className="profile-img-container">
-          <EditBtn
-            setEditStatus={setAvatarIconshowModal}
-            className={"set-avatar-icon"}
-          />
+      {dataIsLoading ? (
+        <Spinning />
+      ) : (
+        <div className="profile-area">
+          <div className="profile-img-container">
+            <EditBtn
+              setEditStatus={setAvatarIconshowModal}
+              className={"set-avatar-icon"}
+            />
 
-          <img
-            src={`${
-              userCtx.isFetched
-                ? `data:image/png;base64,${new Buffer.from(
-                    userCtx.profileImg?.data?.data
-                  ).toString("base64")}`
-                : emptyAvatarSrc
-            } `}
-            alt="empty avatar"
-          />
-        </div>
-        <div className="user-info-area">
-          <h3>{userCtx.name}</h3>
-          <div className="location-area">
-            <img src={locationIcon} alt="location icon" />
-            <p>
-              {userCtx.city}, {userCtx.country}
-            </p>
+            <img
+              src={`${
+                userCtx.profileImg
+                  ? `data:image/png;base64,${new Buffer.from(
+                      userCtx.profileImg
+                    ).toString("base64")}`
+                  : emptyAvatarSrc
+              } `}
+              alt="empty avatar"
+            />
           </div>
-          <div className="location-area">
-            <img src={mailIcon} alt="mail icon" />
-            <p>{userCtx.email}</p>
+          <div className="user-info-area">
+            <h3 className={`${userCtx.email || "ml-name"}`}>
+              {userCtx.name ||
+                "Hi User#" +
+                  Math.floor(Math.random() * 100) +
+                  " please set your information"}
+            </h3>
+            {userCtx.country && (
+              <div className="location-area">
+                <img src={locationIcon} alt="location icon" />
+                <p>
+                  {userCtx.city}, {userCtx.country}
+                </p>
+              </div>
+            )}
+            {userCtx.email && (
+              <div className="location-area">
+                <img src={mailIcon} alt="mail icon" />
+                <p>{userCtx.email}</p>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      )}
 
       {avatarIconshowModal && (
         <ShowSetAvatarIcon

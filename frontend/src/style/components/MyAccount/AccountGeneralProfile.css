@@ -70,6 +70,10 @@
   );
 }
 
+.ml-name {
+  transform: translateY(-15px) translateX(50px);
+}
+
 @media (min-width: 1000px) {
   .profile-area {
     width: 600px;
