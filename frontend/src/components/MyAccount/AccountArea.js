@@ -25,7 +25,7 @@ function AccountArea() {
             <ProfileInfoSummary />
           </div>
           <div className="account_info">
-            <GeneralProfileInfo />
+            <GeneralProfileInfo userId={userId} />
             <CreatedProjects />
             <DonatedProjects />
 

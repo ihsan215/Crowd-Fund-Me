@@ -14,13 +14,11 @@ import mailIcon from "../../style/img/mail.png";
 
 function AccountGeneralProfile({ userId }) {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
-  const [dataIsLoading, setDataIsLoading] = useState(false);
 
   const userCtx = useContext(UserContext);
 
   useEffect(() => {
-    setDataIsLoading(true);
-    userCtx.fetchGeneralData(`/myAccount/${userId}`, setDataIsLoading);
+    userCtx.fetchGeneralData(`/myAccount/${userId}`);
   }, [userId]);
 
   const closeAvatarIconModel = () => {
@@ -29,7 +27,7 @@ function AccountGeneralProfile({ userId }) {
 
   return (
     <React.Fragment>
-      {dataIsLoading ? (
+      {userCtx.dataisLoading ? (
         <Spinning />
       ) : (
         <div className="profile-area">

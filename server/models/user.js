@@ -27,6 +27,16 @@ const userSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
+
+  jobTitle: {
+    type: String,
+    required: false,
+  },
+
+  coverLetter: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -8,11 +8,10 @@ import Spinning from "../../UI/Spinning";
 
 function ShowSetAvatarIcon({ onClose, msg, userId }) {
   const userCtx = useContext(UserContext);
-  const [dataIsLoading, setDataIsLoading] = useState(false);
 
   async function submitHandler(e) {
     e.preventDefault();
-    setDataIsLoading(true);
+
     const formData = new FormData();
     const name = e.target[0].value || userCtx.name;
     const email = e.target[1].value || userCtx.email;
@@ -24,13 +23,11 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
     formData.append("city", city);
     formData.append("profileImg", e.target[4].files[0]);
 
-    const responseData = await AJAXCall(`/myAccount/${userId}`, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData,
-    });
+    const responseData = await userCtx.sendData(
+      `/myAccount/${userId}`,
+      formData
+    );
     if (responseData.message === "ok") {
-      setDataIsLoading(false);
       onClose();
       window.location.reload();
     } else {
@@ -90,7 +87,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
             </div>
             <div className="submit-area">
               <Button type="submit" className="personel-info-sbmt-btn">
-                {dataIsLoading ? <Spinning isBtn={true} /> : "Submit"}
+                {userCtx.dataisLoading ? <Spinning isBtn={true} /> : "Submit"}
               </Button>
             </div>
           </form>

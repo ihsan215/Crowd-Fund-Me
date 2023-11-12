@@ -31,6 +31,30 @@ exports.postUserInfo = async (req, res, next) => {
   });
 };
 
+exports.postUserJobInfo = async (req, res, next) => {
+  const walletId = req.params.userId;
+
+  const query = await User.findOne({ walletId: walletId });
+  console.log(req.body.jobTitle);
+  console.log(req.body.coverLetter);
+  if (query) {
+    query.jobTitle = req.body.jobTitle;
+    query.coverLetter = req.body.coverLetter;
+    query.save();
+  } else {
+    const user = new User({
+      walletId: walletId,
+      jobTitle: req.body.jobTitle,
+      coverLetter: req.body.coverLetter,
+    });
+    user.save();
+  }
+
+  res.status(200).json({
+    message: "ok",
+  });
+};
+
 exports.getUserInfo = async (req, res, next) => {
   console.log("GET");
   const walletId = req.params.userId;
@@ -43,6 +67,8 @@ exports.getUserInfo = async (req, res, next) => {
       country: query.country,
       city: query.city,
       profileImg: query.profileImg,
+      jobTitle: query.jobTitle,
+      coverLetter: query.coverLetter,
     });
   } else {
     res.status(200).json({

@@ -4,6 +4,9 @@ export const defaultUserParameters = {
   country: undefined,
   city: undefined,
   profileImg: undefined,
+
+  jobTitle: undefined,
+  coverLetter: undefined,
 };
 
 export const userReducer = (state, action) => {
@@ -15,6 +18,8 @@ export const userReducer = (state, action) => {
         country: action.data.country,
         city: action.data.city,
         profileImg: action.data.profileImg,
+        jobTitle: action.data.jobTitle,
+        coverLetter: action.data.coverLetter,
       };
     }
 
