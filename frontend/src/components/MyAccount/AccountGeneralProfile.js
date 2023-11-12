@@ -66,7 +66,9 @@ function AccountGeneralProfile({ userId }) {
             {userCtx.email && (
               <div className="location-area">
                 <img src={mailIcon} alt="mail icon" />
-                <p>{userCtx.email}</p>
+                <p>
+                  <a href={`mailto:${userCtx.email}`}> {userCtx.email}</a>
+                </p>
               </div>
             )}
           </div>
