@@ -6,6 +6,8 @@ const Web3Context = React.createContext({
   address: undefined,
   balance: undefined,
 
+  contractInstance: undefined,
+
   walletConnect: () => {},
   disconnectWallet: () => {},
 });

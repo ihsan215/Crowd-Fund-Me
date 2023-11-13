@@ -20,6 +20,7 @@ import MyAccount from "./pages/MyAccount.js";
 import ContactUs from "./pages/Contact-Us.js";
 import Projects from "./pages/Projects.js";
 import Error from "./pages/Error.js";
+import CreatedProjects from "./pages/CreateProject.js";
 
 const router = createBrowserRouter([
   {
@@ -31,9 +32,13 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      { path: "/myAccount/:userId", element: <MyAccount /> },
+      {
+        path: "/myAccount/:userId",
+        element: <MyAccount />,
+      },
       { path: "/contactUs", element: <ContactUs /> },
       { path: "/projects", element: <Projects /> },
+      { path: "/:userId/createProject", element: <CreatedProjects /> },
     ],
   },
 ]);

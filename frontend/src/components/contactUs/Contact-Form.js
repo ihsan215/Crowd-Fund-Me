@@ -3,7 +3,7 @@ import React from "react";
 import Form from "./Form";
 import Map from "./Map";
 
-import "../../style/components/contactUs/contactUs.css";
+import "../../style/components//Forms.css";
 
 function ContactForm() {
   return (

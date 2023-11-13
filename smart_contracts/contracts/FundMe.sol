@@ -43,6 +43,9 @@ contract FundMe{
      Project[] public projects;
      mapping(address => uint8) public project_count;
      mapping(address => uint256[]) public project_mapping;
+     mapping(address => uint256) public total_foundation_mapping;
+     uint256 public total_sponsors;
+
      
      // Events
      event Created_Project(uint256 indexed id, address indexed owner, string title);
@@ -201,6 +204,9 @@ contract FundMe{
 
         // Emit Event
         emit Supported_Project(procect_id, msg.sender, msg.value);
+        total_foundation_mapping[msg.sender] += msg.value;
+        total_sponsors++;
+        
 
         return success;
     }

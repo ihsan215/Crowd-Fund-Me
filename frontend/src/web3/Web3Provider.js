@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
-
+import { ContractInfo } from "../contract/ContractInfo.js";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {
   const [web3Instance, setweb3Instance] = useState(undefined);
+  const [contractInstance, setContractInstance] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
@@ -33,6 +34,11 @@ const Web3Provider = (props) => {
   useEffect(() => {
     if (!isDisconnected && address) {
       const web3 = new Web3(window.ethereum);
+      const contractInstance = new web3.eth.Contract(
+        ContractInfo.ABI,
+        ContractInfo.ADDRESS
+      );
+      setContractInstance(contractInstance);
       setweb3Instance(web3);
       getBalance(web3);
     }
@@ -43,6 +49,7 @@ const Web3Provider = (props) => {
     isConnected: !isDisconnected,
     address,
     balance,
+    contractInstance,
     walletConnect,
     disconnectWallet,
   };

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+
+import { useParams, useNavigate } from "react-router-dom";
 import "../../style/components/MyAccount/AccountArea.css";
 
 import AccountGeneralProfile from "./AccountGeneralProfile";
@@ -13,6 +14,7 @@ import Button from "../../UI/Button";
 function AccountArea() {
   const params = useParams();
   const { userId } = params;
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -29,7 +31,12 @@ function AccountArea() {
             <CreatedProjects />
             <DonatedProjects />
 
-            <Button className="create-project-btn">Create New Project</Button>
+            <Button
+              className="create-project-btn"
+              onClick={() => navigate(`/${userId}/createProject`)}
+            >
+              Create New Project
+            </Button>
           </div>
         </div>
       </div>
