@@ -37,6 +37,27 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
+  projectsCart: {
+    projects: [
+      {
+        projectId: {
+          type: Number,
+          ref: "Project",
+          required: false,
+        },
+      },
+    ],
+  },
 });
+
+userSchema.methods.addProject = function (projectId) {
+  const updatedprojects = [...this.projectsCart.projects];
+  updatedprojects.push({
+    projectId: projectId,
+  });
+  this.projectsCart.projects = updatedprojects;
+
+  return this.save();
+};
 
 module.exports = mongoose.model("User", userSchema);

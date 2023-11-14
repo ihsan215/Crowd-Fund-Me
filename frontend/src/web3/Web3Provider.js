@@ -31,16 +31,20 @@ const Web3Provider = (props) => {
     [address]
   );
 
+  async function setWeb3Values() {
+    const web3 = await new Web3(window.ethereum);
+    const contractInstance = await new web3.eth.Contract(
+      ContractInfo.ABI,
+      ContractInfo.ADDRESS
+    );
+    setContractInstance(contractInstance);
+    setweb3Instance(web3);
+    getBalance(web3);
+  }
+
   useEffect(() => {
     if (!isDisconnected && address) {
-      const web3 = new Web3(window.ethereum);
-      const contractInstance = new web3.eth.Contract(
-        ContractInfo.ABI,
-        ContractInfo.ADDRESS
-      );
-      setContractInstance(contractInstance);
-      setweb3Instance(web3);
-      getBalance(web3);
+      setWeb3Values();
     }
   }, [isDisconnected, address, getBalance]);
 

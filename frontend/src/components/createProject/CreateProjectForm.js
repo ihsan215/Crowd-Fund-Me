@@ -23,10 +23,28 @@ function CreateProjectForm() {
       const categoria = e.target[3].value;
       const projectMaterial = e.target[5].value;
       const projectSummary = e.target[6].value;
+      formData.append("walletId", web3Ctx.address);
       formData.append("mainPageImg", mainPageImg);
       formData.append("categoria", categoria);
       formData.append("projectMaterial", projectMaterial);
       formData.append("projectSummary", projectSummary);
+
+      const projectTitle = e.target[0].value;
+      const projectDesc = e.target[1].value;
+      const minContrinute = web3Ctx.web3Instance.utils.toWei(
+        `${e.target[4].value}`,
+        "ether"
+      );
+      console.log(projectId);
+
+      await web3Ctx.contractInstance.methods
+        .create_project("deneme", "deneme2", 12)
+        .send({
+          from: web3Ctx.address,
+          gas: "1500000",
+        });
+
+      console.log("end");
 
       const responseData = await userCtx.sendData(
         `/uploadProject/${projectId}`,
