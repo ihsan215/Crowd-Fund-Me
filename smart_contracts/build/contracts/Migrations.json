@@ -1402,12 +1402,12 @@
     "11155111": {
       "events": {},
       "links": {},
-      "address": "0x311d17f86cbA571A67fa9Be412A7154445AfA57c",
-      "transactionHash": "0xb5a258cb547eceed8316fc1cb26d4ce52764c4bde4b738b02372d6f21af47762"
+      "address": "0x4e8fD1282e437C85c04b9B5d1aB5b79927c087C8",
+      "transactionHash": "0xc605f67f55fefaa70b5ee5f68f773a3eacf53466ff9c65e5d04e85439acdcb79"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-11-13T15:20:27.038Z",
+  "updatedAt": "2023-11-14T12:29:39.279Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

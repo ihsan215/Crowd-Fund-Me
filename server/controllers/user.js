@@ -56,7 +56,6 @@ exports.postUserJobInfo = async (req, res, next) => {
 };
 
 exports.getUserInfo = async (req, res, next) => {
-  console.log("GET");
   const walletId = req.params.userId;
   const query = await User.findOne({ walletId: walletId });
   if (query) {

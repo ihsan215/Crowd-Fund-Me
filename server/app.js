@@ -6,9 +6,11 @@ const { CONNECT_API } = require("./util/connectDB");
 
 const app = express();
 const accountRoutes = require("./routes/account");
+const projectRoutes = require("./routes/project");
 
 app.use(bodyParser.json()); // application/json
 app.use(accountRoutes);
+app.use(projectRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

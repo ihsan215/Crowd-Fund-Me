@@ -1,14 +1,55 @@
 import React, { useContext } from "react";
 import Web3Context from "../../web3/Web3-context";
+import UserContext from "../../user/User-context";
+
+import Spinning from "../../UI/Spinning";
 import Button from "../../UI/Button";
 
 function CreateProjectForm() {
   const web3Ctx = useContext(Web3Context);
+  const userCtx = useContext(UserContext);
+
+  async function submitFunc(e) {
+    try {
+      // get project ID
+      const projectId = Number(
+        await web3Ctx.contractInstance.methods.Project_ID_Count().call({
+          from: web3Ctx.address,
+        })
+      );
+
+      const formData = new FormData();
+      const mainPageImg = e.target[2].value;
+      const categoria = e.target[3].value;
+      const projectMaterial = e.target[5].value;
+      const projectSummary = e.target[6].value;
+      formData.append("mainPageImg", mainPageImg);
+      formData.append("categoria", categoria);
+      formData.append("projectMaterial", projectMaterial);
+      formData.append("projectSummary", projectSummary);
+
+      const responseData = await userCtx.sendData(
+        `/uploadProject/${projectId}`,
+        formData
+      );
+
+      if (responseData.message === "ok") {
+        console.log("end save");
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  function submitHandler(e) {
+    e.preventDefault();
+    submitFunc(e);
+  }
 
   return (
     <React.Fragment>
       <h1>Create Project</h1>
-      <form className="contact-form">
+      <form className="contact-form" onSubmit={submitHandler}>
         <div className="input__item">
           <label for="pTitle">Project Title</label>
           <input type="text" id="pTitle" placeholder="Enter Project Title" />
@@ -34,13 +75,13 @@ function CreateProjectForm() {
           <div className="input__item">
             <label for="tel">Categoria</label>
             <select class="form-select">
-              <option value="1">Arts</option>
-              <option value="1">Illustrarion</option>
-              <option value="1">Tech</option>
-              <option value="1">Film</option>
-              <option value="1">Games</option>
-              <option value="1">Music</option>
-              <option value="1">Publishing</option>
+              <option value="Arts">Arts</option>
+              <option value="Illustrarion">Illustrarion</option>
+              <option value="Tech">Tech</option>
+              <option value="Film">Film</option>
+              <option value="Games">Games</option>
+              <option value="Music">Music</option>
+              <option value="Publishing">Publishing</option>
             </select>
           </div>
           <div className="input__item">
@@ -72,7 +113,7 @@ function CreateProjectForm() {
           />
         </div>
         <Button type="submit" className="submit__btn">
-          Submit
+          {userCtx.dataisLoading ? <Spinning isBtn={true} /> : "Submit"}
         </Button>
       </form>
     </React.Fragment>

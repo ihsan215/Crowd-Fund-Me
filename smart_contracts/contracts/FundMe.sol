@@ -8,7 +8,7 @@ contract FundMe{
     address public admin;
     uint8 private constant MAX_UNSOLVED_REQUEST = 5;
     uint8 private constant MAX_PROJECT = 5;
-    uint256 private Project_ID_Count;
+    uint256 public Project_ID_Count;
     uint256 private constant DECIMAL = 10^18;
     
     // Request struct project owner can create MAX_UNSOLVED_REQUEST unsolved request
