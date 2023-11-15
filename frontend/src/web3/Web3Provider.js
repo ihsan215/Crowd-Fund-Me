@@ -3,6 +3,7 @@ import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
 import { ContractInfo } from "../contract/ContractInfo.js";
+import { useContractWrite } from "wagmi";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {
@@ -12,6 +13,17 @@ const Web3Provider = (props) => {
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
   const { address, isDisconnected } = useAccount();
+
+  // create project
+  const {
+    data: createPrjectdata,
+    status: createPrjectStatus,
+    write: createProjectWrite,
+  } = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "create_project",
+  });
 
   const walletConnect = () => {
     open({ view: "Networks" });
@@ -32,8 +44,8 @@ const Web3Provider = (props) => {
   );
 
   async function setWeb3Values() {
-    const web3 = await new Web3(window.ethereum);
-    const contractInstance = await new web3.eth.Contract(
+    const web3 = new Web3(window.ethereum);
+    const contractInstance = new web3.eth.Contract(
       ContractInfo.ABI,
       ContractInfo.ADDRESS
     );
@@ -48,12 +60,39 @@ const Web3Provider = (props) => {
     }
   }, [isDisconnected, address, getBalance]);
 
+  function setMessage(setClass, setMsg) {
+    if (createPrjectStatus === "error") {
+      setClass("error");
+      setMsg("Transaction has been failed !");
+    } else if (createPrjectStatus === "success") {
+      setClass("confirm");
+      setMsg(
+        "Transaction request has been sent. Please wait pending status and check transaction your wallet"
+      );
+    } else if (createPrjectStatus === "loading") {
+      setClass("loading");
+      setMsg("The process has begun, please wait!");
+    }
+    setTimeout(() => {
+      setClass("");
+      setMsg("");
+    }, 10000);
+  }
+
   const web3Context = {
     web3Instance,
     isConnected: !isDisconnected,
     address,
     balance,
     contractInstance,
+
+    create_project: {
+      createPrjectdata,
+      setMessage,
+      createPrjectStatus,
+      createProjectWrite,
+    },
+
     walletConnect,
     disconnectWallet,
   };

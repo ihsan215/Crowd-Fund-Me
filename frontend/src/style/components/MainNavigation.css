@@ -83,6 +83,40 @@
   width: min-content;
 }
 
+.custom-message {
+  width: 100%;
+  display: none;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 30px;
+  background-color: #2a30092f;
+  height: 5rem;
+  opacity: 0;
+  transition: linear 1s;
+}
+
+.error {
+  display: flex;
+  background-color: #ff9494;
+  color: #202020;
+  opacity: 1;
+}
+
+.confirm {
+  display: flex;
+  background-color: #198754;
+  color: aliceblue;
+  opacity: 1;
+}
+
+.loading {
+  display: flex;
+  background-color: #eed202;
+  color: #202020;
+  opacity: 1;
+}
+
 .search {
   display: block;
   width: 25px;

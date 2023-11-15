@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Web3Context from "../../web3/Web3-context";
 import UserContext from "../../user/User-context";
 
@@ -8,53 +9,64 @@ import Button from "../../UI/Button";
 function CreateProjectForm() {
   const web3Ctx = useContext(Web3Context);
   const userCtx = useContext(UserContext);
+  const formRef = useRef(undefined);
+  const navigate = useNavigate();
+
+  const [sendServer, setSendServer] = useState(false);
+
+  useEffect(() => {
+    if (web3Ctx.create_project.createPrjectStatus === "success" && sendServer) {
+      sentServerToData();
+      setSendServer(false);
+    }
+  }, [web3Ctx.create_project.createPrjectStatus]);
+
+  async function sentServerToData() {
+    // get project ID
+    const projectId = Number(
+      await web3Ctx.contractInstance.methods.Project_ID_Count().call({
+        from: web3Ctx.address,
+      })
+    );
+
+    const formData = new FormData();
+    const mainPageImg = formRef.current[2].value;
+    const categoria = formRef.current[3].value;
+    const projectMaterial = formRef.current[5].value;
+    const projectSummary = formRef.current[6].value;
+    formData.append("walletId", web3Ctx.address);
+    formData.append("mainPageImg", mainPageImg);
+    formData.append("categoria", categoria);
+    formData.append("projectMaterial", projectMaterial);
+    formData.append("projectSummary", projectSummary);
+    formData.append("hash", web3Ctx.create_project.createPrjectdata.hash);
+    const responseData = await userCtx.sendData(
+      `/uploadProject/${projectId}`,
+      formData
+    );
+
+    if (responseData.message === "ok") {
+      setTimeout(() => {
+        navigate(`/myAccount/${web3Ctx.address}`);
+      }, 5000);
+    }
+  }
 
   async function submitFunc(e) {
     try {
-      // get project ID
-      const projectId = Number(
-        await web3Ctx.contractInstance.methods.Project_ID_Count().call({
-          from: web3Ctx.address,
-        })
-      );
-
-      const formData = new FormData();
-      const mainPageImg = e.target[2].value;
-      const categoria = e.target[3].value;
-      const projectMaterial = e.target[5].value;
-      const projectSummary = e.target[6].value;
-      formData.append("walletId", web3Ctx.address);
-      formData.append("mainPageImg", mainPageImg);
-      formData.append("categoria", categoria);
-      formData.append("projectMaterial", projectMaterial);
-      formData.append("projectSummary", projectSummary);
-
       const projectTitle = e.target[0].value;
       const projectDesc = e.target[1].value;
       const minContrinute = web3Ctx.web3Instance.utils.toWei(
         `${e.target[4].value}`,
         "ether"
       );
-      console.log(projectId);
-
-      await web3Ctx.contractInstance.methods
-        .create_project("deneme", "deneme2", 12)
-        .send({
-          from: web3Ctx.address,
-          gas: "1500000",
-        });
-
-      console.log("end");
-
-      const responseData = await userCtx.sendData(
-        `/uploadProject/${projectId}`,
-        formData
-      );
-
-      if (responseData.message === "ok") {
-        console.log("end save");
-      }
+      web3Ctx.create_project.createProjectWrite({
+        args: [projectTitle, projectDesc, minContrinute],
+        from: web3Ctx.address,
+      });
+      setSendServer(true);
     } catch (error) {
+      setSendServer(false);
       throw new Error(error.message);
     }
   }
@@ -67,7 +79,7 @@ function CreateProjectForm() {
   return (
     <React.Fragment>
       <h1>Create Project</h1>
-      <form className="contact-form" onSubmit={submitHandler}>
+      <form className="contact-form" onSubmit={submitHandler} ref={formRef}>
         <div className="input__item">
           <label for="pTitle">Project Title</label>
           <input type="text" id="pTitle" placeholder="Enter Project Title" />

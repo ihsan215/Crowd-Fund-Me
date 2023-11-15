@@ -6,11 +6,13 @@ exports.postProject = async (req, res, next) => {
   const walletId = req.body.walletId;
   const query = await Project.findOne({ projectId: projectId });
   const queryUser = await User.findOne({ walletId: walletId });
+
   if (query) {
     query.mainPageImg = req.body.mainPageImg;
     query.categoria = req.body.categoria;
     query.projectMaterial = req.body.projectMaterial;
     query.projectSummary = req.body.projectSummary;
+    query.hash = req.body.hash;
     await queryUser.addProject(projectId);
     await query.save();
   } else {
@@ -20,6 +22,7 @@ exports.postProject = async (req, res, next) => {
       mainPageImg: req.body.mainPageImg,
       projectSummary: req.body.projectSummary,
       projectMaterial: req.body.projectMaterial,
+      hash: req.body.hash,
     });
     await queryUser.addProject(projectId);
     await project.save();

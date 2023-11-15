@@ -84,11 +84,11 @@ contract FundMe{
         success = false;    
 
         // Check project count (only create MAX_PROJECT)
-        if(project_count[msg.sender] >= MAX_PROJECT){
-               revert TooMuchProjectRequest({
-                current_project_count: project_count[msg.sender]
-            });
-        }
+        // if(project_count[msg.sender] >= MAX_PROJECT){
+        //        revert TooMuchProjectRequest({
+        //         current_project_count: project_count[msg.sender]
+        //     });
+        // }
 
         // create project
         Project storage project = projects.push();

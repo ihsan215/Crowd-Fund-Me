@@ -23,6 +23,10 @@ const projectSchema = new Schema({
     type: String,
     required: false,
   },
+  hash: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Project", projectSchema);

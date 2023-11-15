@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import WalletConnectBtn from "./WalletConnectBtn.js";
 import "../style/components/MainNavigation.css";
 import logoIcon from "../style/img/logo.svg";
+import Web3Context from "../web3/Web3-context.js";
 
 function MainNavigation() {
   const [isMenuDisplay, setIsMenuDisplay] = useState(false);
+  const [msgClassName, setMsgClassName] = useState("");
+  const [customMessage, setCustomMessage] = useState("");
+
+  const web3Ctx = useContext(Web3Context);
 
   const menuBtn = () => {
     setIsMenuDisplay(!isMenuDisplay);
   };
+
+  useEffect(() => {
+    web3Ctx.create_project.setMessage(setMsgClassName, setCustomMessage);
+  }, [web3Ctx.create_project.createPrjectStatus]);
+
+  function closeMsgFunc() {
+    setMsgClassName("");
+    setCustomMessage("");
+  }
 
   return (
     <React.Fragment>
@@ -60,6 +74,16 @@ function MainNavigation() {
         </button>
       </nav>
       <div className={`menu-area ${isMenuDisplay ? "" : "dp-option"}`}></div>
+
+      <div className={`custom-message ${msgClassName}`}>
+        <h4>{customMessage}</h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          onClick={closeMsgFunc}
+        ></button>
+      </div>
     </React.Fragment>
   );
 }
