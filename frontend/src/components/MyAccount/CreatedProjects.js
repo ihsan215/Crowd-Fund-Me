@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import "../../style/components/MyAccount/ProjectsArea.css";
+import Web3Context from "../../web3/Web3-context";
 
 function CreatedProjects() {
+  const web3Ctx = useContext(Web3Context);
+  const [ProjectSumm, setProjectSumm] = useState([]);
+
+  const getProjectData = async () => {
+    if (web3Ctx.contractInstance?.methods) {
+      const projects = await web3Ctx.contractInstance?.methods
+        .returnProject()
+        .call({
+          from: web3Ctx.address,
+        });
+      console.log(projects);
+      if (projects) {
+        projects.map(async (item) => {
+          const id = Number(Number(item));
+          const project = await web3Ctx.contractInstance?.methods
+            .projects(id)
+            .call({
+              from: web3Ctx.address,
+            });
+          const title = project.title;
+          const totalFund = Number(project.current_amount);
+
+          setProjectSumm((ProjectSumm) => [
+            ...ProjectSumm,
+            { id, title, totalFund },
+          ]);
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getProjectData();
+  }, []);
+
   return (
     <React.Fragment>
       <div className="table-area">
@@ -16,31 +52,16 @@ function CreatedProjects() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>1000</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>2000</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Jacob</td>
-              <td>2000</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Jacob</td>
-              <td>2000</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Jacob</td>
-              <td>2000</td>
-            </tr>
+            {ProjectSumm.map((item) => {
+              console.log(ProjectSumm);
+              return (
+                <tr>
+                  <th scope="row">{item.id}</th>
+                  <td>{item.title}</td>
+                  <td>{item.totalFund}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
