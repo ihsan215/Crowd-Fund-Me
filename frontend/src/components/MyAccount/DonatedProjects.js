@@ -13,6 +13,7 @@ function CreatedProjects() {
               <th scope="col">#</th>
               <th scope="col">Project Title</th>
               <th scope="col">Donation Amount</th>
+              <th scope="col">Project Link</th>
             </tr>
           </thead>
           <tbody>

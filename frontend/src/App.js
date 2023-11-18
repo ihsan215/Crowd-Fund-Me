@@ -21,6 +21,7 @@ import ContactUs from "./pages/Contact-Us.js";
 import Projects from "./pages/Projects.js";
 import Error from "./pages/Error.js";
 import CreatedProjects from "./pages/CreateProject.js";
+import Project from "./pages/Project.js";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "/contactUs", element: <ContactUs /> },
       { path: "/projects", element: <Projects /> },
       { path: "/:userId/createProject", element: <CreatedProjects /> },
+      { path: "/:userId/:projectId", element: <Project /> },
     ],
   },
 ]);

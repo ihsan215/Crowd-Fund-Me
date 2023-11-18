@@ -83,7 +83,12 @@ function CreateProjectForm() {
       <form className="contact-form" onSubmit={submitHandler} ref={formRef}>
         <div className="input__item">
           <label for="pTitle">Project Title</label>
-          <input type="text" id="pTitle" placeholder="Enter Project Title" />
+          <input
+            type="text"
+            id="pTitle"
+            placeholder="Enter Project Title"
+            required
+          />
         </div>
         <div className="input__item">
           <label for="pDesc">Project Description</label>
@@ -92,6 +97,7 @@ function CreateProjectForm() {
             maxLength={60}
             id="pDesc"
             placeholder="Use max 100 characters"
+            required
           />
         </div>
         <div className="input__item">
@@ -100,6 +106,7 @@ function CreateProjectForm() {
             type="text"
             id="pImg"
             placeholder="Enter your main-page img URL"
+            required
           />
         </div>
         <div className="input__item-contact_info_group spc-10">
@@ -122,6 +129,7 @@ function CreateProjectForm() {
               step={0.001}
               id="minCont"
               placeholder="Enter your minimum foundation value in ETH"
+              required
             />
           </div>
         </div>
@@ -132,6 +140,7 @@ function CreateProjectForm() {
             type="text"
             id="pMaterial"
             placeholder="Please enter your project URL website/video ... vs"
+            required
           />
         </div>
         <div className="input__item">
@@ -141,6 +150,7 @@ function CreateProjectForm() {
             maxLength={1200}
             id="msg"
             placeholder="Project Summary | 1200 characters"
+            required
           />
         </div>
         <Button type="submit" className="submit__btn">

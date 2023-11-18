@@ -32,3 +32,23 @@ exports.postProject = async (req, res, next) => {
     message: "ok",
   });
 };
+
+exports.getproject = async (req, res, next) => {
+  const projectId = req.params.projectID;
+  const query = await Project.findOne({ projectId: projectId });
+  if (query) {
+    res.status(200).json({
+      message: "ok",
+      mainPageImg: query.mainPageImg,
+      categoria: query.categoria,
+      projectMaterial: query.projectMaterial,
+      city: query.city,
+      projectSummary: query.projectSummary,
+      hash: query.hash,
+    });
+  } else {
+    res.status(200).json({
+      message: "not found",
+    });
+  }
+};

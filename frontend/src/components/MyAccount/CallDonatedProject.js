@@ -3,6 +3,7 @@ import Web3 from "web3";
 import { ContractInfo } from "../../contract/ContractInfo";
 import "../../style/components/MyAccount/ProjectsArea.css";
 import Web3Context from "../../web3/Web3-context";
+import { Link } from "react-router-dom";
 
 function CallDonatedProject() {
   const web3Ctx = useContext(Web3Context);
@@ -64,6 +65,12 @@ function CallDonatedProject() {
               <th scope="row">{item.id}</th>
               <td>{item.title}</td>
               <td>{item.totalDonate}</td>
+              <Link
+                style={{ textDecoration: "none", color: "#202020" }}
+                to={`/${web3Ctx.address}/${item.id}`}
+              >
+                Go to project&rarr;
+              </Link>
             </tr>
           );
         })
