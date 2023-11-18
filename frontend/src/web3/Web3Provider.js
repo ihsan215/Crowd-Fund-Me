@@ -3,7 +3,7 @@ import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
 import { ContractInfo } from "../contract/ContractInfo.js";
-import { useContractWrite } from "wagmi";
+import { useContractWrite, useContractRead } from "wagmi";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {

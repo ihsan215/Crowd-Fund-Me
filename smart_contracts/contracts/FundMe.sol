@@ -43,7 +43,10 @@ contract FundMe{
      Project[] public projects;
      mapping(address => uint8) public project_count;
      mapping(address => uint256[]) public project_mapping;
+     mapping(address => uint256[]) public donated_project_mapping;
+     mapping(address => mapping(uint256 => bool)) public check_is_donated;
      mapping(address => uint256) public total_foundation_mapping;
+     mapping(address => mapping(uint256=>uint256)) public project_total_foundation_mapping;
      uint256 public total_sponsors;
 
      
@@ -164,13 +167,13 @@ contract FundMe{
     }
 
     // support project 
-    function support_project(uint256 procect_id) project_check(procect_id) public payable returns(bool success){
+    function support_project(uint256 project_id) project_check(project_id) public payable returns(bool success){
         
         // Initialize process
         success = false;
 
         // Create project instance
-        Project storage projectInstance = projects[procect_id];
+        Project storage projectInstance = projects[project_id];
 
         // check required balance
         uint256 required_balance;
@@ -203,10 +206,17 @@ contract FundMe{
         projectInstance.current_amount += msg.value;
 
         // Emit Event
-        emit Supported_Project(procect_id, msg.sender, msg.value);
+        emit Supported_Project(project_id, msg.sender, msg.value);
         total_foundation_mapping[msg.sender] += msg.value;
+        project_total_foundation_mapping[msg.sender][project_id] += msg.value;
         total_sponsors++;
-        
+
+        bool is_donated = check_is_donated[msg.sender][project_id];
+        if(!is_donated){
+        donated_project_mapping[msg.sender].push(project_id);
+        check_is_donated[msg.sender][project_id] = true;
+        }
+
 
         return success;
     }
@@ -311,6 +321,14 @@ contract FundMe{
     // max return size 5
     function returnProject() public view returns(uint256[] memory){
         return project_mapping[msg.sender];
+    }
+
+    function returnDonatedProject() public view returns(uint256[] memory){
+        return donated_project_mapping[msg.sender];
+    }
+
+    function returnDonatedAmountAnProject(uint256 project_id) public view returns(uint256 ){
+        return project_total_foundation_mapping[msg.sender][project_id];
     }
 
     function supponsor_check(address _sponsor, uint256 _procect_id) public view returns(bool status) {
