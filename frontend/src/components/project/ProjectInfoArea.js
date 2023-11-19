@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import UserContext from "../../user/User-context";
+import Web3Context from "../../web3/Web3-context";
 import { getProjectFromID } from "./ProjectManage";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import CopyIcon from "../../UI/CopyIcon";
 import walletAddressFormat from "../../auxiliary/walletAddressFormat";
@@ -11,12 +13,15 @@ import RequestModal from "./RequestModal";
 
 function ProjectInfoArea({ project, projectId }) {
   const [dataOnServer, setDataOnServer] = useState({});
+  const [publicView, setPublicView] = useState(false);
   const userCtx = useContext(UserContext);
+  const web3Ctx = useContext(Web3Context);
   const [minContEth, setMinContEth] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(0);
   const [requiredAmount, setRequiredAmount] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
   const [showModal, setshowModal] = useState(false);
+  const { userId } = useParams();
 
   const getProjectInfo = async () => {
     const web3 = new Web3(window.ethereum);
@@ -36,7 +41,6 @@ function ProjectInfoArea({ project, projectId }) {
     setMinContEth(minContEth);
     setCurrentAmount(currentAmount);
     setRequiredAmount(requiredAmount);
-    console.log(project);
   };
 
   const clickCopyBoard = () => {
@@ -50,6 +54,12 @@ function ProjectInfoArea({ project, projectId }) {
   useState(() => {
     getProjectInfo();
     userCtx.fetchGeneralData(`/myAccount/${project.project_owner}`);
+    console.log(project.project_owner, userId);
+    if (web3Ctx.address == project.project_owner) {
+      setPublicView(false);
+    } else {
+      setPublicView(true);
+    }
   }, []);
 
   const closeModel = () => {
@@ -90,7 +100,7 @@ function ProjectInfoArea({ project, projectId }) {
           </div>
           <div className="budget-item">
             <h5>Project ID</h5>
-            <p>{projectId}</p>
+            <p># {projectId}</p>
           </div>
           <div className="budget-item">
             <h5>Project Status</h5>
@@ -138,10 +148,13 @@ function ProjectInfoArea({ project, projectId }) {
             projectId={projectId}
           />
         </div>
-
-        <div className="project-info-area__item info-area__btn-area">
-          <Button onClick={createProjectHandle}>Create Project Request</Button>
-        </div>
+        {!publicView && (
+          <div className="project-info-area__item info-area__btn-area">
+            <Button onClick={createProjectHandle}>
+              Create Project Request
+            </Button>
+          </div>
+        )}
       </div>
       {showModal && (
         <RequestModal

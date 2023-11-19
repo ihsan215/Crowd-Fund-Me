@@ -5,7 +5,7 @@ import "../../style/components/MyAccount/ProjectsArea.css";
 import Web3Context from "../../web3/Web3-context";
 import { Link } from "react-router-dom";
 
-function CallProjectSumm() {
+function CallProjectSumm({ userId }) {
   const web3Ctx = useContext(Web3Context);
   const [ProjectSumm, setProjectSumm] = useState([]);
 
@@ -17,7 +17,7 @@ function CallProjectSumm() {
     );
 
     const projects = await contractInstance.methods.returnProject().call({
-      from: web3Ctx.address,
+      from: userId,
     });
 
     if (projects) {
@@ -60,7 +60,7 @@ function CallProjectSumm() {
               <td>
                 <Link
                   style={{ textDecoration: "none", color: "#202020" }}
-                  to={`/${web3Ctx.address}/${item.id}`}
+                  to={`/${userId}/${item.id}`}
                 >
                   Go to project&rarr;
                 </Link>

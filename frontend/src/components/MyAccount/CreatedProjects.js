@@ -4,7 +4,7 @@ import "../../style/components/MyAccount/ProjectsArea.css";
 
 import CallProjectSumm from "./CallProjectSumm";
 
-function CreatedProjects() {
+function CreatedProjects({ userId }) {
   return (
     <React.Fragment>
       <div className="table-area">
@@ -19,7 +19,7 @@ function CreatedProjects() {
             </tr>
           </thead>
           <tbody>
-            <CallProjectSumm />
+            <CallProjectSumm userId={userId} />
           </tbody>
         </table>
       </div>

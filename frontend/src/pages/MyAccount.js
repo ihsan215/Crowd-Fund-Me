@@ -5,7 +5,7 @@ import AccountArea from "../components/MyAccount/AccountArea";
 function MyAccount() {
   return (
     <React.Fragment>
-      <AccountArea></AccountArea>
+      <AccountArea />
     </React.Fragment>
   );
 }

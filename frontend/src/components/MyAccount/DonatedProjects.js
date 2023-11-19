@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/components/MyAccount/ProjectsArea.css";
 import CallDonatedProject from "./CallDonatedProject";
 
-function CreatedProjects() {
+function CreatedProjects({ userId }) {
   return (
     <React.Fragment>
       <div className="table-area">
@@ -17,7 +17,7 @@ function CreatedProjects() {
             </tr>
           </thead>
           <tbody>
-            <CallDonatedProject />
+            <CallDonatedProject userId={userId} />
           </tbody>
         </table>
       </div>

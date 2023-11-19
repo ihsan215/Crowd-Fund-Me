@@ -7,7 +7,7 @@ import Spinning from "../../UI/Spinning";
 
 import "../../style/components/MyAccount/GeneralProfileInfo.css";
 
-function GeneralProfileInfo({ userId }) {
+function GeneralProfileInfo({ userId, publicView }) {
   const [profileAreaShowModal, setProfileAreaShowModal] = useState(false);
   const userCtx = useContext(UserContext);
 
@@ -23,10 +23,12 @@ function GeneralProfileInfo({ userId }) {
         <div className="general-profile-area-detailed">
           <div className="edit-and-title-area">
             <h3>{userCtx.jobTitle || "No Title"}</h3>
-            <EditBtn
-              setEditStatus={setProfileAreaShowModal}
-              className={"profile__icon"}
-            />
+            {!publicView && (
+              <EditBtn
+                setEditStatus={setProfileAreaShowModal}
+                className={"profile__icon"}
+              />
+            )}
           </div>
 
           <p>{userCtx.coverLetter || "Plase set your Info"}</p>

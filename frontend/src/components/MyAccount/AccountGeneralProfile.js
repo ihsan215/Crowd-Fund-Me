@@ -12,7 +12,7 @@ import emptyAvatarSrc from "../../style/img/empty_avatar.png";
 import locationIcon from "../../style/img/location.png";
 import mailIcon from "../../style/img/mail.png";
 
-function AccountGeneralProfile({ userId }) {
+function AccountGeneralProfile({ userId, publicView }) {
   const [avatarIconshowModal, setAvatarIconshowModal] = useState(false);
 
   const userCtx = useContext(UserContext);
@@ -32,10 +32,12 @@ function AccountGeneralProfile({ userId }) {
       ) : (
         <div className="profile-area">
           <div className="profile-img-container">
-            <EditBtn
-              setEditStatus={setAvatarIconshowModal}
-              className={"set-avatar-icon"}
-            />
+            {!publicView && (
+              <EditBtn
+                setEditStatus={setAvatarIconshowModal}
+                className={"set-avatar-icon"}
+              />
+            )}
 
             <img
               src={`${
