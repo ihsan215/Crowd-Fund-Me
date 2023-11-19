@@ -35,8 +35,7 @@ exports.postUserJobInfo = async (req, res, next) => {
   const walletId = req.params.userId;
 
   const query = await User.findOne({ walletId: walletId });
-  console.log(req.body.jobTitle);
-  console.log(req.body.coverLetter);
+
   if (query) {
     query.jobTitle = req.body.jobTitle;
     query.coverLetter = req.body.coverLetter;
