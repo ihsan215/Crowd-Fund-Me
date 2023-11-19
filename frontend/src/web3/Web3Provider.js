@@ -3,7 +3,7 @@ import Web3Context from "./Web3-context.js";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
 import { ContractInfo } from "../contract/ContractInfo.js";
-import { useContractWrite, useContractRead } from "wagmi";
+import { useContractWrite } from "wagmi";
 import Web3 from "web3";
 
 const Web3Provider = (props) => {
@@ -23,6 +23,17 @@ const Web3Provider = (props) => {
     address: ContractInfo.ADDRESS,
     abi: ContractInfo.ABI,
     functionName: "create_project",
+  });
+
+  // create project
+  const {
+    data: createRequstdata,
+    status: createRequestStatus,
+    write: createRequestWrite,
+  } = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "create_request",
   });
 
   const walletConnect = () => {
@@ -91,6 +102,12 @@ const Web3Provider = (props) => {
       setMessage,
       createPrjectStatus,
       createProjectWrite,
+    },
+
+    create_request: {
+      createRequstdata,
+      createRequestStatus,
+      createRequestWrite,
     },
 
     walletConnect,

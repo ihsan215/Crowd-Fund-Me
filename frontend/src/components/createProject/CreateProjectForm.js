@@ -60,7 +60,7 @@ function CreateProjectForm() {
         `${e.target[4].value}`,
         "ether"
       );
-      console.log("deneme");
+
       web3Ctx.create_project.createProjectWrite({
         args: [projectTitle, projectDesc, minContrinute],
         from: web3Ctx.address,

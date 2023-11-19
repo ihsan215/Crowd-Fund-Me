@@ -7,9 +7,13 @@ function ProjectInfo() {
     <React.Fragment>
       <div
         className="container"
-        style={{ marginTop: "7rem", marginBottom: "5rem" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "5rem",
+          backgroundColor: "red",
+        }}
       >
-        <div className="row info-area">
+        <div className="row">
           <div
             className="col-lg-5 d-flex-c"
             style={{
@@ -26,11 +30,11 @@ function ProjectInfo() {
             </h3>
           </div>
           <div
-            className="col-lg d-flex-c"
+            className="col-lg-7 d-flex-c"
             style={{
-              backgroundColor: "blue",
               textAlign: "right",
               padding: "0",
+              backgroundColor: "red",
             }}
           >
             <img src={imgSrc} alt="bg" style={{ width: "100%" }} />

@@ -1,7 +1,7 @@
 import React from "react";
 import "./CopyIcon.css";
 
-function CopyIcon({ onClick, isCopied, className }) {
+function CopyIcon({ onClick, isCopied, className, modalClass }) {
   return (
     <React.Fragment>
       <svg
@@ -20,7 +20,7 @@ function CopyIcon({ onClick, isCopied, className }) {
       </svg>
 
       <div
-        className={`copied-area ${
+        className={`copied-area ${modalClass} ${
           isCopied ? "copied-area-show" : "copied-area-hide"
         }`}
       >
