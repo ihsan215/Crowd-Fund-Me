@@ -70,6 +70,10 @@ function ProjectInfoArea({ project, projectId }) {
     setshowModal(true);
   };
 
+  const supportProjectHandle = () => {
+    console.log("supoort project");
+  };
+
   return (
     <React.Fragment>
       <div className="project-info-area">
@@ -148,14 +152,28 @@ function ProjectInfoArea({ project, projectId }) {
             projectId={projectId}
           />
         </div>
-        {!publicView && (
-          <div className="project-info-area__item info-area__btn-area">
-            <Button onClick={createProjectHandle}>
-              Create Project Request
-            </Button>
-          </div>
-        )}
+
+        <div className="project-info-area__item info-area__btn-area">
+          {!publicView ? (
+            <div className="project-info-area__item info-area__btn-area">
+              <Button onClick={createProjectHandle}>
+                Create Project Request
+              </Button>
+            </div>
+          ) : (
+            <form
+              onSubmit={supportProjectHandle}
+              className="project-info-area__item info-area__btn-area btn-area-support-form"
+            >
+              <input className="SuportAmounLabel" type="number" required />
+              <Button className="SupportBtn" type="submit">
+                Support Project
+              </Button>
+            </form>
+          )}
+        </div>
       </div>
+
       {showModal && (
         <RequestModal
           onClose={closeModel}
