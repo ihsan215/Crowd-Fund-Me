@@ -1,46 +1,28 @@
 import React, { useState, useEffect } from "react";
 import ProjectCart from "../../UI/ProjectCart.js";
 import { useLocation } from "react-router-dom";
-
-import { PopularProjects } from "../../auxiliary/GetProjects";
-
+import { getPopularProjects } from "../../auxiliary/GetProjects";
 import leftIcon from "../../style/img/left.png";
 import rightIcon from "../../style/img/right.png";
-
-function displayProject(activeSlides) {
-  return PopularProjects.map((item) => {
-    return (
-      <div
-        className={`project-item ${
-          activeSlides.includes(item.id) ? "dp" : "hide"
-        } ${
-          item.id === activeSlides[0]
-            ? "bn-slide-l"
-            : item.id === activeSlides[1]
-            ? "current-slide"
-            : "bn-slide-r"
-        }`}
-      >
-        <ProjectCart
-          key={item.id}
-          title={item.title}
-          description={item.description}
-          url={item.url}
-          author={item.author}
-          className="project-cart"
-        />
-      </div>
-    );
-  });
-}
+import Spinning from "../../UI/Spinning.js";
 
 function ProjectSlides() {
   const location = useLocation();
+  const [PopularProjects, setPopularProjects] = useState([]);
+
+  async function getProjects() {
+    const PopularProjects = await getPopularProjects();
+    setPopularProjects(PopularProjects);
+  }
 
   useEffect(() => {
     const elementId = location.hash.substring(1); // Remove the leading '#' from the URL hash
     scrollToElement(elementId);
   }, [location]);
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   const scrollToElement = (elementId) => {
     const element = document.getElementById(elementId);
@@ -100,7 +82,36 @@ function ProjectSlides() {
           <img src={leftIcon} alt="left-icon" />
         </button>
         <div className="popular-project-area">
-          {displayProject(activeSlides)}
+          {PopularProjects.length > 0 ? (
+            PopularProjects.map((item) => {
+              return (
+                <div
+                  className={`project-item ${
+                    activeSlides.includes(item.id) ? "dp" : "hide"
+                  } ${
+                    item.id === activeSlides[0]
+                      ? "bn-slide-l"
+                      : item.id === activeSlides[1]
+                      ? "current-slide"
+                      : "bn-slide-r"
+                  }`}
+                >
+                  <ProjectCart
+                    key={item.id}
+                    title={item.title}
+                    description={item.description}
+                    url={item.url}
+                    author={item.author}
+                    projectURL={item.projectURL}
+                    ownerURL={item.ownerURL}
+                    className="project-cart"
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <Spinning />
+          )}
         </div>
         <button className="arrow-btn right-btn" onClick={onNextBtn}>
           <img src={rightIcon} alt="right-icon" />

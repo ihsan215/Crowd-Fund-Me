@@ -3,7 +3,15 @@ import "./ProjectCart.css";
 
 const MaxDescriptionLengt = 120;
 
-function ProjectCart({ className, title, author, description, url }) {
+function ProjectCart({
+  className,
+  title,
+  author,
+  description,
+  url,
+  projectURL,
+  ownerURL,
+}) {
   return (
     <div class={`project-card-area ${className}`}>
       <div class="project-card-item">
@@ -14,7 +22,9 @@ function ProjectCart({ className, title, author, description, url }) {
           <h5 class="text-center">{title}</h5>
           <h5 class="project-author">
             {" "}
-            <Link className="project-author">by {author}</Link>
+            <Link to={ownerURL} className="project-author">
+              by {author}
+            </Link>
           </h5>
 
           <p class="project-description">
@@ -23,7 +33,9 @@ function ProjectCart({ className, title, author, description, url }) {
               : description}
           </p>
           <div className="project-link-area">
-            <Link className="project-read-more">Go To Project</Link>
+            <Link to={projectURL} className="project-read-more">
+              Go To Project
+            </Link>
           </div>
         </div>
       </div>
