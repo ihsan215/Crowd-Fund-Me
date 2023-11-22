@@ -25,7 +25,7 @@ const Web3Provider = (props) => {
     functionName: "create_project",
   });
 
-  // create project
+  // create request
   const {
     data: createRequstdata,
     status: createRequestStatus,
@@ -34,6 +34,17 @@ const Web3Provider = (props) => {
     address: ContractInfo.ADDRESS,
     abi: ContractInfo.ABI,
     functionName: "create_request",
+  });
+
+  //support
+  const {
+    data: supportProjectData,
+    status: supportProjectStatus,
+    write: supportProjectWrite,
+  } = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "support_project",
   });
 
   const walletConnect = () => {
@@ -108,6 +119,12 @@ const Web3Provider = (props) => {
       createRequstdata,
       createRequestStatus,
       createRequestWrite,
+    },
+
+    support_project: {
+      supportProjectData,
+      supportProjectStatus,
+      supportProjectWrite,
     },
 
     walletConnect,

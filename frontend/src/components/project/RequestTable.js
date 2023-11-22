@@ -12,7 +12,7 @@ function RequestTable({ currentRequst, projectId }) {
 
     const Requests = [];
 
-    for (let i = 0; i < currentRequst - 1; i++) {
+    for (let i = 0; i <= currentRequst - 1; i++) {
       const reqestInfo = await web3Ctx.contractInstance.methods
         .returnRequest(projectId, i)
         .call({

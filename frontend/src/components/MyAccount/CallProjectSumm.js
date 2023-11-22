@@ -34,7 +34,10 @@ function CallProjectSumm({ userId }) {
         const projectObj = {
           id: projectId,
           title: project.title,
-          totalFund: Number(project.current_amount),
+          totalFund: web3.utils.fromWei(
+            Number(project.current_amount),
+            "ether"
+          ),
         };
         newProjects.push(projectObj);
         if (newProjects.length === projects.length) {
@@ -56,7 +59,7 @@ function CallProjectSumm({ userId }) {
             <tr key={item.id}>
               <th scope="row">{item.id}</th>
               <td>{item.title}</td>
-              <td>{item.totalFund}</td>
+              <td>{item.totalFund} ETH</td>
               <td>
                 <Link
                   style={{ textDecoration: "none", color: "#202020" }}

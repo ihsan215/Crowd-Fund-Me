@@ -126,7 +126,8 @@ function CreateProjectForm() {
             <label for="minCont">Minimum Contribution [ETH]</label>
             <input
               type="number"
-              step={0.001}
+              step={0.0001}
+              min={0}
               id="minCont"
               placeholder="Enter your minimum foundation value in ETH"
               required

@@ -117,5 +117,50 @@
 }
 
 .btn-area-support-form {
-  background-color: red;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.SupportBtn {
+  background-color: rgb(0, 43, 30);
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-10px);
+}
+
+.SuportAmounInput {
+  border-radius: 15px;
+  border-color: #202020;
+}
+
+.support-btn-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.yes-btn {
+  color: #198754;
+  border-color: #198754;
+}
+
+.no-btn {
+  color: #ff0033;
+  border-color: #ff0033;
+}
+
+.error-msg-modal {
+  color: #ff0033;
+}
+
+.success-msg-modal {
+  color: #198754;
+}
+
+.waiting-msg-modal {
+  color: eed202;
 }

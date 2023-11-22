@@ -10,6 +10,7 @@ import Web3 from "web3";
 import RequestTable from "./RequestTable";
 import Button from "../../UI/Button";
 import RequestModal from "./RequestModal";
+import SupoortProjectModal from "./SupportProjectModal";
 
 function ProjectInfoArea({ project, projectId }) {
   const [dataOnServer, setDataOnServer] = useState({});
@@ -22,6 +23,9 @@ function ProjectInfoArea({ project, projectId }) {
   const [isCopied, setIsCopied] = useState(false);
   const [showModal, setshowModal] = useState(false);
   const { userId } = useParams();
+  const [showSupportModal, setShowSupportModal] = useState(false);
+  const [supportValue, setSupportValue] = useState(0);
+  const [showMsgErr, setshowMsgErr] = useState(false);
 
   const getProjectInfo = async () => {
     const web3 = new Web3(window.ethereum);
@@ -64,14 +68,25 @@ function ProjectInfoArea({ project, projectId }) {
 
   const closeModel = () => {
     setshowModal(false);
+    setShowSupportModal(false);
   };
 
   const createProjectHandle = () => {
     setshowModal(true);
   };
 
-  const supportProjectHandle = () => {
-    console.log("supoort project");
+  const supportProjectHandle = (e) => {
+    e.preventDefault();
+
+    if (minContEth > Number(e.target[0].value)) {
+      setshowMsgErr(true);
+      setTimeout(() => {
+        setshowMsgErr(false);
+      }, 3000);
+    } else {
+      setSupportValue(Number(e.target[0].value));
+      setShowSupportModal(true);
+    }
   };
 
   return (
@@ -165,10 +180,27 @@ function ProjectInfoArea({ project, projectId }) {
               onSubmit={supportProjectHandle}
               className="project-info-area__item info-area__btn-area btn-area-support-form"
             >
-              <input className="SuportAmounLabel" type="number" required />
+              <div className="form-item">
+                <label>Support Amount ETH</label>
+                <input
+                  className="SuportAmounInput"
+                  type="number"
+                  required
+                  step="0.00001"
+                  name="AmountInput"
+                  min="0"
+                />
+              </div>
               <Button className="SupportBtn" type="submit">
                 Support Project
               </Button>
+              {showMsgErr && (
+                <p style={{ color: "#ff0033" }}>
+                  You can not donate below the specified minimum contribution
+                  amount. You can not donate below the specified minimum
+                  contribution amount.
+                </p>
+              )}
             </form>
           )}
         </div>
@@ -179,6 +211,13 @@ function ProjectInfoArea({ project, projectId }) {
           onClose={closeModel}
           projectID={projectId}
           setshowModal={setshowModal}
+        />
+      )}
+      {showSupportModal && (
+        <SupoortProjectModal
+          onClose={closeModel}
+          value={supportValue}
+          projectId={projectId}
         />
       )}
     </React.Fragment>

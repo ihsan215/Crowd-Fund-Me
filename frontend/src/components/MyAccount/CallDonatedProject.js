@@ -42,7 +42,7 @@ function CallDonatedProject({ userId }) {
         const projectObj = {
           id: projectId,
           title: project.title,
-          totalDonate: Number(donatedAmount),
+          totalDonate: web3.utils.fromWei(Number(donatedAmount), "ether"),
         };
         newProjects.push(projectObj);
         if (newProjects.length === projects.length) {
@@ -64,13 +64,15 @@ function CallDonatedProject({ userId }) {
             <tr key={item.id}>
               <th scope="row">{item.id}</th>
               <td>{item.title}</td>
-              <td>{item.totalDonate}</td>
-              <Link
-                style={{ textDecoration: "none", color: "#202020" }}
-                to={`/${userId}/${item.id}`}
-              >
-                Go to project&rarr;
-              </Link>
+              <td>{item.totalDonate} ETH</td>
+              <td>
+                <Link
+                  style={{ textDecoration: "none", color: "#202020" }}
+                  to={`/${userId}/${item.id}`}
+                >
+                  Go to project&rarr;
+                </Link>
+              </td>
             </tr>
           );
         })

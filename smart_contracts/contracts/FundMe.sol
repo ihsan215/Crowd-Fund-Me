@@ -209,12 +209,13 @@ contract FundMe{
         emit Supported_Project(project_id, msg.sender, msg.value);
         total_foundation_mapping[msg.sender] += msg.value;
         project_total_foundation_mapping[msg.sender][project_id] += msg.value;
-        total_sponsors++;
+     
 
         bool is_donated = check_is_donated[msg.sender][project_id];
         if(!is_donated){
         donated_project_mapping[msg.sender].push(project_id);
         check_is_donated[msg.sender][project_id] = true;
+           total_sponsors++;
         }
 
 
