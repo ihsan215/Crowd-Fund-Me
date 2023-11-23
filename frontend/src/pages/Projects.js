@@ -14,7 +14,6 @@ function Projects() {
       <div className="project-page__area">
         <ProjectCategory setSelectedItem={setSelectedItem} />
         <ProjectsComp SelectedItem={SelectedItem} />
-        <FilterMenu />
       </div>
     </React.Fragment>
   );

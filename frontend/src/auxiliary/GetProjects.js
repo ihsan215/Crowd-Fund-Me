@@ -54,6 +54,63 @@ export const getPopularProjects = async () => {
   return PopularProjects;
 };
 
+export const getPaginationProject = async (page, item_per_page) => {
+  const web3 = new Web3(window.ethereum);
+  const contractInstance = new web3.eth.Contract(
+    ContractInfo.ABI,
+    ContractInfo.ADDRESS
+  );
+
+  const lastProjectId = await contractInstance.methods.Project_ID_Count().call({
+    from: "0xDD21f068F4D5A99139fCC8c0Dc4217FEBdA66ad8",
+  });
+  let poupularProjectsLen = Number(lastProjectId);
+  if (Number(lastProjectId) > 6) {
+    poupularProjectsLen = 6;
+  }
+
+  const project_begin = (page - 1) * item_per_page;
+  let project_end = project_begin + item_per_page;
+  if (project_end > Number(lastProjectId)) {
+    project_end = lastProjectId;
+  }
+
+  const PopularProjects = [];
+
+  for (let i = project_begin; i < project_end; i++) {
+    const project = await contractInstance.methods.projects(i).call({
+      from: "0xDD21f068F4D5A99139fCC8c0Dc4217FEBdA66ad8",
+    });
+
+    const userData = await AJAXCall(`/myAccount/${project.project_owner}`, {
+      method: "GET",
+      mode: "no-cors",
+    });
+
+    const projectServer = await getProjectFromID(`/getProject/${i}`);
+
+    const id = i;
+    const title = project.title;
+    const description = project.description;
+    const author = userData.name;
+    const url = projectServer.mainPageImg;
+    const projectURL = `/${project.project_owner}/${id}`;
+    const ownerURL = `/myAccount/${project.project_owner}`;
+
+    PopularProjects.push({
+      id,
+      title,
+      description,
+      author,
+      url,
+      projectURL,
+      ownerURL,
+    });
+  }
+
+  return PopularProjects;
+};
+
 export const PopularProjects = [
   {
     id: 0,
