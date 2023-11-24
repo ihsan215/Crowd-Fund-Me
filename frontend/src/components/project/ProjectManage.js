@@ -7,3 +7,12 @@ export async function getProjectFromID(url) {
   });
   return projectData;
 }
+
+export async function getProjectsWithFilter(url, filter) {
+  const projectData = await AJAXCall(url, {
+    method: "POST",
+    mode: "no-cors",
+    body: filter,
+  });
+  return projectData;
+}

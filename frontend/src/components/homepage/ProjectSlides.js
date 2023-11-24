@@ -104,6 +104,7 @@ function ProjectSlides() {
                     author={item.author}
                     projectURL={item.projectURL}
                     ownerURL={item.ownerURL}
+                    categoria={item.categoria}
                     className="project-cart"
                   />
                 </div>

@@ -10,10 +10,11 @@ import Spinning from "../../UI/Spinning.js";
 
 const ITEM_PER_PAGE = 12;
 
-function ProjectsComp() {
+function ProjectsComp({ SelectedItem }) {
   const [totalProject, setTotalProject] = useState(0);
   const [activePage, setActivePage] = useState(0);
   const [PopularProjects, setPopularProjects] = useState([]);
+  const [showMsg, setShowMsg] = useState(false);
 
   const web3 = new Web3(window.ethereum);
   const contractInstance = new web3.eth.Contract(
@@ -22,6 +23,7 @@ function ProjectsComp() {
   );
 
   async function getTotalProject() {
+    setShowMsg(false);
     const TotalProject = await contractInstance.methods
       .Project_ID_Count()
       .call({
@@ -30,19 +32,45 @@ function ProjectsComp() {
     setTotalProject(Number(TotalProject));
   }
 
-  async function getProjects(page) {
-    const PopularProjects = await getPaginationProject(page, ITEM_PER_PAGE);
+  async function getProjects(page, selectedItems) {
+    const filterData = new FormData();
+    let filterArr = "none";
+    console.log(selectedItems);
+    const filteredData = [];
+    if (selectedItems) {
+      selectedItems.map((item) => {
+        if (item.status) {
+          filteredData.push(item.name);
+        }
+      });
+    }
+
+    filterData.append("filter", filteredData);
+
+    const PopularProjects = await getPaginationProject(
+      page,
+      ITEM_PER_PAGE,
+      filterData
+    );
+
+    if (PopularProjects.length == 0) {
+      setShowMsg(true);
+    }
 
     setPopularProjects(PopularProjects);
   }
 
   useEffect(() => {
     getTotalProject();
-    getProjects(1);
-  }, []);
+    getProjects(1, SelectedItem);
+  }, [SelectedItem]);
 
   const displayPage = (totalProject) => {
     const pageNumber = Math.ceil(Number(totalProject) / ITEM_PER_PAGE);
+    const pageArr = [];
+    for (let i = 1; i <= pageNumber; i++) {
+      pageArr.push(i);
+    }
 
     return (
       <nav aria-label="Page navigation example" className="pagination-nav">
@@ -60,15 +88,20 @@ function ProjectsComp() {
               <span aria-hidden="true">&laquo;</span>
             </button>
           </li>
-          <li class="page-item pagination-item">
-            <button
-              class="page-link pagination-button"
-              href="#"
-              aria-label="Previous"
-            >
-              1
-            </button>
-          </li>
+          {pageArr.map((i) => {
+            return (
+              <li class="page-item pagination-item">
+                <button
+                  class="page-link pagination-button"
+                  href="#"
+                  aria-label="Previous"
+                >
+                  {i}
+                </button>
+              </li>
+            );
+          })}
+
           <li
             class={`page-item pagination-item ${
               pageNumber == 1 ? "disabled" : ""
@@ -104,10 +137,13 @@ function ProjectsComp() {
                     author={item.author}
                     projectURL={item.projectURL}
                     ownerURL={item.ownerURL}
+                    categoria={item.categoria}
                   />
                 );
               })}
             </div>
+          ) : showMsg ? (
+            <h1>Not Found !</h1>
           ) : (
             <Spinning />
           )}

@@ -11,6 +11,7 @@ function ProjectCart({
   url,
   projectURL,
   ownerURL,
+  categoria,
 }) {
   return (
     <div class={`project-card-area ${className}`}>
@@ -25,6 +26,11 @@ function ProjectCart({
             <Link to={ownerURL} className="project-author">
               by {author}
             </Link>
+          </h5>
+          <h5 class="project-author">
+            {" "}
+            <span style={{ fontWeight: "1000" }}>Categoria : </span>
+            {categoria}
           </h5>
 
           <p class="project-description">

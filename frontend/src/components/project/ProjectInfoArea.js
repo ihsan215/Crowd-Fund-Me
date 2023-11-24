@@ -110,6 +110,10 @@ function ProjectInfoArea({ project, projectId }) {
               />
             </p>
           </div>
+          <div className="transaction-area" style={{ margin: "0px" }}>
+            <p style={{ fontWeight: "500" }}>Categoria : </p>
+            <p>{dataOnServer?.categoria}</p>
+          </div>
         </div>
 
         <div className="project-info-area__item info-area budget">

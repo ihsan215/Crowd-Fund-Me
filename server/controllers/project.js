@@ -52,3 +52,36 @@ exports.getproject = async (req, res, next) => {
     });
   }
 };
+
+exports.postProjects = async (req, res, next) => {
+  const filter = req.body.filter;
+  const idBegin = req.body.idBegin;
+
+  const item_per_page = req.body.item_per_page;
+
+  const filterArr = filter.split(",");
+
+  if (filterArr[0] == "") {
+    const projects = await Project.find().skip(idBegin).limit(item_per_page);
+    res.status(200).json({
+      message: "ok",
+      projects,
+    });
+    return;
+  } else {
+    const projects = await Project.find().skip().limit(item_per_page);
+    const sendProjects = [];
+
+    projects.map((item) => {
+      if (filterArr.includes(item.categoria)) {
+        sendProjects.push(item);
+      }
+    });
+
+    res.status(200).json({
+      message: "ok",
+      projects: sendProjects,
+    });
+    return;
+  }
+};
