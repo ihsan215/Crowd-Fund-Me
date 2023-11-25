@@ -47,6 +47,28 @@ const Web3Provider = (props) => {
     functionName: "support_project",
   });
 
+  //approve request
+  const {
+    data: approveRequestData,
+    status: approveRequestStatus,
+    write: approveRequestWrite,
+  } = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "approve_request",
+  });
+
+  //finalize request
+  const {
+    data: finalizeRequestData,
+    status: finalizeRequestStatus,
+    write: finalizeRequestWrite,
+  } = useContractWrite({
+    address: ContractInfo.ADDRESS,
+    abi: ContractInfo.ABI,
+    functionName: "finalize_request",
+  });
+
   const walletConnect = () => {
     open({ view: "Networks" });
   };
@@ -125,6 +147,18 @@ const Web3Provider = (props) => {
       supportProjectData,
       supportProjectStatus,
       supportProjectWrite,
+    },
+
+    approve_request: {
+      approveRequestData,
+      approveRequestStatus,
+      approveRequestWrite,
+    },
+
+    finalize_request: {
+      finalizeRequestData,
+      finalizeRequestStatus,
+      finalizeRequestWrite,
     },
 
     walletConnect,

@@ -351,6 +351,13 @@ contract FundMe{
         return projects[_procect_id].sponsors[_sponsor];
     }
 
+    function return_is_request_approve(uint256 _project_id, uint8 _request_id)public view returns(bool){
+                // get project and request
+        Project storage projectInstance = projects[_project_id];
+        Request storage requestInstance = projectInstance.requests[_request_id];
+        return requestInstance.approvals[msg.sender];
+    }
+
 
     // safe maths functions     
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {

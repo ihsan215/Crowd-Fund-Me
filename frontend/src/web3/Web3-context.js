@@ -11,6 +11,8 @@ const Web3Context = React.createContext({
   create_project: {},
   create_request: {},
   support_project: {},
+  approve_request: {},
+  finalize_request: {},
 
   walletConnect: () => {},
   disconnectWallet: () => {},

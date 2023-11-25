@@ -58,8 +58,10 @@ function MainNavigation() {
 
   const outFocusHande = (e) => {
     e.target.value = "";
-    setShowSpining(false);
-    setShowUsers(false);
+    setTimeout(() => {
+      setShowSpining(false);
+      setShowUsers(false);
+    }, 100);
   };
 
   return (
@@ -89,13 +91,12 @@ function MainNavigation() {
             </li>
             <li>
               {" "}
-              <div className="search-menu">
+              <div className="search-menu" onBlur={outFocusHande}>
                 <input
                   className="search"
                   placeholder="search users"
                   type="search"
                   onChange={searchHandle}
-                  onBlur={outFocusHande}
                 />
                 {showUsers && (
                   <div className="search-options">

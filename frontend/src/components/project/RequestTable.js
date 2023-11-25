@@ -3,6 +3,7 @@ import Web3Context from "../../web3/Web3-context";
 import CopyIcon from "../../UI/CopyIcon";
 import walletAddressFormat from "../../auxiliary/walletAddressFormat";
 import Button from "../../UI/Button";
+import Spinning from "../../UI/Spinning";
 
 function RequestTable({ currentRequst, projectId, publicView }) {
   const web3Ctx = useContext(Web3Context);
@@ -11,8 +12,6 @@ function RequestTable({ currentRequst, projectId, publicView }) {
   const [msg, setMsg] = useState("");
 
   const getRequestonChain = async () => {
-    console.log(currentRequst);
-
     const Requests = [];
 
     for (let i = 0; i <= currentRequst - 1; i++) {
@@ -21,14 +20,19 @@ function RequestTable({ currentRequst, projectId, publicView }) {
         .call({
           from: web3Ctx.address,
         });
+      const check_is_approved = await web3Ctx.contractInstance.methods
+        .return_is_request_approve(projectId, i)
+        .call({
+          from: web3Ctx.address,
+        });
 
       reqestInfo.id = i;
+      reqestInfo.check_is_approved = check_is_approved;
 
       Requests.push(reqestInfo);
     }
 
     setRequest(Requests);
-    console.log(Requests);
   };
 
   useState(() => {
@@ -39,23 +43,72 @@ function RequestTable({ currentRequst, projectId, publicView }) {
     navigator.clipboard.writeText(adr);
   };
 
-  const finalizeProject = async () => {
+  const finalizeProject = async (requestId) => {
     console.log("finalize");
+    const status = await web3Ctx.finalize_request.finalizeRequestWrite({
+      args: [projectId, requestId],
+      from: web3Ctx.address,
+    });
+
+    if (web3Ctx.finalize_request.finalizeRequestStatus == "error") {
+      setMsg(
+        "Please check your project balance and wait the voting, then try again"
+      );
+      setShowMsg(true);
+      setTimeout(() => {
+        setShowMsg(false);
+      }, 5000);
+    }
   };
 
-  const approveProject = async () => {
-    console.log("approve project");
+  const approveProject = async (requestId) => {
+    const check_is_approved = await web3Ctx.contractInstance.methods
+      .return_is_request_approve(projectId, requestId)
+      .call({
+        from: web3Ctx.address,
+      });
+    const check_is_sponsor = await web3Ctx.contractInstance.methods
+      .supponsor_check(web3Ctx.address, projectId)
+      .call({
+        from: web3Ctx.address,
+      });
+
+    if (!check_is_sponsor) {
+      setMsg(`Only sponsors can vote. Error for : ${requestId}`);
+      setShowMsg(true);
+      setTimeout(() => {
+        setShowMsg(false);
+      }, 2000);
+      return;
+    }
+
+    if (check_is_approved) {
+      setMsg(
+        `Only vote once for an request. Error for: Request - ${requestId}`
+      );
+      setShowMsg(true);
+      setTimeout(() => {
+        setShowMsg(false);
+      }, 2000);
+      return;
+    }
+
+    try {
+      await web3Ctx.approve_request.approveRequestWrite({
+        args: [projectId, requestId],
+        from: web3Ctx.address,
+      });
+    } catch (e) {
+      throw e;
+    }
   };
 
-  const requestAction = () => {
-    setShowMsg(true);
-    setTimeout(() => {
-      setShowMsg(false);
-    }, 4000);
+  const requestAction = (e) => {
+    const requestId = Number(e.target.getAttribute("data-requestId"));
     if (!publicView) {
-      finalizeProject();
+      finalizeProject(requestId);
     } else {
-      approveProject();
+      approveProject(requestId);
     }
   };
 
@@ -95,8 +148,23 @@ function RequestTable({ currentRequst, projectId, publicView }) {
                     </td>
                     <td>{item[4] ? "completed" : "ongoing"}</td>
                     <td>
-                      <Button onClick={requestAction} className="in-table-btn">
-                        {publicView ? "Approve" : "Finalize"}
+                      <Button
+                        onClick={requestAction}
+                        className="in-table-btn"
+                        requestId={item.id}
+                      >
+                        {publicView ? (
+                          item.check_is_approved ? (
+                            "Approved"
+                          ) : web3Ctx.approve_request.approveRequestStatus ==
+                            "loading" ? (
+                            <Spinning isBtn={true} />
+                          ) : (
+                            "Approve"
+                          )
+                        ) : (
+                          "Finalize"
+                        )}
                       </Button>
                     </td>
                   </tr>
@@ -110,8 +178,8 @@ function RequestTable({ currentRequst, projectId, publicView }) {
           </tbody>
         </table>
       </div>
-      {showMsg && (
-        <div className="table-err-msgss">
+      {showMsg > 0 && (
+        <div className="table-err-msgss" style={{ marginTop: "1rem" }}>
           <p>{msg}</p>
         </div>
       )}
