@@ -169,6 +169,7 @@ function ProjectInfoArea({ project, projectId }) {
           <RequestTable
             currentRequst={Number(project.request_count)}
             projectId={projectId}
+            publicView={publicView}
           />
         </div>
 
