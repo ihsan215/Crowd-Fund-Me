@@ -1,10 +1,10 @@
 import React from "react";
-
 import imgSrc from "../../style/img/img_1.png";
-
+import { useNavigate } from "react-router-dom";
 import Button from "../../UI/Button";
 
 function Intro() {
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <div className="container main-area">
@@ -20,7 +20,9 @@ function Intro() {
                 fueling the future of groundbreaking projects and ideas. Let's
                 create, collaborate, and disrupt the norm!
               </p>
-              <Button>Get Started</Button>
+              <Button onClick={() => navigate("/learn-more")}>
+                Learn More
+              </Button>
             </div>
           </div>
           <div className="col-lg  d-flex-c">

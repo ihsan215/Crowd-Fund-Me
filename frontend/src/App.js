@@ -16,6 +16,7 @@ import "./index.css";
 // Import Pages
 import RootLayout from "./pages/Root.js";
 import HomePage from "./pages/Home.js";
+import LearnMore from "./pages/LearnMore.js";
 import MyAccount from "./pages/MyAccount.js";
 import ContactUs from "./pages/Contact-Us.js";
 import Projects from "./pages/Projects.js";
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         path: "/myAccount/:userId",
         element: <MyAccount />,
       },
+      { path: "/learn-more", element: <LearnMore /> },
       { path: "/contactUs", element: <ContactUs /> },
       { path: "/projects", element: <Projects /> },
       { path: "/:userId/createProject", element: <CreatedProjects /> },

@@ -1,0 +1,35 @@
+.learn-more-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  font-weight: 800;
+  font-family: monospace;
+  color: #202020;
+}
+
+.platform-info > p {
+  font-size: 1.5rem;
+  text-align: justify;
+}
+.platform-info > ol > li {
+  font-size: 1.5rem;
+}
+
+.platform-info {
+  margin-top: 20px;
+}
+
+.sample-image {
+  margin-top: 20px;
+}
+
+.sample-image img {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
