@@ -332,10 +332,10 @@ contract FundMe{
         return project_total_foundation_mapping[msg.sender][project_id];
     }
 
-    function returnRequest(uint256 project_id, uint256 request_id) public view returns(string memory, string memory, address ,uint256,bool){
+    function returnRequest(uint256 project_id, uint256 request_id) public view returns(string memory, string memory, address ,uint256,bool,uint256){
         Project storage projectInstance = projects[project_id];
         Request storage requestInstance = projectInstance.requests[request_id];
-        return(requestInstance.title,requestInstance.description,requestInstance.buyer, requestInstance.value,requestInstance.is_complete);
+        return(requestInstance.title,requestInstance.description,requestInstance.buyer, requestInstance.value,requestInstance.is_complete,requestInstance.approval_vote_count);
     }
 
     function supponsor_check(address _sponsor, uint256 _procect_id) public view returns(bool status) {

@@ -12,7 +12,7 @@ function ContactForm() {
         <div className="form-col">
           <Form />
         </div>
-        <div className="map-col">
+        <div className="map-col" style={{ zIndex: "0" }}>
           <Map />
         </div>
       </div>

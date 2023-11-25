@@ -123,6 +123,7 @@ function RequestTable({ currentRequst, projectId, publicView }) {
               <th scope="col">Request Amount</th>
               <th scope="col">Buyer</th>
               <th scope="col">Status</th>
+              <th scope="col">Approved Votes</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -147,6 +148,7 @@ function RequestTable({ currentRequst, projectId, publicView }) {
                       />
                     </td>
                     <td>{item[4] ? "completed" : "ongoing"}</td>
+                    <td>{Number(item[5])}</td>
                     <td>
                       <Button
                         onClick={requestAction}

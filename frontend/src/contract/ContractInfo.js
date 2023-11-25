@@ -2,5 +2,5 @@ import ContractJson from "./FundMe.json";
 
 export const ContractInfo = {
   ABI: ContractJson.abi,
-  ADDRESS: "0xCA6056C16C16C807438Ce9D9716B81b4E85211C9",
+  ADDRESS: "0x62eCeC600774E469973E18106B70b3b6b099c3DD",
 };
