@@ -74,3 +74,22 @@ exports.getUserInfo = async (req, res, next) => {
     });
   }
 };
+
+exports.getUsersearch = async (req, res, next) => {
+  const filter = req.params.filter;
+  const users = await User.find({
+    name: { $regex: "^" + filter, $options: "i" },
+  }).limit(5);
+
+  if (users.length > 0) {
+    res.status(200).json({
+      message: "ok",
+      users,
+    });
+    return;
+  }
+  res.status(200).json({
+    message: "not found",
+    users: [],
+  });
+};

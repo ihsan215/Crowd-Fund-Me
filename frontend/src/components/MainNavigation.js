@@ -1,14 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import WalletConnectBtn from "./WalletConnectBtn.js";
 import "../style/components/MainNavigation.css";
 import logoIcon from "../style/img/logo.svg";
 import Web3Context from "../web3/Web3-context.js";
+import { AJAXCall } from "../auxiliary/FetchingData.js";
+import Spining from "../UI/Spinning.js";
 
 function MainNavigation() {
   const [isMenuDisplay, setIsMenuDisplay] = useState(false);
   const [msgClassName, setMsgClassName] = useState("");
   const [customMessage, setCustomMessage] = useState("");
+  const [users, setUsers] = useState([]);
+  const [showUsers, setShowUsers] = useState(false);
+  const [showSpining, setShowSpining] = useState(false);
 
   const web3Ctx = useContext(Web3Context);
 
@@ -24,6 +29,38 @@ function MainNavigation() {
     setMsgClassName("");
     setCustomMessage("");
   }
+
+  const search = async (url) => {
+    const response = await AJAXCall(url, {
+      method: "GET",
+      mode: "no-cors",
+    });
+
+    setUsers(response.users);
+
+    setTimeout(() => {
+      if (response.users.length == 0) {
+        setShowSpining(false);
+      }
+    }, 3000);
+  };
+
+  const searchHandle = (e) => {
+    setShowUsers(true);
+    if (e.target.value.length > 0) {
+      setShowSpining(true);
+      search(`/getUsersearch/${e.target.value}`);
+    } else {
+      setShowSpining(false);
+      setShowUsers(false);
+    }
+  };
+
+  const outFocusHande = (e) => {
+    e.target.value = "";
+    setShowSpining(false);
+    setShowUsers(false);
+  };
 
   return (
     <React.Fragment>
@@ -55,9 +92,26 @@ function MainNavigation() {
               <div className="search-menu">
                 <input
                   className="search"
-                  placeholder="search projects"
+                  placeholder="search users"
                   type="search"
+                  onChange={searchHandle}
+                  onBlur={outFocusHande}
                 />
+                {showUsers && (
+                  <div className="search-options">
+                    {users.length > 0 ? (
+                      users.map((item) => (
+                        <Link to={`/myAccount/${item.walletId}`}>
+                          {item.name}
+                        </Link>
+                      ))
+                    ) : showSpining ? (
+                      <Spining isBtn={true} />
+                    ) : (
+                      <p>Not found !</p>
+                    )}
+                  </div>
+                )}
               </div>
             </li>
             <li>

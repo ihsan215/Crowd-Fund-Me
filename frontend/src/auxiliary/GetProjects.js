@@ -33,7 +33,7 @@ export const getPopularProjects = async () => {
       mode: "no-cors",
     });
 
-    const projectServer = await getProjectFromID(`/getProjects/${i}`);
+    const projectServer = await getProjectFromID(`/getProject/${i}`);
 
     const id = i;
     const title = project.title;
