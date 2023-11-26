@@ -22,6 +22,7 @@ function ProjectSlides() {
 
   useEffect(() => {
     getProjects();
+    onNextBtn();
   }, []);
 
   const scrollToElement = (elementId) => {
