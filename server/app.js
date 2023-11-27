@@ -3,11 +3,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { CONNECT_API } = require("./util/connectDB");
+const helmet = require("helmet");
+const compresession = require("compression");
 
 const app = express();
 const accountRoutes = require("./routes/account");
 const projectRoutes = require("./routes/project");
 const contactUsRoutes = require("./routes/contact-us");
+
+// secure
+app.use(helmet());
+
+// compression
+app.use(compresession());
 
 app.use(bodyParser.json()); // application/json
 app.use(accountRoutes);
@@ -29,7 +37,7 @@ mongoose
   .then((res) => {
     console.log("Connected Database");
     console.log("Listening port 4000 ...");
-    app.listen(4000);
+    app.listen(process.env.PORT || 4000);
   })
   .catch((err) => {
     console.log(err);

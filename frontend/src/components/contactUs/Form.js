@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import Button from "../../UI/Button";
 import UserContext from "../../user/User-context";
+import Spining from "../../UI/Spinning";
 
 function Form() {
   const userCtx = useContext(UserContext);
   const [showMsg, setShowMsg] = useState(false);
   const [msg, setMsg] = useState("");
+  const [showStatus, setShowStatus] = useState(false);
 
   const submitContactUsForm = async (e) => {
     e.preventDefault();
@@ -16,15 +18,23 @@ function Form() {
     formData.append("msg", msg);
 
     setShowMsg(true);
+
     setMsg("Sending ...");
 
     const responseData = await userCtx.sendData(`/ContactUs`, formData);
+    console.log(responseData.message);
+
+    if (responseData.message == "sended") {
+      setShowMsg(false);
+      setShowStatus(true);
+    }
 
     setMsg(responseData.message);
     setTimeout(() => {
       setShowMsg(false);
+      setShowStatus(false);
       setMsg("");
-    }, 5000);
+    }, 2000);
   };
 
   return (
@@ -67,7 +77,13 @@ function Form() {
         </div>
 
         <Button type="submit" className="submit__btn">
-          {showMsg ? msg : "Submit"}
+          {showMsg ? (
+            <Spining isBtn={true} />
+          ) : showStatus ? (
+            "Sended"
+          ) : (
+            "Submit"
+          )}
         </Button>
       </form>
     </React.Fragment>

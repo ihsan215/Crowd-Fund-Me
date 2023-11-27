@@ -1,0 +1,9 @@
+.error-page {
+  height: 50rem;
+  width: 80%;
+  padding: 100px;
+}
+
+.error-page > h1 > a {
+  text-decoration: none;
+}
