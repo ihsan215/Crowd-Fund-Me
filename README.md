@@ -1,4 +1,4 @@
-# _Repository Title: CrowdFundMe - Decentralized Crowdfunding dApp_
+# CrowdFundMe - Decentralized Crowdfunding DApp
 
 # Description:
 
