@@ -25,7 +25,7 @@ function ShowProfileModal({ onClose, msg, userId }) {
     formData.append("coverLetter", coverLetter);
 
     const responseData = await userCtx.sendData(
-      `/myAccount/JobInfo/${userId}`,
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/myAccount/JobInfo/${userId}`,
       formData
     );
     if (responseData.message === "ok") {

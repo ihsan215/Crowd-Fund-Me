@@ -21,15 +21,22 @@ function Form() {
 
     setMsg("Sending ...");
 
-    const responseData = await userCtx.sendData(`/ContactUs`, formData);
+    const responseData = await userCtx.sendData(
+      "https://crodfundme-server-21625d4d752e.herokuapp.com/ContactUs",
+      formData
+    );
     console.log(responseData.message);
 
     if (responseData.message == "sended") {
       setShowMsg(false);
       setShowStatus(true);
+      setMsg(responseData.message);
+    } else {
+      setShowMsg(true);
+      setShowStatus(true);
+      setMsg("Not Sended");
     }
 
-    setMsg(responseData.message);
     setTimeout(() => {
       setShowMsg(false);
       setShowStatus(false);

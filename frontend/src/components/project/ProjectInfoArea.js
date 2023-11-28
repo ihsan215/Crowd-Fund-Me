@@ -29,7 +29,9 @@ function ProjectInfoArea({ project, projectId }) {
 
   const getProjectInfo = async () => {
     const web3 = new Web3(window.ethereum);
-    const dataOnServer = await getProjectFromID(`/getProject/${projectId}`);
+    const dataOnServer = await getProjectFromID(
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/getProject/${projectId}`
+    );
     setDataOnServer(dataOnServer);
     const minContEth = web3.utils.fromWei(
       project.minimum_contribution,

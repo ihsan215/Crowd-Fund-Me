@@ -17,8 +17,8 @@ export const getPopularProjects = async () => {
     from: "0xDD21f068F4D5A99139fCC8c0Dc4217FEBdA66ad8",
   });
   let poupularProjectsLen = Number(lastProjectId);
-  if (Number(lastProjectId) > 6) {
-    poupularProjectsLen = 6;
+  if (Number(lastProjectId) > 3) {
+    poupularProjectsLen = 3;
   }
 
   const PopularProjects = [];
@@ -28,12 +28,16 @@ export const getPopularProjects = async () => {
       from: "0xDD21f068F4D5A99139fCC8c0Dc4217FEBdA66ad8",
     });
 
-    const userData = await AJAXCall(`/myAccount/${project.project_owner}`, {
-      method: "GET",
-      mode: "no-cors",
-    });
+    const userData = await AJAXCall(
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/myAccount/${project.project_owner}`,
+      {
+        method: "GET",
+      }
+    );
 
-    const projectServer = await getProjectFromID(`/getProject/${i}`);
+    const projectServer = await getProjectFromID(
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/getProject/${i}`
+    );
 
     const id = i;
     const title = project.title;
@@ -80,7 +84,10 @@ export const getPaginationProject = async (page, item_per_page, filter) => {
   filter.append("idEnd", project_end);
   filter.append("item_per_page", item_per_page);
 
-  const projectServer = await getProjectsWithFilter(`/getProjects`, filter);
+  const projectServer = await getProjectsWithFilter(
+    `https://crodfundme-server-21625d4d752e.herokuapp.com/getProjects`,
+    filter
+  );
   const projectsOnServer = projectServer.projects;
   const len = projectsOnServer ? projectsOnServer.length : 0;
 
@@ -94,10 +101,12 @@ export const getPaginationProject = async (page, item_per_page, filter) => {
         from: "0xDD21f068F4D5A99139fCC8c0Dc4217FEBdA66ad8",
       });
 
-    const userData = await AJAXCall(`/myAccount/${project.project_owner}`, {
-      method: "GET",
-      mode: "no-cors",
-    });
+    const userData = await AJAXCall(
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/myAccount/${project.project_owner}`,
+      {
+        method: "GET",
+      }
+    );
 
     const id = item.projectId;
     const title = project.title;
@@ -122,59 +131,3 @@ export const getPaginationProject = async (page, item_per_page, filter) => {
 
   return PopularProjects;
 };
-
-export const PopularProjects = [
-  {
-    id: 0,
-    title: "Lorem ipsum - 1",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp",
-    author: "ezgi taş",
-  },
-
-  {
-    id: 1,
-    title: "Lorem ipsum - 2",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio ",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp",
-    author: "ali ihsan taş",
-  },
-
-  {
-    id: 2,
-    title: "Lorem ipsum - 3",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio ",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
-    author: "ali veli",
-  },
-
-  {
-    id: 3,
-    title: "Lorem ipsum -4 ",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
-    author: "ezgi erol",
-  },
-
-  {
-    id: 4,
-    title: "Lorem ipsum-5",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
-    author: "ali ezgi taş",
-  },
-
-  {
-    id: 5,
-    title: "Lorem ipsum-6",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum quae nostrum, optio labore sapiente eius iste sunt, unde incidunt blanditiis officiis facere, aspernatur repudiandae voluptas reiciendis eaque aliquam quia est!",
-    url: "https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(33).webp",
-    author: "ezgi ali erol",
-  },
-];

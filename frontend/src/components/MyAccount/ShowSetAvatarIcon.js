@@ -24,7 +24,7 @@ function ShowSetAvatarIcon({ onClose, msg, userId }) {
     formData.append("profileImg", e.target[4].files[0]);
 
     const responseData = await userCtx.sendData(
-      `/myAccount/${userId}`,
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/myAccount/${userId}`,
       formData
     );
     if (responseData.message === "ok") {

@@ -18,7 +18,9 @@ function AccountGeneralProfile({ userId, publicView }) {
   const userCtx = useContext(UserContext);
 
   useEffect(() => {
-    userCtx.fetchGeneralData(`/myAccount/${userId}`);
+    userCtx.fetchGeneralData(
+      `https://crodfundme-server-21625d4d752e.herokuapp.com/myAccount/${userId}`
+    );
   }, [userId]);
 
   const closeAvatarIconModel = () => {

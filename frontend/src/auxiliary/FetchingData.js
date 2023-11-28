@@ -20,6 +20,7 @@ export const AJAXCall = async (url, config) => {
     // 2) Check response is valid
     if (!response) throw new Error(`An error occuring fetching data !`);
 
+    console.log("response : ", response);
     // 3) Get data as json format
     const data = await response.json();
 

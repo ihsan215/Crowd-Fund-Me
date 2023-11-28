@@ -5,15 +5,29 @@ const bodyParser = require("body-parser");
 const { CONNECT_API } = require("./util/connectDB");
 const helmet = require("helmet");
 const compresession = require("compression");
-
+const cors = require("cors");
 const app = express();
 const accountRoutes = require("./routes/account");
 const projectRoutes = require("./routes/project");
 const contactUsRoutes = require("./routes/contact-us");
 
 // secure
-app.use(helmet());
 
+// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+const domainsFromEnv = process.env.CORS_DOMAINS || "";
+
+const whitelist = domainsFromEnv.split(",").map((item) => item.trim());
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 // compression
 app.use(compresession());
 

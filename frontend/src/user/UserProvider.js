@@ -14,7 +14,6 @@ const UserProvider = (props) => {
     dispatch({ type: "SET_DEFAULT" });
     const userData = await AJAXCall(url, {
       method: "GET",
-      mode: "no-cors",
     });
 
     if (userData.message === "ok") {
@@ -28,7 +27,7 @@ const UserProvider = (props) => {
     setDataIsLoading(true);
     const responseData = await AJAXCall(url, {
       method: "POST",
-      mode: "no-cors",
+
       body: formData,
     });
     setDataIsLoading(false);
