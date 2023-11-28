@@ -33,7 +33,6 @@ function MainNavigation() {
   const search = async (url) => {
     const response = await AJAXCall(url, {
       method: "GET",
-      mode: "no-cors",
     });
 
     setUsers(response.users);
@@ -49,7 +48,9 @@ function MainNavigation() {
     setShowUsers(true);
     if (e.target.value.length > 0) {
       setShowSpining(true);
-      search(`/getUsersearch/${e.target.value}`);
+      search(
+        `https://crodfundme-server-21625d4d752e.herokuapp.com/getUsersearch/${e.target.value}`
+      );
     } else {
       setShowSpining(false);
       setShowUsers(false);
