@@ -1,6 +1,5 @@
 # CrowdFundMe - Decentralized Crowdfunding DApp
 
-[Live Demo](https://crowdfundme-client.web.app/)
 
 # Description:
 
